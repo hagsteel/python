@@ -89,10 +89,19 @@ def draw():
 
 
 def display_message(message):
+    global WORD
+
     screen.fill(WHITE)
+
+    # You won or You lose
     text = WORD_FONT.render(message, True, BLACK)
     screen.blit(text, (WIDTH / 2 - text.get_width() / 2, HEIGHT / 2
                        - text.get_height() / 2))
+
+    # The was word
+    display_word = WORD_FONT.render(f"The was {WORD}", True, BLACK)
+    screen.blit(display_word, (WIDTH / 2 - display_word.get_width() / 2,
+                               HEIGHT / 2 - display_word.get_height() / 2 + 50))
     pygame.display.update()
 
 
@@ -111,7 +120,7 @@ def menu():
         pos_x, pos_y = pygame.mouse.get_pos()
 
         # Position of buttons
-        pos_play_button = (50, 400, 120, 50)
+        pos_play_button = (100, 400, 120, 50)
         pos_quit_button = (550, 400, 120, 50)
 
         # Create the buttons
@@ -150,7 +159,7 @@ def menu():
         # screen.blit(text_play, ((50 + (120 / 2)), (400 + (50 / 2))))
         # screen.blit(text_quit, ((550 + 120) / 2, (400 + 450) / 2))
 
-        screen.blit(text_play, (70, 405))
+        screen.blit(text_play, (120, 405))
         screen.blit(text_quit, (570, 405))
 
         CLICK = False
