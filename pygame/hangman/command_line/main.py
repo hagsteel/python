@@ -2,10 +2,10 @@ import random
 import sys
 from words import word_list
 import os.path
+
 sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 import gui.main
-
-print(gui.main.letter)
+print(gui.main.WORD)
 
 letter_guessed = ""
 turn = 6
