@@ -1,17 +1,16 @@
 import random
 import sys
-from words import word_list
 import os.path
 
+# Import gui/main.py
 sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 import gui.main
-print(gui.main.WORD)
 
-letter_guessed = ""
-turn = 6
+HANGMAN_STATUS = gui.main.HANGMAN_STATUS
+HANGMAN_STATUS = 6
 
 
-def display_hangman(turn):
+def display_hangman(HANGMAN_STATUS):
     stages = [  # final state: head, torso, both arms, and both legs
                 """
                    --------
@@ -83,42 +82,40 @@ def display_hangman(turn):
                    -
                 """
     ]
-    return stages[turn]
+    return stages[HANGMAN_STATUS]
 
 
 if __name__ == "__main__":
-    random_fruit = random.choice(word_list)
+    while True:
+        gui.main.display_word = ""
 
-    for letter in random_fruit:
-        print("_", end=" ")
-
-    print("\n")
-
-    while turn > 0:
-        guess = input("Guess a letter: ")
-        letter_guessed += guess
-        failed = 0
-
-        if guess == "":
-            print("ENTER A LETTER!")
-        elif guess != "":
-            for char in random_fruit:
-                if char in letter_guessed:
-                    print(char, end=" ")
-                else:
-                    print("_", end=" ")
-                    failed += 1
-
-            if guess in random_fruit:
-                print("\nCorrect")
+        for letter in gui.main.WORD:
+            if letter in gui.main.GUESSED:
+                gui.main.display_word += letter + " "
             else:
-                print("\nWrong")
-                turn -= 1
-                print(display_hangman(turn))
+                gui.main.display_word += "_ "
+        print(gui.main.display_word)
 
-            if failed == 0:
-                sys.exit("You won")
+        guess = input("Guess a letter: ").upper()
+        gui.main.GUESSED.append(guess)
 
-        print(f"All guesses: {letter_guessed}")
-        print(f"You have {turn} more chance to guess")
-    print(f"The word was: {random_fruit}")
+        if guess not in gui.main.WORD:
+            HANGMAN_STATUS -= 1
+            print(display_hangman(HANGMAN_STATUS))
+
+        gui.main.won = True
+        for letter in gui.main.WORD:
+            if letter not in gui.main.GUESSED:
+                gui.main.won = False
+                break
+
+        if gui.main.won:
+            print("You Won")
+            break
+
+        if HANGMAN_STATUS == 0:
+            print("You lose")
+            break
+
+        print(f"All guesses: {gui.main.GUESSED}")
+    print(f"The word was: {gui.main.WORD}")

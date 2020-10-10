@@ -8,7 +8,7 @@ pygame.init()
 # Create screen
 WIDTH = 800
 HEIGHT = 500
-screen = pygame.display.set_mode((WIDTH, HEIGHT))
+# screen = pygame.display.set_mode((WIDTH, HEIGHT))
 
 # Caption
 pygame.display.set_caption("Hangman Game")
@@ -221,4 +221,4 @@ def main():
         pygame.display.update()
 
 
-main()
+# main()
