@@ -2,20 +2,22 @@ import os.path
 import random
 import pygame
 
-# Screen
 pygame.init()
-WHITE = (255, 255, 255)
+
+# Screen
 WIDTH, HEIGHT = 550, 650
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
+
 pygame.display.set_caption("Tic Tac Toe")
 
-# Refresh
-clock = pygame.time.Clock()
-FPS = 60
-
-# Button
+# Colors
+WHITE = (255, 255, 255)
 GREY = (72, 72, 72)
 BRIGHT_GREY = (60, 60, 90)
+
+# FPS
+clock = pygame.time.Clock()
+FPS = 60
 
 # Loading images
 project_directory = os.path.dirname(__file__)
@@ -27,7 +29,7 @@ WIDTH_RESIZE, HEIGHT_RESIZE = 110, 110
 x_img = pygame.transform.scale(x_img, (WIDTH_RESIZE, HEIGHT_RESIZE))
 o_img = pygame.transform.scale(o_img, (WIDTH_RESIZE, HEIGHT_RESIZE))
 
-# Global variables
+# Game variables
 current_player = "X"
 board = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
 won = False
@@ -37,17 +39,14 @@ x_score = 0
 o_score = 0
 is_click = "not click"
 is_game_end = False
+current_player_turn = "X"
 
 # Fonts
 ARCADECLASSIC = os.path.join(project_directory, "font/arcadeclassic.regular.ttf")
 FONT = pygame.font.Font(ARCADECLASSIC, 32)
 OVER_FONT = pygame.font.Font(ARCADECLASSIC, 50)
 
-# Global variables(Computer AI)
-current_player_turn = "X"
 
-
-# Human
 def draw_rectangle():
     global first, second, third, fourth, fifth, sixth, seventh, eighth, ninth
 
@@ -183,21 +182,15 @@ def flip_ai_player():
 
 
 def is_board_fill():
-    return \
-        board[0][0] != 0 and \
-        board[0][1] != 0 and \
-        board[0][2] != 0 and \
-        board[1][0] != 0 and \
-        board[1][1] != 0 and \
-        board[1][2] != 0 and \
-        board[2][0] != 0 and \
-        board[2][1] != 0 and \
-        board[2][2] != 0
+    return board[0][0] != 0 and board[0][1] != 0 and \
+           board[0][2] != 0 and board[1][0] != 0 and \
+           board[1][1] != 0 and board[1][2] != 0 and \
+           board[2][0] != 0 and board[2][1] != 0 and \
+           board[2][2] != 0
 
 
 def game_intro():
-    global x_score, o_score
-    global won_x, won_o, won, board
+    global x_score, o_score, won_x, won_o, won, board
     global click, current_player_turn
 
     mouse = pygame.mouse.get_pos()
