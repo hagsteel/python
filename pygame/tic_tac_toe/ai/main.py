@@ -1,15 +1,16 @@
 import random
 import sys
 
-# Global variables(2 Players)
+# Global variables (2 Players)
 game_still_going = True
 current_player = "X"
 winner = None
 board = ["-", "-", "-",
          "-", "-", "-",
          "-", "-", "-"]
+
 # Global variables(Computer AI)
-current_player_turn = "X"
+ai_turn = "X"
 
 
 def display_board():
@@ -34,7 +35,7 @@ def play_game():
             flip_player()
 
         if winner == "X" or winner == "O":
-            print(winner + " won")
+            print(f"{winner} won")
         elif winner is None:
             print("Tie")
 
@@ -42,12 +43,12 @@ def play_game():
         display_board()
 
         while game_still_going:
-            ai(current_player_turn)
+            ai(ai_turn)
             check_if_game_over()
             flip_ai_player()
 
         if winner == "X" or winner == "O":
-            print(winner + " won")
+            print(f"{winner} won")
         elif winner is None:
             print("Tie")
 
@@ -78,12 +79,14 @@ def check_if_game_over():
 
 def check_if_tie():
     global game_still_going
+
     if "-" not in board:
         game_still_going = False
 
 
 def check_for_winner():
     global winner
+
     row_winner = check_rows()
     column_winner = check_columns()
     diagonal_winner = check_diagonals()
@@ -100,6 +103,7 @@ def check_for_winner():
 
 def check_rows():
     global game_still_going
+
     row_1 = board[0] == board[1] == board[2] != "-"
     row_2 = board[3] == board[4] == board[5] != "-"
     row_3 = board[6] == board[7] == board[8] != "-"
@@ -117,6 +121,7 @@ def check_rows():
 
 def check_columns():
     global game_still_going
+
     column_1 = board[0] == board[3] == board[6] != "-"
     column_2 = board[1] == board[4] == board[7] != "-"
     column_3 = board[2] == board[5] == board[8] != "-"
@@ -134,6 +139,7 @@ def check_columns():
 
 def check_diagonals():
     global game_still_going
+
     diagonal_1 = board[0] == board[4] == board[8] != "-"
     diagonal_2 = board[6] == board[4] == board[2] != "-"
 
@@ -148,6 +154,7 @@ def check_diagonals():
 
 def flip_player():
     global current_player
+
     if current_player == "X":
         current_player = "O"
     elif current_player == "O":
@@ -156,7 +163,7 @@ def flip_player():
 
 # Computer(AI)
 def ai(player_ai):
-    if current_player_turn == "X":
+    if ai_turn == "X":
         print(player_ai + "'s turn")
         position = input("Choose a position from 1-9: ")
 
@@ -173,7 +180,7 @@ def ai(player_ai):
 
         board[position] = player_ai
 
-    if current_player_turn == "Computer":
+    if ai_turn == "Computer":
         while True:
             move = random.randint(1, 8)
             if board[move] == "-":
@@ -184,11 +191,12 @@ def ai(player_ai):
 
 
 def flip_ai_player():
-    global current_player_turn
-    if current_player_turn == "X":
-        current_player_turn = "Computer"
-    elif current_player_turn == "Computer":
-        current_player_turn = "X"
+    global ai_turn
+
+    if ai_turn == "X":
+        ai_turn = "Computer"
+    elif ai_turn == "Computer":
+        ai_turn = "X"
 
 
 play_again = True
@@ -200,6 +208,7 @@ while play_again:
              "-", "-", "-",
              "-", "-", "-"]
     play_game()
+
     valid = False
     while not valid:
         if game_still_going is False:

@@ -36,6 +36,7 @@ won_o = False
 x_score = 0
 o_score = 0
 is_click = "not click"
+is_game_end = False
 
 # Fonts
 ARCADECLASSIC = os.path.join(project_directory, "font/arcadeclassic.regular.ttf")
@@ -307,16 +308,13 @@ def mode_ai():
                     flip_ai_player()
 
 
-is_game_end = False
-running = True
-while running:
+while True:
     click = pygame.mouse.get_pressed()
     clock.tick(FPS)
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            running = False
-
+            pygame.quit()
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE:
                 won_x = False
