@@ -13,7 +13,7 @@ screen = pygame.display.set_mode((800, 600))
 project_directory = os.path.dirname(__file__)
 
 # Background
-back_image = pygame.image.load(os.path.join(project_directory, "img/background.png"))
+back_image = pygame.image.load(os.path.join(project_directory, "img/background.jpeg"))
 
 # Background sound
 pygame.mixer.music.load(os.path.join(project_directory, "sound/back.wav"))
@@ -43,7 +43,9 @@ for i in range(num_of_enemies):
     enemy_img.append(pygame.image.load(os.path.join(project_directory, "img/enemy.png")))
     enemy_x.append(random.randint(0, 735))
     enemy_y.append(random.randint(50, 150))
+    # Speed
     enemy_x_change.append(3.5)
+    # Push down
     enemy_y_change.append(40)
 
 # Bullet
@@ -98,7 +100,7 @@ def is_collision(enemy_x, enemy_y, bullet_x, bullet_y):
 
 clock = pygame.time.Clock()
 fps = 60
-keys = []
+key_state = "Stop"
 
 # Game loop
 run = True
@@ -114,10 +116,10 @@ while run:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
                 player_x_change = -4
-                keys.append(int(player_x_change))
+                key_state = "Left"
             if event.key == pygame.K_RIGHT:
                 player_x_change = 4
-                keys.append(int(player_x_change))
+                key_state = "Right"
             if event.key == pygame.K_SPACE:
                 if bullet_state == 'Ready':
                     bullet_sound = mixer.Sound("sound/laser.wav")
@@ -127,9 +129,10 @@ while run:
                     fire_bullet(bullet_x, bullet_y)
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
-                for i in range(len(keys)):
-                    if keys[i] == 0:
-                        player_x_change = 0
+                if key_state == "Stop":
+                    player_x_change = 0
+
+    print(key_state)
 
     # Checking the boundaries
     player_x += player_x_change
