@@ -98,6 +98,7 @@ def is_collision(enemy_x, enemy_y, bullet_x, bullet_y):
 
 clock = pygame.time.Clock()
 fps = 60
+keys = []
 
 # Game loop
 run = True
@@ -113,8 +114,10 @@ while run:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
                 player_x_change = -4
+                keys.append(int(player_x_change))
             if event.key == pygame.K_RIGHT:
                 player_x_change = 4
+                keys.append(int(player_x_change))
             if event.key == pygame.K_SPACE:
                 if bullet_state == 'Ready':
                     bullet_sound = mixer.Sound("sound/laser.wav")
@@ -124,7 +127,9 @@ while run:
                     fire_bullet(bullet_x, bullet_y)
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
-                player_x_change = 0
+                for i in range(len(keys)):
+                    if keys[i] == 0:
+                        player_x_change = 0
 
     # Checking the boundaries
     player_x += player_x_change
