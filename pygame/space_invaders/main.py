@@ -37,7 +37,7 @@ enemy_x = []
 enemy_y = []
 enemy_x_change = []
 enemy_y_change = []
-num_of_enemies = 6
+num_of_enemies = 15
 
 for i in range(num_of_enemies):
     enemy_img.append(pygame.image.load(os.path.join(project_directory, "img/enemy.png")))
@@ -129,8 +129,8 @@ while run:
                     fire_bullet(bullet_x, bullet_y)
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
-                if key_state == "Stop":
-                    player_x_change = 0
+                # if key_state == "Stop":
+                player_x_change = 0
 
     print(key_state)
 
