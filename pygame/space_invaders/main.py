@@ -15,6 +15,10 @@ project_directory = os.path.dirname(__file__)
 # Background
 back_image = pygame.image.load(os.path.join(project_directory, "img/background.jpeg"))
 
+# Resize
+WIDTH_RESIZE, HEIGHT_RESIZE = 800, 600
+back_image = pygame.transform.scale(back_image, (WIDTH_RESIZE, HEIGHT_RESIZE))
+
 # Background sound
 pygame.mixer.music.load(os.path.join(project_directory, "sound/back.wav"))
 pygame.mixer.music.set_volume(0.05)
@@ -37,7 +41,7 @@ enemy_x = []
 enemy_y = []
 enemy_x_change = []
 enemy_y_change = []
-num_of_enemies = 15
+num_of_enemies = 7
 
 for i in range(num_of_enemies):
     enemy_img.append(pygame.image.load(os.path.join(project_directory, "img/enemy.png")))
