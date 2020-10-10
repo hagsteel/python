@@ -8,7 +8,6 @@ pygame.init()
 # Create screen
 WIDTH = 800
 HEIGHT = 500
-# screen = pygame.display.set_mode((WIDTH, HEIGHT))
 
 # Caption
 pygame.display.set_caption("Hangman Game")
@@ -31,12 +30,6 @@ WORD = random.choice(WORDS)
 GUESSED = ["D", "Y", "I", "J", "A", "H"]
 CLICK = False
 
-# Images
-images = []
-for i in range(7):
-    image = os.path.join(project_directory, "images/hangman")
-    image = pygame.image.load(image + str(i) + ".png")
-    images.append(image)
 
 # Buttons
 RADIUS = 20
@@ -221,4 +214,14 @@ def main():
         pygame.display.update()
 
 
-# main()
+if __name__ == "__main__":
+    screen = pygame.display.set_mode((WIDTH, HEIGHT))
+
+    # Images
+    images = []
+    for i in range(7):
+        image = os.path.join(project_directory, "images/hangman")
+        image = pygame.image.load(image + str(i) + ".png")
+        images.append(image)
+
+    main()
