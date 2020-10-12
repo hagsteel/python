@@ -106,7 +106,6 @@ clock = pygame.time.Clock()
 fps = 60
 key_state = "Stop"
 
-# Game loop
 run = True
 while run:
     clock.tick(fps)
