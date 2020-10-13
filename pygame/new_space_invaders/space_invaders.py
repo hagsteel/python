@@ -28,13 +28,14 @@ WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 GREEN = (78, 255, 87)
 
+
 def main_menu():
-    
+
     # Background image
     BACKGROUND = pygame.image.load(IMAGE_PATH + "background.jpeg")
 
-    titletext = TITLE_FONT.render("Space Invaders", True, WHITE)
-    titletext2 = SUB_TITLE_FONT.render("Press any key to continue", True, WHITE)
+    TITLETEXT = TITLE_FONT.render("Space Invaders", True, WHITE)
+    TITLETEXT2 = SUB_TITLE_FONT.render("Press any key to continue", True, WHITE)
 
     # Enemy1 image
     enemy1 = pygame.image.load(IMAGE_PATH + "enemy1.png")
@@ -45,8 +46,8 @@ def main_menu():
     pointtext = SUB_TITLE_FONT.render("   =   10 pts", True, GREEN)
 
     screen.blit(BACKGROUND, (0, 0))
-    screen.blit(titletext, (164, 155))
-    screen.blit(titletext2, (201, 225))
+    screen.blit(TITLETEXT, (164, 155))
+    screen.blit(TITLETEXT2, (201, 225))
     screen.blit(enemy1, (318, 270))
     screen.blit(pointtext, (368, 270))
 
