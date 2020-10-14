@@ -62,12 +62,14 @@ bullet_state = 'Ready'
 
 # Score
 score = 0
-font = pygame.font.Font("font/arcadeclassic.regular.ttf", 32)
+font_path = project_directory + "/font/"
+font = font_path + "arcadeclassic.regular.ttf"
+score_font = pygame.font.Font(font, 32)
 text_x = 10
 text_y = 10
 
 # Game over
-over_font = pygame.font.Font("font/arcadeclassic.regular.ttf", 70)
+over_font = pygame.font.Font(font, 70)
 
 
 def game_over_text():
@@ -76,7 +78,7 @@ def game_over_text():
 
 
 def show_score(x, y):
-    score_value = font.render("Score " + str(score), True, (255, 255, 255))
+    score_value = score_font.render("Score " + str(score), True, (255, 255, 255))
     screen.blit(score_value, (x, y))
 
 
@@ -124,7 +126,7 @@ while run:
                 player_x_change = 4
             if event.key == pygame.K_SPACE:
                 if bullet_state == 'Ready':
-                    bullet_sound = mixer.Sound("sound/laser.wav")
+                    bullet_sound = mixer.Sound(os.path.join(project_directory, "sound/laser.wav"))
                     bullet_sound.set_volume(0.05)
                     bullet_sound.play()
                     bullet_x = player_x
