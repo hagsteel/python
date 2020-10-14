@@ -28,44 +28,69 @@ WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 GREEN = (78, 255, 87)
 
+# Game variables
+clock = pygame.time.Clock()
+fps = 60
+
 
 def main_menu():
-
-    # Background image
-    BACKGROUND = pygame.image.load(IMAGE_PATH + "background.jpeg")
-
-    TITLETEXT = TITLE_FONT.render("Space Invaders", True, WHITE)
-    TITLETEXT2 = SUB_TITLE_FONT.render("Press any key to continue", True, WHITE)
-
-    # Enemy1 image
-    enemy1 = pygame.image.load(IMAGE_PATH + "enemy1.png")
-    # Resize enemy1
-    enemy1 = pygame.transform.scale(enemy1, (40, 40))
-
-    # Points
-    pointtext = SUB_TITLE_FONT.render("   =   10 pts", True, GREEN)
-
-    screen.blit(BACKGROUND, (0, 0))
-    screen.blit(TITLETEXT, (164, 155))
-    screen.blit(TITLETEXT2, (201, 225))
-    screen.blit(enemy1, (318, 270))
-    screen.blit(pointtext, (368, 270))
-
-
-def main():
-    clock = pygame.time.Clock()
-
     while True:
-        clock.tick(60)
+        clock.tick(fps)
+
+        # Background image
+        BACKGROUND = pygame.image.load(IMAGE_PATH + "background.jpeg")
+
+        TITLETEXT = TITLE_FONT.render("Space Invaders", True, WHITE)
+        TITLETEXT2 = SUB_TITLE_FONT.render("Press enter to continue", True, WHITE)
+
+        # Enemy1 image
+        enemy1 = pygame.image.load(IMAGE_PATH + "enemy1.png")
+        # Resize enemy1
+        enemy1 = pygame.transform.scale(enemy1, (40, 40))
+
+        # Points
+        pointtext = SUB_TITLE_FONT.render("   =   10 pts", True, GREEN)
+
+        # Drawing with positions
+        screen.blit(BACKGROUND, (0, 0))
+        screen.blit(TITLETEXT, (164, 155))
+        screen.blit(TITLETEXT2, (201, 225))
+        screen.blit(enemy1, (318, 270))
+        screen.blit(pointtext, (368, 270))
+
+        pygame.display.update()
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_RETURN:
+                    main()
 
-        main_menu()
+
+def main():
+    while True:
+        clock.tick(fps)
+
+        screen.fill(BLACK)
+
+        # Background image
+        BACKGROUND = pygame.image.load(IMAGE_PATH + "background.jpeg")
+
+        # Ship
+        SHIP = pygame.image.load(IMAGE_PATH + "ship.png")
+
+        # Drawing with positions
+        screen.blit(BACKGROUND, (0, 0))
+        screen.blit(SHIP, (375, 540))
 
         pygame.display.update()
 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                sys.exit()
+            # if event.key == pygame.K_LEFT:
+
 
 if __name__ == "__main__":
-    main()
+    main_menu()

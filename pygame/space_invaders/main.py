@@ -135,8 +135,6 @@ while run:
                 # if key_state == "Stop":
                 player_x_change = 0
 
-    print(key_state)
-
     # Checking the boundaries
     player_x += player_x_change
     if player_x <= 0:
