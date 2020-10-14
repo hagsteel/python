@@ -1,4 +1,5 @@
 import math
+import sys
 import os.path
 import random
 import pygame
@@ -62,8 +63,7 @@ bullet_state = 'Ready'
 
 # Score
 score = 0
-font_path = project_directory + "/font/"
-font = font_path + "arcadeclassic.regular.ttf"
+font = project_directory + "/font/arcadeclassic.ttf"
 score_font = pygame.font.Font(font, 32)
 text_x = 10
 text_y = 10
@@ -109,31 +109,34 @@ def is_collision(enemy_x, enemy_y, bullet_x, bullet_y):
 clock = pygame.time.Clock()
 fps = 60
 
-run = True
-while run:
+while True:
     clock.tick(fps)
     screen.fill((153, 209, 255))
     screen.blit(back_image, (0, 0))
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            run = False
+            sys.exit()
+
         # If keystroke is pressed check whether it's right or left
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_LEFT:
-                player_x_change = -4
-            if event.key == pygame.K_RIGHT:
-                player_x_change = 4
-            if event.key == pygame.K_SPACE:
-                if bullet_state == 'Ready':
-                    bullet_sound = mixer.Sound(os.path.join(project_directory, "sound/laser.wav"))
-                    bullet_sound.set_volume(0.05)
-                    bullet_sound.play()
-                    bullet_x = player_x
-                    fire_bullet(bullet_x, bullet_y)
-        if event.type == pygame.KEYUP:
-            if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
+        keys = pygame.key.get_pressed()
+
+        if keys[pygame.K_LEFT]:
+            player_x_change = -4
+        if keys[pygame.K_RIGHT]:
+            player_x_change = 4
+        if keys[pygame.K_UP]:
+            if keys[pygame.K_LEFT]:
                 player_x_change = 0
+            if keys[pygame.K_RIGHT]:
+                player_x_change = 0
+        if keys[pygame.K_SPACE]:
+            if bullet_state == 'Ready':
+                bullet_sound = mixer.Sound(os.path.join(project_directory, "sound/laser.wav"))
+                bullet_sound.set_volume(0.05)
+                bullet_sound.play()
+                bullet_x = player_x
+                fire_bullet(bullet_x, bullet_y)
 
     # Checking the boundaries
     player_x += player_x_change
