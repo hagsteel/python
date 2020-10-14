@@ -28,6 +28,8 @@ BACKGROUND = pygame.image.load(IMAGE_PATH + "background.jpeg")
 
 # Ship
 SHIP = pygame.image.load(IMAGE_PATH + "ship.png")
+ship_rect = SHIP.get_rect(topleft=(375, 540))
+ship_speed = 5
 
 # Colors (R, G, B)
 WHITE = (255, 255, 255)
@@ -37,14 +39,6 @@ GREEN = (78, 255, 87)
 # Game variables
 clock = pygame.time.Clock()
 fps = 60
-
-# Ship
-ship_x = 375
-ship_move = 0
-
-
-def ship(x, y):
-    screen.blit(SHIP, (x, y))
 
 
 def main_menu():
@@ -58,8 +52,7 @@ def main_menu():
         enemy1 = pygame.image.load(IMAGE_PATH + "enemy1.png")
         # Resize enemy1
         enemy1 = pygame.transform.scale(enemy1, (40, 40))
-
-        # Points
+        # Enemy points
         pointtext = SUB_TITLE_FONT.render("   =   10 pts", True, GREEN)
 
         # Drawing with positions
@@ -80,7 +73,7 @@ def main_menu():
 
 
 def main():
-    global ship_x, ship_move
+    global ship_rect, ship_speed
 
     while True:
         clock.tick(fps)
@@ -95,14 +88,12 @@ def main():
                 sys.exit()
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_LEFT:
-                    ship_move = -4
+                    ship_rect.x -= ship_speed
                 if event.key == pygame.K_RIGHT:
-                    ship_move = 4
+                    ship_rect.x += ship_speed
 
-        ship_x += ship_move
-
-        ship(ship_x, 540)
-        print(ship_x)
+        screen.blit(SHIP, ship_rect)
+        print(ship_rect.x)
 
         pygame.display.update()
 
