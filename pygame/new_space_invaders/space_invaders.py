@@ -23,6 +23,9 @@ SUB_TITLE_FONT = pygame.font.Font(FONT, 25)
 IMAGE_PATH = BASE_PATH + "/images/"
 SOUND_PATH = BASE_PATH + "/sounds/"
 
+# Background image
+BACKGROUND = pygame.image.load(IMAGE_PATH + "background.jpeg")
+
 # Colors (R, G, B)
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
@@ -32,13 +35,17 @@ GREEN = (78, 255, 87)
 clock = pygame.time.Clock()
 fps = 60
 
+# Ship
+ship_x = 375
+
+
+def ship(x, y):
+    screen.blit(IMAGE_PATH + "ship.png", (x, y))
+
 
 def main_menu():
     while True:
         clock.tick(fps)
-
-        # Background image
-        BACKGROUND = pygame.image.load(IMAGE_PATH + "background.jpeg")
 
         TITLETEXT = TITLE_FONT.render("Space Invaders", True, WHITE)
         TITLETEXT2 = SUB_TITLE_FONT.render("Press enter to continue", True, WHITE)
@@ -58,7 +65,6 @@ def main_menu():
         screen.blit(enemy1, (318, 270))
         screen.blit(pointtext, (368, 270))
 
-        pygame.display.update()
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -67,15 +73,14 @@ def main_menu():
                 if event.key == pygame.K_RETURN:
                     main()
 
+        pygame.display.update()
+
 
 def main():
     while True:
         clock.tick(fps)
 
         screen.fill(BLACK)
-
-        # Background image
-        BACKGROUND = pygame.image.load(IMAGE_PATH + "background.jpeg")
 
         # Ship
         SHIP = pygame.image.load(IMAGE_PATH + "ship.png")
@@ -84,12 +89,19 @@ def main():
         screen.blit(BACKGROUND, (0, 0))
         screen.blit(SHIP, (375, 540))
 
-        pygame.display.update()
-
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
-            # if event.key == pygame.K_LEFT:
+            if event.key == pygame.K_LEFT:
+                ship_move = -4
+            if event.key == pygame.K_RIGHT:
+                ship_move = 4
+
+        ship_x += ship_move
+
+        ship(ship_x, 540)
+
+        pygame.display.update()
 
 
 if __name__ == "__main__":
