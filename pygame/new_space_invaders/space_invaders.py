@@ -76,13 +76,10 @@ def main_menu():
         pygame.display.update()
 
 
-left_down = False
-right_down = False
-pygame.key.set_repeat(1, 10)
-
-
 def main():
-    global ship_rect, ship_speed, left_down, right_down
+    global ship_rect, ship_speed
+
+    pygame.key.set_repeat(1, 10)
 
     while True:
         CLOCK.tick(FPS)
@@ -97,9 +94,9 @@ def main():
                 sys.exit()
 
             keys = pygame.key.get_pressed()
-            if keys[pygame.K_LEFT]:
+            if keys[pygame.K_LEFT] and ship_rect.x > 10:
                 ship_rect.x -= ship_speed
-            if keys[pygame.K_RIGHT]:
+            if keys[pygame.K_RIGHT] and ship_rect.x < 740:
                 ship_rect.x += ship_speed
 
         SCREEN.blit(SHIP, ship_rect)
