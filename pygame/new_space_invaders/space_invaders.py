@@ -26,6 +26,9 @@ SOUND_PATH = BASE_PATH + "/sounds/"
 # Background image
 BACKGROUND = pygame.image.load(IMAGE_PATH + "background.jpeg")
 
+# Ship
+SHIP = pygame.image.load(IMAGE_PATH + "ship.png")
+
 # Colors (R, G, B)
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
@@ -37,10 +40,11 @@ fps = 60
 
 # Ship
 ship_x = 375
+ship_move = 0
 
 
 def ship(x, y):
-    screen.blit(IMAGE_PATH + "ship.png", (x, y))
+    screen.blit(SHIP, (x, y))
 
 
 def main_menu():
@@ -65,7 +69,6 @@ def main_menu():
         screen.blit(enemy1, (318, 270))
         screen.blit(pointtext, (368, 270))
 
-
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
@@ -77,29 +80,29 @@ def main_menu():
 
 
 def main():
+    global ship_x, ship_move
+
     while True:
         clock.tick(fps)
 
         screen.fill(BLACK)
 
-        # Ship
-        SHIP = pygame.image.load(IMAGE_PATH + "ship.png")
-
         # Drawing with positions
         screen.blit(BACKGROUND, (0, 0))
-        screen.blit(SHIP, (375, 540))
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
-            if event.key == pygame.K_LEFT:
-                ship_move = -4
-            if event.key == pygame.K_RIGHT:
-                ship_move = 4
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_LEFT:
+                    ship_move = -4
+                if event.key == pygame.K_RIGHT:
+                    ship_move = 4
 
         ship_x += ship_move
 
         ship(ship_x, 540)
+        print(ship_x)
 
         pygame.display.update()
 
