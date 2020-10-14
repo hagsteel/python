@@ -91,12 +91,13 @@ def main():
             if event.type == pygame.QUIT:
                 sys.exit()
             if pygame.key.get_pressed()[pygame.K_LEFT] and ship_rect.x > 10:
-                    ship_rect.x -= ship_speed
-            elif pygame.key.get_pressed()[pygame.K_RIGHT] and ship_rect.x < 740:
+                ship_rect.x -= ship_speed
+            if pygame.key.get_pressed()[pygame.K_RIGHT] and ship_rect.x < 740:
                 ship_rect.x += ship_speed
+            if pygame.key.get_pressed()[pygame.K_UP]:
+                ship_rect.x = 0
 
         screen.blit(SHIP, ship_rect)
-        print(ship_rect)
 
         pygame.display.update()
 
