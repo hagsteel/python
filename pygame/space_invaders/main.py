@@ -135,6 +135,8 @@ while run:
             if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
                 player_x_change = 0
 
+        print(player_x_change)
+
     # Checking the boundaries
     player_x += player_x_change
     if player_x <= 0:

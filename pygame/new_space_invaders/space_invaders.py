@@ -23,6 +23,10 @@ SUB_TITLE_FONT = pygame.font.Font(FONT, 25)
 IMAGE_PATH = BASE_PATH + "/images/"
 SOUND_PATH = BASE_PATH + "/sounds/"
 
+# Icon
+icon = pygame.image.load(IMAGE_PATH + "ufo.png")
+pygame.display.set_icon(icon)
+
 # Background image
 BACKGROUND = pygame.image.load(IMAGE_PATH + "background.jpeg")
 
@@ -86,14 +90,13 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_LEFT:
+            if pygame.key.get_pressed()[pygame.K_LEFT] and ship_rect.x > 10:
                     ship_rect.x -= ship_speed
-                if event.key == pygame.K_RIGHT:
-                    ship_rect.x += ship_speed
+            elif pygame.key.get_pressed()[pygame.K_RIGHT] and ship_rect.x < 740:
+                ship_rect.x += ship_speed
 
         screen.blit(SHIP, ship_rect)
-        print(ship_rect.x)
+        print(ship_rect)
 
         pygame.display.update()
 
