@@ -38,6 +38,8 @@ SHIP_SPEED = 5
 
 # Enemy1
 ENEMY1 = pygame.image.load(IMAGE_PATH + "enemy1.png")
+# Resize enemy1
+enemy1 = pygame.transform.scale(ENEMY1, (40, 40))
 
 # Colors (R, G, B)
 WHITE = (255, 255, 255)
@@ -50,7 +52,7 @@ FPS = 60
 
 
 def main_menu():
-    global ENEMY1
+    global ENEMY1, enemy1
 
     while True:
         CLOCK.tick(FPS)
@@ -58,8 +60,6 @@ def main_menu():
         title_text = TITLE_FONT.render("Space Invaders", True, WHITE)
         title_text2 = SUB_TITLE_FONT.render("Press enter to continue", True, WHITE)
 
-        # Resize enemy1
-        enemy1 = pygame.transform.scale(ENEMY1, (40, 40))
         # Enemy points
         point_text = SUB_TITLE_FONT.render("   =   10 pts", True, GREEN)
 
@@ -81,9 +81,25 @@ def main_menu():
 
         pygame.display.update()
 
+def enemy():
+    global enemy1
+
+    enemy1_rect = enemy1.get_rect(topleft=(115, 250))
+    # enemy1 = pygame.transform.scale(ENEMY1, (40, 40))
+
+    for i in range(10):
+        enemy1_rect.x += 50
+        SCREEN.blit(enemy1, enemy1_rect)
+
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            sys.exit()
+
+    pygame.display.update()
+
 
 def main():
-    global ship_rect, SHIP_SPEED, ENEMY1
+    global ship_rect, SHIP_SPEED, ENEMY1, enemy1
 
     pygame.key.set_repeat(1, 10)
 
@@ -97,8 +113,7 @@ def main():
 
         # Lives
         lives_text = MAIN_FONT.render("Lives", True, WHITE)
-
-        # Resize enemy1
+        # Resize enemy1 next to lives
         enemy1 = pygame.transform.scale(ENEMY1, (25, 25))
 
         score_text = MAIN_FONT.render("Score", True, WHITE)
@@ -106,7 +121,6 @@ def main():
 
         # Drawing with positions
         SCREEN.blit(lives_text, (640, 5))
-
         SCREEN.blit(enemy1, (715, 3))
         SCREEN.blit(enemy1, (742, 3))
         SCREEN.blit(enemy1, (769, 3))
@@ -125,6 +139,8 @@ def main():
                 ship_rect.x += SHIP_SPEED
 
         SCREEN.blit(SHIP, ship_rect)
+
+        enemy()
 
         pygame.display.update()
 
