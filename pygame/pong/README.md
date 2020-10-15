@@ -1,4 +1,4 @@
-# Hangman
+# Pong
 
 Pong written in Python and Turtle modules
 

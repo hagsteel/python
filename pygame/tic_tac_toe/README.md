@@ -1,4 +1,4 @@
-# Hangman
+# Tic Tac Toe
 
 Tic Tac Toe written in Python and Pygame modules
 
