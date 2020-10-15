@@ -1,6 +1,11 @@
-# Space Invaders
+# Hangman
 
-New Space Invaders written in Python and Pygame modules
+Tic Tac Toe written in Python and Pygame modules
+
+There three version ai, command line, and graphics interface with ai, you
+can choose either one
+
+**Recommended: Graphics interface with ai**
 
 ## Requirements
 
@@ -13,12 +18,11 @@ Prerequisites:
 
 Instructions:
 
-Download Pygame:
+Download Pygame
 
     $ sudo apt-get install python3-pygame
 
 Run
-
     $ python3 main.py
 
 ### macOs
@@ -30,12 +34,11 @@ Prerequisites:
 
 Instructions:
 
-Download Pygame:
+Download Pygame
 
     $ python3 -m pip install -U pygame==2.0.0.dev12 --user
 
 Run
-
     $ python3 main.py
 
 [Pygame-download-linux]: https://www.pygame.org/wiki/GettingStarted#Unix%20Binary%20Packages
