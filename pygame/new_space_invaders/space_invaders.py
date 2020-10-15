@@ -34,7 +34,7 @@ BACKGROUND = pygame.image.load(IMAGE_PATH + "background.jpeg")
 # Ship
 SHIP = pygame.image.load(IMAGE_PATH + "ship.png")
 ship_rect = SHIP.get_rect(topleft=(375, 540))
-ship_speed = 5
+SHIP_SPEED = 5
 
 # Enemy1
 ENEMY1 = pygame.image.load(IMAGE_PATH + "enemy1.png")
@@ -65,8 +65,10 @@ def main_menu():
 
         # Drawing with positions
         SCREEN.blit(BACKGROUND, (0, 0))
+
         SCREEN.blit(title_text, (164, 155))
         SCREEN.blit(title_text2, (201, 225))
+
         SCREEN.blit(enemy1, (318, 270))
         SCREEN.blit(point_text, (368, 270))
 
@@ -81,7 +83,7 @@ def main_menu():
 
 
 def main():
-    global ship_rect, ship_speed, ENEMY1
+    global ship_rect, SHIP_SPEED, ENEMY1
 
     pygame.key.set_repeat(1, 10)
 
@@ -99,11 +101,18 @@ def main():
         # Resize enemy1
         enemy1 = pygame.transform.scale(ENEMY1, (25, 25))
 
+        score_text = MAIN_FONT.render("Score", True, WHITE)
+        score_text_num = MAIN_FONT.render("0", True, GREEN)
+
         # Drawing with positions
         SCREEN.blit(lives_text, (640, 5))
+
         SCREEN.blit(enemy1, (715, 3))
         SCREEN.blit(enemy1, (742, 3))
         SCREEN.blit(enemy1, (769, 3))
+
+        SCREEN.blit(score_text, (5, 5))
+        SCREEN.blit(score_text_num, (85, 5))
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -111,9 +120,9 @@ def main():
 
             keys = pygame.key.get_pressed()
             if keys[pygame.K_LEFT] and ship_rect.x > 10:
-                ship_rect.x -= ship_speed
+                ship_rect.x -= SHIP_SPEED
             if keys[pygame.K_RIGHT] and ship_rect.x < 740:
-                ship_rect.x += ship_speed
+                ship_rect.x += SHIP_SPEED
 
         SCREEN.blit(SHIP, ship_rect)
 
