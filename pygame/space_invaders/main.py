@@ -8,7 +8,9 @@ from pygame import mixer
 pygame.init()
 
 # Create the screen
-screen = pygame.display.set_mode((800, 600))
+WIDTH = 800
+HEIGHT = 600
+screen = pygame.display.set_mode((WIDTH, HEIGHT))
 
 # Path
 project_directory = os.path.dirname(__file__)
@@ -17,8 +19,7 @@ project_directory = os.path.dirname(__file__)
 back_image = pygame.image.load(os.path.join(project_directory, "img/background.jpeg"))
 
 # Resize
-WIDTH_RESIZE, HEIGHT_RESIZE = 800, 600
-back_image = pygame.transform.scale(back_image, (WIDTH_RESIZE, HEIGHT_RESIZE))
+back_image = pygame.transform.scale(back_image, (WIDTH, HEIGHT))
 
 # Background sound
 pygame.mixer.music.load(os.path.join(project_directory, "sound/back.wav"))
@@ -26,15 +27,15 @@ pygame.mixer.music.set_volume(0.05)
 pygame.mixer.music.play(-1)
 
 # Caption and Icon
-pygame.display.set_caption('Pygame')
-icon = pygame.image.load(os.path.join(project_directory, "img/vr-gaming.png"))
-pygame.display.set_icon(icon)
+pygame.display.set_caption('Space Invaders')
+ICON = pygame.image.load(os.path.join(project_directory, "img/vr-gaming.png"))
+pygame.display.set_icon(ICON)
 
 # Player
 player_img = pygame.image.load(os.path.join(project_directory, "img/space-invaders.png"))
 player_x = 370
 player_y = 480
-player_x_change = 0
+player_x_change = 5
 
 # Enemy
 enemy_img = []
@@ -106,12 +107,13 @@ def is_collision(enemy_x, enemy_y, bullet_x, bullet_y):
         return False
 
 
-clock = pygame.time.Clock()
-fps = 60
+CLOCK = pygame.time.Clock()
+FPS = 60
+pygame.key.set_repeat(1, 10)
 
 while True:
-    clock.tick(fps)
-    screen.fill((153, 209, 255))
+    CLOCK.tick(FPS)
+    screen.fill((0, 0, 0))
     screen.blit(back_image, (0, 0))
 
     for event in pygame.event.get():
@@ -120,16 +122,10 @@ while True:
 
         # If keystroke is pressed check whether it's right or left
         keys = pygame.key.get_pressed()
-
         if keys[pygame.K_LEFT]:
-            player_x_change = -4
+            player_x -= player_x_change
         if keys[pygame.K_RIGHT]:
-            player_x_change = 4
-        if keys[pygame.K_UP]:
-            if keys[pygame.K_LEFT]:
-                player_x_change = 0
-            if keys[pygame.K_RIGHT]:
-                player_x_change = 0
+            player_x += player_x_change
         if keys[pygame.K_SPACE]:
             if bullet_state == 'Ready':
                 bullet_sound = mixer.Sound(os.path.join(project_directory, "sound/laser.wav"))
@@ -139,10 +135,9 @@ while True:
                 fire_bullet(bullet_x, bullet_y)
 
     # Checking the boundaries
-    player_x += player_x_change
-    if player_x <= 0:
+    if player_x < 0:
         player_x = 0
-    elif player_x >= 736:
+    elif player_x > 736:
         player_x = 736
 
     # Enemy movement
