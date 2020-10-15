@@ -1,6 +1,6 @@
-# Space Invaders
+# Hangman
 
-Old Space Invaders written in Python and Pygame modules
+Pong written in Python and Turtle modules
 
 ## Requirements
 
@@ -9,11 +9,10 @@ Old Space Invaders written in Python and Pygame modules
 Prerequisites:
 
 * [Python][Python-download]
-* [Pygame][Pygame-download-linux]
 
 Instructions:
 
-1. Download Pygame:
+1. Download Pygame
 
         $ sudo apt-get install python3-pygame
 
@@ -26,11 +25,10 @@ Instructions:
 Prerequisites:
 
 * [Python][Python-download]
-* [Pygame][Pygame-download-macOs]
 
 Instructions:
 
-1. Download Pygame:
+1. Download Pygame
 
         $ python3 -m pip install -U pygame==2.0.0.dev12 --user
 
