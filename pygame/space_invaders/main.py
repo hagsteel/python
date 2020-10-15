@@ -1,6 +1,7 @@
 import math
 import sys
 import os.path
+from os.path import abspath, dirname
 import random
 import pygame
 from pygame import mixer
@@ -14,6 +15,7 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT))
 
 # Path
 project_directory = os.path.dirname(__file__)
+BASE_PATH = abspath(dirname(__file__))
 
 # Background
 back_image = pygame.image.load(os.path.join(project_directory, "img/background.jpeg"))
@@ -64,7 +66,7 @@ bullet_state = 'Ready'
 
 # Score
 score = 0
-font = project_directory + "/font/arcadeclassic.ttf"
+font = BASE_PATH + "/font/arcadeclassic.ttf"
 score_font = pygame.font.Font(font, 32)
 text_x = 10
 text_y = 10
