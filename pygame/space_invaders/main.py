@@ -61,7 +61,7 @@ bullet_img = pygame.image.load(os.path.join(project_directory, "img/bullet.png")
 bullet_x = 0
 bullet_y = 480
 bullet_x_change = 0
-bullet_y_change = 8
+bullet_y_change = 15
 bullet_state = 'Ready'
 
 # Score
