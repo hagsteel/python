@@ -13,11 +13,11 @@ Prerequisites:
 
 Instructions:
 
-Download Pygame:
+1. Download Pygame:
 
     $ sudo apt-get install python3-pygame
 
-Run
+1. Run
 
     $ python3 main.py
 
@@ -30,11 +30,11 @@ Prerequisites:
 
 Instructions:
 
-Download Pygame:
+1. Download Pygame:
 
     $ python3 -m pip install -U pygame==2.0.0.dev12 --user
 
-Run
+1. Run
 
     $ python3 main.py
 
