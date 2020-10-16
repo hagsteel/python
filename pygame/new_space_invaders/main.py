@@ -41,6 +41,9 @@ ENEMY1 = pygame.image.load(IMAGE_PATH + "enemy1.png")
 # Resize enemy1
 ENEMY1 = pygame.transform.scale(ENEMY1, (40, 40))
 
+# Bullet
+BULLET = pygame.image.load(IMAGE_PATH + "laser.png")
+
 # Colors (R, G, B)
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
@@ -98,6 +101,14 @@ def draw_enemy():
     pygame.display.update()
 
 
+BULLET_Y = 540
+def bullet(x, y):
+    global BULLET_Y
+
+    BULLET_Y -= 15
+    SCREEN.blit(BULLET, (x + 23, y))
+
+
 def main():
     global SHIP_RECT, SHIP_SPEED, ENEMY1
 
@@ -137,6 +148,10 @@ def main():
                 SHIP_RECT.x -= SHIP_SPEED
             if keys[pygame.K_RIGHT] and SHIP_RECT.x < 740:
                 SHIP_RECT.x += SHIP_SPEED
+            if keys[pygame.K_SPACE]:
+                bullet(SHIP_RECT.x, SHIP_RECT.y)
+
+
 
         SCREEN.blit(SHIP, SHIP_RECT)
 
