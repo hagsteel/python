@@ -1,4 +1,5 @@
 import os.path
+import sys
 import random
 import pygame
 
@@ -14,6 +15,10 @@ pygame.display.set_caption("Tic Tac Toe")
 WHITE = (255, 255, 255)
 GREY = (72, 72, 72)
 BRIGHT_GREY = (60, 60, 90)
+BLACK = (0, 0, 0)
+DARK_BLUE = (9, 109, 209)
+PINK = (255, 0, 255)
+LIGHT_BLUE = (108, 176, 243)
 
 # FPS
 clock = pygame.time.Clock()
@@ -108,25 +113,25 @@ def num():
 
 def x_turn():
     if current_player == "X":
-        x_turn_text = FONT.render("X turn", True, (255, 255, 255))
+        x_turn_text = FONT.render("X turn", True, WHITE)
         screen.blit(x_turn_text, (130, 550))
-        pygame.draw.rect(screen, (0, 0, 0), (120, 600, 110, 30))
+        pygame.draw.rect(screen, BLACK, (120, 600, 110, 30))
 
 
 def o_turn():
     if current_player == "O":
-        o_turn_text = FONT.render("O turn", True, (255, 255, 255))
+        o_turn_text = FONT.render("O turn", True, WHITE)
         screen.blit(o_turn_text, (130, 600))
-        pygame.draw.rect(screen, (0, 0, 0), (130, 550, 110, 30))
+        pygame.draw.rect(screen, BLACK, (130, 550, 110, 30))
 
 
 def score_x():
-    score_value = FONT.render("X " + str(x_score), True, (255, 255, 255))
+    score_value = FONT.render("X " + str(x_score), True, WHITE)
     screen.blit(score_value, (50, 550))
 
 
 def score_o():
-    score_value = FONT.render("O " + str(o_score), True, (255, 255, 255))
+    score_value = FONT.render("O " + str(o_score), True, WHITE)
     screen.blit(score_value, (50, 600))
 
 
@@ -134,14 +139,14 @@ def draw_text_won():
     global OVER_FONT
 
     if won_x:
-        over_text = OVER_FONT.render("X won", True, (255, 0, 255))
-        space_text = OVER_FONT.render("Space bar for clear", True, (255, 0, 255))
+        over_text = OVER_FONT.render("X won", True, LIGHT_BLUE)
+        space_text = OVER_FONT.render("Space bar for clear", True, LIGHT_BLUE)
         screen.blit(over_text, (220, 200))
         screen.blit(space_text, (50, 300))
 
     elif won_o:
-        over_text = OVER_FONT.render("Computer won", True, (255, 0, 255))
-        space_text = OVER_FONT.render("Space bar for clear", True, (255, 0, 255))
+        over_text = OVER_FONT.render("Computer won", True, PINK)
+        space_text = OVER_FONT.render("Space bar for clear", True, PINK)
         screen.blit(over_text, (140, 200))
         screen.blit(space_text, (50, 300))
 
@@ -149,8 +154,8 @@ def draw_text_won():
 def tie():
     global OVER_FONT
 
-    tie_text = OVER_FONT.render("Tie", True, (255, 0, 255))
-    space_text = OVER_FONT.render("Space bar for clear", True, (255, 0, 255))
+    tie_text = OVER_FONT.render("Tie", True, DARK_BLUE)
+    space_text = OVER_FONT.render("Space bar for clear", True, DARK_BLUE)
     screen.blit(tie_text, (220, 200))
     screen.blit(space_text, (50, 300))
 
@@ -171,6 +176,19 @@ def ai():
             board[row][column] = 2
             current_player_turn = "X"
 
+def best_ai():
+    bestscore = float('-inf')
+    for row, column in range(3):
+        if board[row][column] == 0:
+            board[row][column] = ai
+            score = minimax(board)
+            board[row][column] = 0
+            if score > bestscore:
+                bestscore = score
+                bestmove = board[row][column]
+
+def minimax(board):
+    return 1
 
 def flip_ai_player():
     global current_player_turn
@@ -190,8 +208,7 @@ def is_board_fill():
 
 
 def game_intro():
-    global x_score, o_score, won_x, won_o, won, board
-    global click, current_player_turn
+    global x_score, o_score, won_x, won_o, won, board, click, current_player_turn
 
     mouse = pygame.mouse.get_pos()
     click = pygame.mouse.get_pressed()
@@ -307,7 +324,7 @@ while True:
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            pygame.quit()
+            sys.exit()
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE:
                 won_x = False
@@ -347,4 +364,5 @@ while True:
         o_turn()
         score_x()
         score_o()
+
     pygame.display.update()
