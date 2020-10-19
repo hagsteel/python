@@ -341,7 +341,7 @@ while True:
             try:
                 mode_ai()
             except:
-                print("Click on the button")
+                pass
 
             check_win(num)
             num()
