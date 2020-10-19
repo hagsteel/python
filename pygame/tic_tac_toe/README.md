@@ -1,11 +1,11 @@
 # Tic Tac Toe
 
-Tic Tac Toe written in Python and Pygame modules
+Tic Tac Toe is written in Python and Pygame modules
 
-There three version ai, command line, and graphics interface with ai, you
+There are three versions ai, command line, and graphical user interface with ai, you
 can choose either one
 
-**Recommended: Graphics interface with ai**
+**Recommended: Graphical user interface with ai**
 
 ## Requirements
 
@@ -18,11 +18,11 @@ Prerequisites:
 
 Instructions:
 
-1. Download Pygame
+1. Download Pygame:
 
         $ sudo apt-get install python3-pygame
 
-1. Run
+1. Run:
 
         $ python3 main.py
 
@@ -35,11 +35,11 @@ Prerequisites:
 
 Instructions:
 
-1. Download Pygame
+1. Download Pygame:
 
         $ python3 -m pip install -U pygame==2.0.0.dev12 --user
 
-1. Run
+1. Run:
 
         $ python3 main.py
 

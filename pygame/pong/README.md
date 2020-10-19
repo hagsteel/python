@@ -1,6 +1,6 @@
 # Pong
 
-Pong written in Python and Turtle modules
+Pong is written in Python and Turtle modules
 
 ## Requirements
 
@@ -12,11 +12,11 @@ Prerequisites:
 
 Instructions:
 
-1. Download Pygame
+1. Download Pygame:
 
         $ sudo apt-get install python3-pygame
 
-1. Run
+1. Run:
 
         $ python3 main.py
 
@@ -28,11 +28,11 @@ Prerequisites:
 
 Instructions:
 
-1. Download Pygame
+1. Download Pygame:
 
         $ python3 -m pip install -U pygame==2.0.0.dev12 --user
 
-1. Run
+1. Run:
 
         $ python3 main.py
 

@@ -1,6 +1,6 @@
 # Calculator
 
-Calculator written in Python and Tkinter modules
+Calculator is written in Python and Tkinter modules
 
 ## Requirements
 

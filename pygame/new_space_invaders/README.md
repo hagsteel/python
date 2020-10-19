@@ -1,6 +1,6 @@
 # Space Invaders
 
-New Space Invaders written in Python and Pygame modules
+New Space Invaders is written in Python and Pygame modules
 
 ## Requirements
 
@@ -17,7 +17,7 @@ Instructions:
 
         $ sudo apt-get install python3-pygame
 
-1. Run
+1. Run:
 
         $ python3 main.py
 
@@ -34,7 +34,7 @@ Instructions:
 
         $ python3 -m pip install -U pygame==2.0.0.dev12 --user
 
-1. Run
+1. Run:
 
         $ python3 main.py
 

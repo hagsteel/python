@@ -1,11 +1,11 @@
 # Hangman
 
-Hangman written in Python and Pygame modules
+Hangman is written in Python and Pygame modules
 
-There two version command line and graphics interface, you
+There two version command line and graphical user interface, you
 can choose either one
 
-**Recommended: Graphics interface**
+**Recommended: Graphical user interface**
 
 ## Requirements
 
@@ -18,11 +18,11 @@ Prerequisites:
 
 Instructions:
 
-1. Download Pygame
+1. Download Pygame:
 
         $ sudo apt-get install python3-pygame
 
-1. Run
+1. Run:
     
         $ python3 main.py
 
@@ -35,11 +35,11 @@ Prerequisites:
 
 Instructions:
 
-1. Download Pygame
+1. Download Pygame:
 
         $ python3 -m pip install -U pygame==2.0.0.dev12 --user
 
-1. Run
+1. Run:
     
         $ python3 main.py
 
