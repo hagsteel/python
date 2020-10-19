@@ -1,6 +1,11 @@
-# Calculator
+# Password Generator
 
-Calculator is written in Python and Tkinter modules
+Password Generator is written in Python and Tkinter modules
+
+There are two versions command line and graphical user
+interface, you can choose either one
+
+**Recommended: Graphical user interface**
 
 ## Requirements
 
@@ -17,7 +22,7 @@ Instructions:
         $ sudo apt-get install python3-tk
 
 1. Run:
-    
+
         $ python3 main.py
 
 ### Windows

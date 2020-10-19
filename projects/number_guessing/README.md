@@ -1,6 +1,6 @@
-# Calculator
+# Number Guessing 
 
-Calculator is written in Python and Tkinter modules
+Number Guessing is written in Python
 
 ## Requirements
 
@@ -10,14 +10,8 @@ Prerequisites:
 
 * [Python][Python-download]
 
-Instructions:
-
-1. Download Tkinter:
-
-        $ sudo apt-get install python3-tk
-
 1. Run:
-    
+
         $ python3 main.py
 
 ### Windows
@@ -25,8 +19,6 @@ Instructions:
 Prerequisites:
 
 * [Python][Python-download]
-
-1. On Windows, download Python, and Tkinter comes build-in
 
 1. Run:
     

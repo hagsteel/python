@@ -1,6 +1,6 @@
-# Calculator
+# Login System 
 
-Calculator is written in Python and Tkinter modules
+Login system is written in Python and Tkinter modules
 
 ## Requirements
 
@@ -17,7 +17,7 @@ Instructions:
         $ sudo apt-get install python3-tk
 
 1. Run:
-    
+
         $ python3 main.py
 
 ### Windows
