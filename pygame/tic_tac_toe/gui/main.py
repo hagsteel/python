@@ -176,19 +176,15 @@ def ai():
             board[row][column] = 2
             current_player_turn = "X"
 
-def best_ai():
-    bestscore = float('-inf')
-    for row, column in range(3):
-        if board[row][column] == 0:
-            board[row][column] = ai
-            score = minimax(board)
-            board[row][column] = 0
-            if score > bestscore:
-                bestscore = score
-                bestmove = board[row][column]
+def best_move():
+    while current_player_turn == "Computer":
+        minimax()
 
-def minimax(board):
-    return 1
+def minimax(board, depth, isMaximizing):
+    for i, j in range(2):
+        if board[i][j] == 0:
+            bestscore = float('-inf')
+
 
 def flip_ai_player():
     global current_player_turn
@@ -250,7 +246,8 @@ def mode_ai():
                 screen.blit(x_img, (50, 50))
                 board[0][0] = 1
                 if not is_board_fill():
-                    ai()
+                    # ai()
+                    best_move()
                     flip_ai_player()
 
         if second.collidepoint(pos) and board[0][1] == 0:
@@ -258,7 +255,8 @@ def mode_ai():
                 screen.blit(x_img, (225, 50))
                 board[0][1] = 1
                 if not is_board_fill():
-                    ai()
+                    # ai()
+                    best_move()
                     flip_ai_player()
 
         if third.collidepoint(pos) and board[0][2] == 0:
@@ -266,7 +264,8 @@ def mode_ai():
                 screen.blit(x_img, (400, 50))
                 board[0][2] = 1
                 if not is_board_fill():
-                    ai()
+                    # ai()
+                    best_move()
                     flip_ai_player()
 
         if fourth.collidepoint(pos) and board[1][0] == 0:
@@ -274,7 +273,8 @@ def mode_ai():
                 screen.blit(x_img, (50, 225))
                 board[1][0] = 1
                 if not is_board_fill():
-                    ai()
+                    # ai()
+                    best_move()
                     flip_ai_player()
 
         if fifth.collidepoint(pos) and board[1][1] == 0:
@@ -282,7 +282,8 @@ def mode_ai():
                 screen.blit(x_img, (225, 225))
                 board[1][1] = 1
                 if not is_board_fill():
-                    ai()
+                    # ai()
+                    best_move()
                     flip_ai_player()
 
         if sixth.collidepoint(pos) and board[1][2] == 0:
@@ -290,7 +291,8 @@ def mode_ai():
                 screen.blit(x_img, (400, 225))
                 board[1][2] = 1
                 if not is_board_fill():
-                    ai()
+                    # ai()
+                    best_move()
                     flip_ai_player()
 
         if seventh.collidepoint(pos) and board[2][0] == 0:
@@ -298,7 +300,8 @@ def mode_ai():
                 screen.blit(x_img, (50, 400))
                 board[2][0] = 1
                 if not is_board_fill():
-                    ai()
+                    # ai()
+                    best_move()
                     flip_ai_player()
 
         if eighth.collidepoint(pos) and board[2][1] == 0:
@@ -306,7 +309,8 @@ def mode_ai():
                 screen.blit(x_img, (225, 400))
                 board[2][1] = 1
                 if not is_board_fill():
-                    ai()
+                    # ai()
+                    best_move()
                     flip_ai_player()
 
         if ninth.collidepoint(pos) and board[2][2] == 0:
@@ -314,7 +318,8 @@ def mode_ai():
                 screen.blit(x_img, (400, 400))
                 board[2][2] = 1
                 if not is_board_fill():
-                    ai()
+                    # ai()
+                    best_move()
                     flip_ai_player()
 
 
@@ -334,7 +339,8 @@ while True:
                 board = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
                 screen.fill((0, 0, 0))
                 draw_rectangle()
-                ai()
+                # ai()
+                best_move()
                 flip_ai_player()
 
         if event.type == pygame.MOUSEBUTTONDOWN:
