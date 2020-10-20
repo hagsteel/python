@@ -9,6 +9,7 @@ pygame.init()
 WIDTH, HEIGHT = 550, 650
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 
+# Caption
 pygame.display.set_caption("Tic Tac Toe")
 
 # Colors
@@ -24,12 +25,12 @@ LIGHT_BLUE = (108, 176, 243)
 clock = pygame.time.Clock()
 FPS = 60
 
-# Loading images
+# Images
 project_directory = os.path.dirname(__file__)
 x_img = pygame.image.load(os.path.join(project_directory, "img/x.png"))
 o_img = pygame.image.load(os.path.join(project_directory, "img/o.png"))
 
-# Resizing images
+# Resize images
 WIDTH_RESIZE, HEIGHT_RESIZE = 110, 110
 x_img = pygame.transform.scale(x_img, (WIDTH_RESIZE, HEIGHT_RESIZE))
 o_img = pygame.transform.scale(o_img, (WIDTH_RESIZE, HEIGHT_RESIZE))
@@ -46,7 +47,7 @@ is_click = "not click"
 is_game_end = False
 current_player_turn = "X"
 
-# Fonts
+# Font
 ARCADECLASSIC = os.path.join(project_directory, "font/arcadeclassic.regular.ttf")
 FONT = pygame.font.Font(ARCADECLASSIC, 32)
 OVER_FONT = pygame.font.Font(ARCADECLASSIC, 50)
@@ -161,7 +162,7 @@ def tie():
 
 
 # Computer(AI)
-def ai():
+"""def ai():
     global current_player_turn
 
     while current_player_turn == "Computer":
@@ -175,35 +176,19 @@ def ai():
             screen.blit(o_img, (x, y))
             board[row][column] = 2
             current_player_turn = "X"
+            """
 
 
-def best_move():
+def best_ai():
     global current_player_turn
 
     if current_player_turn == "Computer":
-        minimax(3, True)
+        for row in board:
+            if board[0][0] == 0 and board[0][1] == 1 and board[0][2] == 1:
+                screen.blit(o_img, (50, 50))
 
-
-def minimax(depth, is_maximizing):
-    global current_player_turn
-
-    for row, column in range(2, 2):
-        if board[row][column] == 0:
-            if is_maximizing:
-                best_score = float("-inf")
-                eval = minimax(board, depth - 1, False)
-                best_score = max(best_score, eval)
-                print(best_score)
-                current_player_turn = "X"
-                return best_score
-
-            else:
-                min_eval = float("+inf")
-                eval = minimax(board, depth - 1, True)
-                min_eval = min(min_eval, eval)
-                print(min_eval)
-                current_player_turn = "X"
-                return min_eval
+            if board[0][0] == 0 and board[1][1] == 1 and board[2][2] == 1:
+                screen.blit(o_img, (50, 50))
 
 
 def flip_ai_player():
@@ -268,7 +253,6 @@ def mode_ai():
                 board[0][0] = 1
                 if not is_board_fill():
                     # ai()
-                    best_move()
                     flip_ai_player()
 
         if second.collidepoint(pos) and board[0][1] == 0:
@@ -277,7 +261,6 @@ def mode_ai():
                 board[0][1] = 1
                 if not is_board_fill():
                     # ai()
-                    best_move()
                     flip_ai_player()
 
         if third.collidepoint(pos) and board[0][2] == 0:
@@ -286,7 +269,6 @@ def mode_ai():
                 board[0][2] = 1
                 if not is_board_fill():
                     # ai()
-                    best_move()
                     flip_ai_player()
 
         if fourth.collidepoint(pos) and board[1][0] == 0:
@@ -295,7 +277,6 @@ def mode_ai():
                 board[1][0] = 1
                 if not is_board_fill():
                     # ai()
-                    best_move()
                     flip_ai_player()
 
         if fifth.collidepoint(pos) and board[1][1] == 0:
@@ -304,7 +285,6 @@ def mode_ai():
                 board[1][1] = 1
                 if not is_board_fill():
                     # ai()
-                    best_move()
                     flip_ai_player()
 
         if sixth.collidepoint(pos) and board[1][2] == 0:
@@ -313,7 +293,6 @@ def mode_ai():
                 board[1][2] = 1
                 if not is_board_fill():
                     # ai()
-                    best_move()
                     flip_ai_player()
 
         if seventh.collidepoint(pos) and board[2][0] == 0:
@@ -322,7 +301,6 @@ def mode_ai():
                 board[2][0] = 1
                 if not is_board_fill():
                     # ai()
-                    best_move()
                     flip_ai_player()
 
         if eighth.collidepoint(pos) and board[2][1] == 0:
@@ -331,7 +309,6 @@ def mode_ai():
                 board[2][1] = 1
                 if not is_board_fill():
                     # ai()
-                    best_move()
                     flip_ai_player()
 
         if ninth.collidepoint(pos) and board[2][2] == 0:
@@ -340,7 +317,6 @@ def mode_ai():
                 board[2][2] = 1
                 if not is_board_fill():
                     # ai()
-                    best_move()
                     flip_ai_player()
 
 
@@ -361,7 +337,6 @@ while True:
                 screen.fill((0, 0, 0))
                 draw_rectangle()
                 # ai()
-                best_move()
                 flip_ai_player()
 
         if event.type == pygame.MOUSEBUTTONDOWN:
@@ -384,6 +359,7 @@ while True:
                     won = True
                     o_score += 1
             draw_text_won()
+            best_ai()
 
         is_button_click()
         game_intro()
