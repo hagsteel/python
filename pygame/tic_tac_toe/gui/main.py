@@ -180,21 +180,15 @@ def ai():
 def best_ai():
     global CURRENT_PLAYER_TURN, BOARD
 
-    board_copy = copy.copy(BOARD)
-    print(board_copy)
+    BOARD_COPY = [list(row) for row in BOARD]
 
     if CURRENT_PLAYER_TURN == "Computer":
         for i, j in range(3, 3):
-            if board_copy[i][1] == 1 and board_copy[i][2] == 1:
-                if board_copy[i][j] == 0:
+            if BOARD_COPY[i][1] == 1 and BOARD_COPY[i][2] == 1:
+                if BOARD_COPY[i][0] == 0:
                     x = [50, 225, 400][i]
                     y = [50, 225, 400][j]
                     screen.blit(o_img, (x, y))
-
-    two_time = 2
-    for i in range(two_time):
-        check_win(1, board_copy)
-    print("Check only two time")
 
 
 def flip_ai_player():
