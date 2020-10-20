@@ -178,24 +178,32 @@ def ai():
 
 
 def best_move():
+    global current_player_turn
+
     if current_player_turn == "Computer":
-        minimax(board, 3, True)
+        minimax(3, True)
 
 
-def minimax(board, depth, isMaximizing):
+def minimax(depth, is_maximizing):
+    global current_player_turn
+
     for row, column in range(2, 2):
         if board[row][column] == 0:
-            if isMaximizing:
-                bestscore = float("-inf")
+            if is_maximizing:
+                best_score = float("-inf")
                 eval = minimax(board, depth - 1, False)
-                bestscore = max(bestscore, eval)
-                return bestscore
+                best_score = max(best_score, eval)
+                print(best_score)
+                current_player_turn = "X"
+                return best_score
 
             else:
-                minEval = float("+inf")
+                min_eval = float("+inf")
                 eval = minimax(board, depth - 1, True)
-                minEval = min(minEval, eval)
-                return minEval
+                min_eval = min(min_eval, eval)
+                print(min_eval)
+                current_player_turn = "X"
+                return min_eval
 
 
 def flip_ai_player():
@@ -243,7 +251,8 @@ def is_button_click():
     global is_click
 
     if not click[0] == 1 and is_click == "not click":
-        click_on_button = FONT.render("Click   on   the   button   to   play", True, (255, 255, 255))
+        click_on_button = FONT.render("Click   on   the   button   to   play",
+                                      True, (255, 255, 255))
         screen.blit(click_on_button, (55, 200))
         is_click = "click"
 
