@@ -176,14 +176,26 @@ def ai():
             board[row][column] = 2
             current_player_turn = "X"
 
+
 def best_move():
-    while current_player_turn == "Computer":
-        minimax()
+    if current_player_turn == "Computer":
+        minimax(board, 3, True)
+
 
 def minimax(board, depth, isMaximizing):
-    for i, j in range(2):
-        if board[i][j] == 0:
-            bestscore = float('-inf')
+    for row, column in range(2, 2):
+        if board[row][column] == 0:
+            if isMaximizing:
+                bestscore = float("-inf")
+                eval = minimax(board, depth - 1, False)
+                bestscore = max(bestscore, eval)
+                return bestscore
+
+            else:
+                minEval = float("+inf")
+                eval = minimax(board, depth - 1, True)
+                minEval = min(minEval, eval)
+                return minEval
 
 
 def flip_ai_player():
