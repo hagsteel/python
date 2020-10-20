@@ -182,10 +182,10 @@ def best_ai():
     BOARD_COPY = [list(row) for row in BOARD]
 
     if CURRENT_PLAYER_TURN == "Computer":
-        for i, j in range(3, 3):
-            if BOARD_COPY[i][1] == 1 and BOARD_COPY[i][2] == 1:
-                if BOARD_COPY[i][0] == 0:
-                    x = [50, 225, 400][i]
+        for j in range(3):
+            if BOARD_COPY[j][1] == 1 and BOARD_COPY[j][2] == 1:
+                if BOARD_COPY[j][0] == 0:
+                    x = [50, 225, 400][j]
                     y = [50, 225, 400][j]
                     screen.blit(o_img, (x, y))
                     CURRENT_PLAYER_TURN = "X"
