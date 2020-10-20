@@ -1,5 +1,6 @@
 import os.path
 import sys
+import random
 
 import pygame
 
@@ -158,7 +159,6 @@ def tie():
 
 
 # Computer(AI)
-"""
 def ai():
     global CURRENT_PLAYER_TURN
 
@@ -173,22 +173,26 @@ def ai():
             screen.blit(o_img, (x, y))
             BOARD[row][column] = 2
             CURRENT_PLAYER_TURN = "X"
-"""
 
 
 def best_ai():
-    global CURRENT_PLAYER_TURN
+    global CURRENT_PLAYER_TURN, BOARD
 
-    BOARD_COPY = [list(row) for row in BOARD]
+    first = True
+
+    # BOARD_COPY = [list(row) for row in BOARD]
 
     if CURRENT_PLAYER_TURN == "Computer":
-        for j in range(3):
-            if BOARD_COPY[j][1] == 1 and BOARD_COPY[j][2] == 1:
-                if BOARD_COPY[j][0] == 0:
-                    x = [50, 225, 400][j]
-                    y = [50, 225, 400][j]
+        for i in range(3):
+            if BOARD[i][1] == 1 and BOARD[i][2] == 1 and first is True:
+                if BOARD[i][0] == 0:
+                    x = [50, 225, 400][i]
+                    y = [50, 225, 400][i]
                     screen.blit(o_img, (x, y))
-                    CURRENT_PLAYER_TURN = "X"
+                    BOARD[i][i] = 2
+                    first = False
+            else:
+                ai()
 
 
 def flip_ai_player():
