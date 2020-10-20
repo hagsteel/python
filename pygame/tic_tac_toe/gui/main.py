@@ -178,7 +178,7 @@ def ai():
 
 
 def best_ai():
-    global CURRENT_PLAYER_TURN, BOARD
+    global CURRENT_PLAYER_TURN
 
     BOARD_COPY = [list(row) for row in BOARD]
 
