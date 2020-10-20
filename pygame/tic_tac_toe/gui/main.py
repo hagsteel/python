@@ -1,5 +1,6 @@
 import os.path
 import sys
+import copy
 
 import pygame
 
@@ -67,7 +68,7 @@ def draw_rectangle():
     ninth = pygame.draw.rect(screen, WHITE, (375, 375, 150, 150))
 
 
-def check_win(number):
+def check_win(number, BOARD):
     for row in BOARD:
         for tile in row:
             if tile == number:
@@ -102,9 +103,9 @@ def check_win(number):
 def num():
     global WON_X, WON_O
 
-    if check_win(1):
+    if check_win(1, BOARD):
         WON_X = True
-    elif check_win(2):
+    elif check_win(2, BOARD):
         WON_O = True
 
 
@@ -177,14 +178,23 @@ def ai():
 
 
 def best_ai():
-    global CURRENT_PLAYER_TURN
+    global CURRENT_PLAYER_TURN, BOARD
+
+    board_copy = copy.copy(BOARD)
+    print(board_copy)
 
     if CURRENT_PLAYER_TURN == "Computer":
-        if BOARD[0][0] == 0 and BOARD[0][1] == 1 and BOARD[0][2] == 1:
-            screen.blit(o_img, (50, 50))
+        for i, j in range(3, 3):
+            if board_copy[i][1] == 1 and board_copy[i][2] == 1:
+                if board_copy[i][j] == 0:
+                    x = [50, 225, 400][i]
+                    y = [50, 225, 400][j]
+                    screen.blit(o_img, (x, y))
 
-        if BOARD[0][0] == 0 and BOARD[1][1] == 1 and BOARD[2][2] == 1:
-            screen.blit(o_img, (50, 50))
+    two_time = 2
+    for i in range(two_time):
+        check_win(1, board_copy)
+    print("Check only two time")
 
 
 def flip_ai_player():
@@ -341,16 +351,16 @@ while True:
             except:
                 pass
 
-            check_win(num)
+            check_win(num, BOARD)
             num()
             if WON_X is False and WON_O is False and is_board_fill():
                 tie()
             if IS_GAME_END is False:
-                if check_win(1):
+                if check_win(1, BOARD):
                     IS_GAME_END = True
                     WON = True
                     X_SCORE += 1
-                if check_win(2):
+                if check_win(2, BOARD):
                     IS_GAME_END = True
                     WON = True
                     O_SCORE += 1
