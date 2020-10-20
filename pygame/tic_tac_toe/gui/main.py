@@ -1,6 +1,6 @@
 import os.path
 import sys
-import random
+
 import pygame
 
 pygame.init()
@@ -36,16 +36,16 @@ x_img = pygame.transform.scale(x_img, (WIDTH_RESIZE, HEIGHT_RESIZE))
 o_img = pygame.transform.scale(o_img, (WIDTH_RESIZE, HEIGHT_RESIZE))
 
 # Game variables
-current_player = "X"
-board = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
-won = False
-won_x = False
-won_o = False
-x_score = 0
-o_score = 0
-is_click = "not click"
-is_game_end = False
-current_player_turn = "X"
+CURRENT_PLAYER = "X"
+BOARD = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
+WON = False
+WON_X = False
+WON_O = False
+X_SCORE = 0
+O_SCORE = 0
+IS_CLICK = "not click"
+IS_GAME_END = False
+CURRENT_PLAYER_TURN = "X"
 
 # Font
 ARCADECLASSIC = os.path.join(project_directory, "font/arcadeclassic.regular.ttf")
@@ -68,84 +68,80 @@ def draw_rectangle():
 
 
 def check_win(number):
-    for row in board:
+    for row in BOARD:
         for tile in row:
             if tile == number:
                 continue
-            else:
-                break
+            break
         else:
             return True
 
     for column in range(3):
-        for row in board:
+        for row in BOARD:
             if row[column] == number:
                 continue
-            else:
-                break
+            break
         else:
             return True
 
     for tile in range(3):
-        if board[tile][tile] == number:
+        if BOARD[tile][tile] == number:
             continue
-        else:
-            break
+        break
     else:
         return True
 
     for tile in range(3):
-        if board[tile][2 - tile] == number:
+        if BOARD[tile][2 - tile] == number:
             continue
-        else:
-            break
+        break
     else:
         return True
 
 
 def num():
-    global won_x, won_o
+    global WON_X, WON_O
 
     if check_win(1):
-        won_x = True
+        WON_X = True
     elif check_win(2):
-        won_o = True
+        WON_O = True
 
 
 def x_turn():
-    if current_player == "X":
+    if CURRENT_PLAYER == "X":
         x_turn_text = FONT.render("X turn", True, WHITE)
         screen.blit(x_turn_text, (130, 550))
         pygame.draw.rect(screen, BLACK, (120, 600, 110, 30))
 
 
 def o_turn():
-    if current_player == "O":
+    if CURRENT_PLAYER == "O":
         o_turn_text = FONT.render("O turn", True, WHITE)
         screen.blit(o_turn_text, (130, 600))
         pygame.draw.rect(screen, BLACK, (130, 550, 110, 30))
 
 
 def score_x():
-    score_value = FONT.render("X " + str(x_score), True, WHITE)
+    score_value = FONT.render("X " + str(X_SCORE), True, WHITE)
     screen.blit(score_value, (50, 550))
 
 
 def score_o():
-    score_value = FONT.render("O " + str(o_score), True, WHITE)
+    score_value = FONT.render("O " + str(O_SCORE), True, WHITE)
     screen.blit(score_value, (50, 600))
 
 
 def draw_text_won():
     global OVER_FONT
 
-    if won_x:
+    if WON_X:
         over_text = OVER_FONT.render("X won", True, LIGHT_BLUE)
         space_text = OVER_FONT.render("Space bar for clear", True, LIGHT_BLUE)
         screen.blit(over_text, (220, 200))
         screen.blit(space_text, (50, 300))
 
-    elif won_o:
+    elif WON_O:
         over_text = OVER_FONT.render("Computer won", True, PINK)
         space_text = OVER_FONT.render("Space bar for clear", True, PINK)
         screen.blit(over_text, (140, 200))
@@ -162,69 +158,69 @@ def tie():
 
 
 # Computer(AI)
-"""def ai():
-    global current_player_turn
+"""
+def ai():
+    global CURRENT_PLAYER_TURN
 
-    while current_player_turn == "Computer":
+    while CURRENT_PLAYER_TURN == "Computer":
         row = random.randint(0, 2)
         column = random.randint(0, 2)
 
         x = [50, 225, 400][column]
         y = [50, 225, 400][row]
 
-        if board[row][column] == 0:
+        if BOARD[row][column] == 0:
             screen.blit(o_img, (x, y))
-            board[row][column] = 2
-            current_player_turn = "X"
-            """
+            BOARD[row][column] = 2
+            CURRENT_PLAYER_TURN = "X"
+"""
 
 
 def best_ai():
-    global current_player_turn
+    global CURRENT_PLAYER_TURN
 
-    if current_player_turn == "Computer":
-        for row in board:
-            if board[0][0] == 0 and board[0][1] == 1 and board[0][2] == 1:
-                screen.blit(o_img, (50, 50))
+    if CURRENT_PLAYER_TURN == "Computer":
+        if BOARD[0][0] == 0 and BOARD[0][1] == 1 and BOARD[0][2] == 1:
+            screen.blit(o_img, (50, 50))
 
-            if board[0][0] == 0 and board[1][1] == 1 and board[2][2] == 1:
-                screen.blit(o_img, (50, 50))
+        if BOARD[0][0] == 0 and BOARD[1][1] == 1 and BOARD[2][2] == 1:
+            screen.blit(o_img, (50, 50))
 
 
 def flip_ai_player():
-    global current_player_turn
+    global CURRENT_PLAYER_TURN
 
-    if current_player_turn == "X":
-        current_player_turn = "Computer"
-    elif current_player_turn == "Computer":
-        current_player_turn = "X"
+    if CURRENT_PLAYER_TURN == "X":
+        CURRENT_PLAYER_TURN = "Computer"
+    elif CURRENT_PLAYER_TURN == "Computer":
+        CURRENT_PLAYER_TURN = "X"
 
 
 def is_board_fill():
-    return board[0][0] != 0 and board[0][1] != 0 and \
-           board[0][2] != 0 and board[1][0] != 0 and \
-           board[1][1] != 0 and board[1][2] != 0 and \
-           board[2][0] != 0 and board[2][1] != 0 and \
-           board[2][2] != 0
+    return BOARD[0][0] != 0 and BOARD[0][1] != 0 and \
+           BOARD[0][2] != 0 and BOARD[1][0] != 0 and \
+           BOARD[1][1] != 0 and BOARD[1][2] != 0 and \
+           BOARD[2][0] != 0 and BOARD[2][1] != 0 and \
+           BOARD[2][2] != 0
 
 
 def game_intro():
-    global x_score, o_score, won_x, won_o, won, board, click, current_player_turn
+    global X_SCORE, O_SCORE, WON_X, WON_O, WON, BOARD, CLICK, CURRENT_PLAYER_TURN
 
     mouse = pygame.mouse.get_pos()
-    click = pygame.mouse.get_pressed()
+    CLICK = pygame.mouse.get_pressed()
     mode_computer = pygame.draw.rect(screen, GREY, (250, 560, 160, 50))
 
     if mode_computer.collidepoint(mouse):
         pygame.draw.rect(screen, BRIGHT_GREY, (250, 560, 160, 50))
-        if click[0] == 1:
-            won_x = False
-            won_o = False
-            won = False
-            x_score = 0
-            o_score = 0
-            current_player_turn = "Computer"
-            board = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
+        if CLICK[0] == 1:
+            WON_X = False
+            WON_O = False
+            WON = False
+            X_SCORE = 0
+            O_SCORE = 0
+            CURRENT_PLAYER_TURN = "Computer"
+            BOARD = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
             screen.fill((0, 0, 0))
             draw_rectangle()
 
@@ -233,95 +229,95 @@ def game_intro():
 
 
 def is_button_click():
-    global is_click
+    global IS_CLICK
 
-    if not click[0] == 1 and is_click == "not click":
+    if not CLICK[0] == 1 and IS_CLICK == "not click":
         click_on_button = FONT.render("Click   on   the   button   to   play",
                                       True, (255, 255, 255))
         screen.blit(click_on_button, (55, 200))
-        is_click = "click"
+        IS_CLICK = "click"
 
 
 def mode_ai():
     pos = pygame.mouse.get_pos()
     game_intro()
 
-    if won is not True:
-        if first.collidepoint(pos) and board[0][0] == 0:
-            if current_player == "X":
+    if WON is not True:
+        if first.collidepoint(pos) and BOARD[0][0] == 0:
+            if CURRENT_PLAYER == "X":
                 screen.blit(x_img, (50, 50))
-                board[0][0] = 1
+                BOARD[0][0] = 1
                 if not is_board_fill():
                     # ai()
                     flip_ai_player()
 
-        if second.collidepoint(pos) and board[0][1] == 0:
-            if current_player == "X":
+        if second.collidepoint(pos) and BOARD[0][1] == 0:
+            if CURRENT_PLAYER == "X":
                 screen.blit(x_img, (225, 50))
-                board[0][1] = 1
+                BOARD[0][1] = 1
                 if not is_board_fill():
                     # ai()
                     flip_ai_player()
 
-        if third.collidepoint(pos) and board[0][2] == 0:
-            if current_player == "X":
+        if third.collidepoint(pos) and BOARD[0][2] == 0:
+            if CURRENT_PLAYER == "X":
                 screen.blit(x_img, (400, 50))
-                board[0][2] = 1
+                BOARD[0][2] = 1
                 if not is_board_fill():
                     # ai()
                     flip_ai_player()
 
-        if fourth.collidepoint(pos) and board[1][0] == 0:
-            if current_player == "X":
+        if fourth.collidepoint(pos) and BOARD[1][0] == 0:
+            if CURRENT_PLAYER == "X":
                 screen.blit(x_img, (50, 225))
-                board[1][0] = 1
+                BOARD[1][0] = 1
                 if not is_board_fill():
                     # ai()
                     flip_ai_player()
 
-        if fifth.collidepoint(pos) and board[1][1] == 0:
-            if current_player == "X":
+        if fifth.collidepoint(pos) and BOARD[1][1] == 0:
+            if CURRENT_PLAYER == "X":
                 screen.blit(x_img, (225, 225))
-                board[1][1] = 1
+                BOARD[1][1] = 1
                 if not is_board_fill():
                     # ai()
                     flip_ai_player()
 
-        if sixth.collidepoint(pos) and board[1][2] == 0:
-            if current_player == "X":
+        if sixth.collidepoint(pos) and BOARD[1][2] == 0:
+            if CURRENT_PLAYER == "X":
                 screen.blit(x_img, (400, 225))
-                board[1][2] = 1
+                BOARD[1][2] = 1
                 if not is_board_fill():
                     # ai()
                     flip_ai_player()
 
-        if seventh.collidepoint(pos) and board[2][0] == 0:
-            if current_player == "X":
+        if seventh.collidepoint(pos) and BOARD[2][0] == 0:
+            if CURRENT_PLAYER == "X":
                 screen.blit(x_img, (50, 400))
-                board[2][0] = 1
+                BOARD[2][0] = 1
                 if not is_board_fill():
                     # ai()
                     flip_ai_player()
 
-        if eighth.collidepoint(pos) and board[2][1] == 0:
-            if current_player == "X":
+        if eighth.collidepoint(pos) and BOARD[2][1] == 0:
+            if CURRENT_PLAYER == "X":
                 screen.blit(x_img, (225, 400))
-                board[2][1] = 1
+                BOARD[2][1] = 1
                 if not is_board_fill():
                     # ai()
                     flip_ai_player()
 
-        if ninth.collidepoint(pos) and board[2][2] == 0:
-            if current_player == "X":
+        if ninth.collidepoint(pos) and BOARD[2][2] == 0:
+            if CURRENT_PLAYER == "X":
                 screen.blit(x_img, (400, 400))
-                board[2][2] = 1
+                BOARD[2][2] = 1
                 if not is_board_fill():
                     # ai()
                     flip_ai_player()
 
 
 while True:
-    click = pygame.mouse.get_pressed()
+    CLICK = pygame.mouse.get_pressed()
     clock.tick(FPS)
 
     for event in pygame.event.get():
@@ -329,11 +325,11 @@ while True:
             sys.exit()
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE:
-                won_x = False
-                won_o = False
-                won = False
-                is_game_end = False
-                board = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
+                WON_X = False
+                WON_O = False
+                WON = False
+                IS_GAME_END = False
+                BOARD = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
                 screen.fill((0, 0, 0))
                 draw_rectangle()
                 # ai()
@@ -347,17 +343,17 @@ while True:
 
             check_win(num)
             num()
-            if won_x is False and won_o is False and is_board_fill():
+            if WON_X is False and WON_O is False and is_board_fill():
                 tie()
-            if is_game_end is False:
+            if IS_GAME_END is False:
                 if check_win(1):
-                    is_game_end = True
-                    won = True
-                    x_score += 1
+                    IS_GAME_END = True
+                    WON = True
+                    X_SCORE += 1
                 if check_win(2):
-                    is_game_end = True
-                    won = True
-                    o_score += 1
+                    IS_GAME_END = True
+                    WON = True
+                    O_SCORE += 1
             draw_text_won()
             best_ai()
 
