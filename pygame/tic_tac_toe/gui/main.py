@@ -183,17 +183,15 @@ def best_ai():
     # BOARD_COPY = [list(row) for row in BOARD]
 
     if CURRENT_PLAYER_TURN == "Computer":
-        for i in range(3):
-            if BOARD[i][1] == 1 and BOARD[i][2] == 1 and first is True:
-                if BOARD[i][0] == 0:
-                    x = [50, 225, 400][i]
-                    y = [50, 225, 400][i]
-                    screen.blit(o_img, (x, y))
-                    BOARD[i][i] = 2
-                    first = False
-            else:
-                ai()
-
+        if BOARD[0][1] == 1 and BOARD[0][2] == 1 and first is True:
+            if BOARD[0][0] == 0:
+                x = [50, 225, 400][0]
+                y = [50, 225, 400][0]
+                BOARD[0][0] = 2
+                screen.blit(o_img, (x, y))
+                first = False
+        else:
+            ai()
 
 def flip_ai_player():
     global CURRENT_PLAYER_TURN
