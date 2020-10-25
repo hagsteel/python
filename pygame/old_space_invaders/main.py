@@ -122,19 +122,19 @@ while True:
         if event.type == pygame.QUIT:
             sys.exit()
 
-        # If keystroke is pressed check whether it's right or left
-        keys = pygame.key.get_pressed()
-        if keys[pygame.K_LEFT]:
-            player_x -= player_x_change
-        if keys[pygame.K_RIGHT]:
-            player_x += player_x_change
-        if keys[pygame.K_SPACE]:
-            if bullet_state == 'Ready':
-                bullet_sound = mixer.Sound(os.path.join(project_directory, "sound/laser.wav"))
-                bullet_sound.set_volume(0.05)
-                bullet_sound.play()
-                bullet_x = player_x
-                fire_bullet(bullet_x, bullet_y)
+    # If keystroke is pressed check whether it's right or left
+    keys = pygame.key.get_pressed()
+    if keys[pygame.K_LEFT]:
+        player_x -= player_x_change
+    if keys[pygame.K_RIGHT]:
+        player_x += player_x_change
+    if keys[pygame.K_SPACE]:
+        if bullet_state == 'Ready':
+            bullet_sound = mixer.Sound(os.path.join(project_directory, "sound/laser.wav"))
+            bullet_sound.set_volume(0.05)
+            bullet_sound.play()
+            bullet_x = player_x
+            fire_bullet(bullet_x, bullet_y)
 
     # Checking the boundaries
     if player_x < 0:
