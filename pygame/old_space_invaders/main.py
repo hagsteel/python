@@ -1,8 +1,9 @@
 import math
-import sys
 import os.path
-from os.path import abspath, dirname
 import random
+import sys
+from os.path import abspath, dirname
+
 import pygame
 from pygame import mixer
 
