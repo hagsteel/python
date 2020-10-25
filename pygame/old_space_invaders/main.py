@@ -75,6 +75,10 @@ text_y = 10
 # Game over
 over_font = pygame.font.Font(font, 70)
 
+# Global
+CLOCK = pygame.time.Clock()
+FPS = 60
+pygame.key.set_repeat(1, 10)
 
 def game_over_text():
     over_text = over_font.render("GAME OVER!", True, (255, 255, 255))
@@ -108,11 +112,6 @@ def is_collision(enemy_x, enemy_y, bullet_x, bullet_y):
         return True
     else:
         return False
-
-
-CLOCK = pygame.time.Clock()
-FPS = 60
-pygame.key.set_repeat(1, 10)
 
 while True:
     CLOCK.tick(FPS)
