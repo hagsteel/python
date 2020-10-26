@@ -68,7 +68,7 @@ def draw_rectangle():
     ninth = pygame.draw.rect(screen, WHITE, (375, 375, 150, 150))
 
 
-def check_win(number, BOARD):
+def check_win(number):
     for row in BOARD:
         for tile in row:
             if tile == number:
@@ -103,9 +103,9 @@ def check_win(number, BOARD):
 def num():
     global WON_X, WON_O
 
-    if check_win(1, BOARD):
+    if check_win(1):
         WON_X = True
-    elif check_win(2, BOARD):
+    elif check_win(2):
         WON_O = True
 
 
@@ -175,26 +175,28 @@ def ai():
             CURRENT_PLAYER_TURN = "X"
 
 
+blit = False
 def best_ai():
-    global CURRENT_PLAYER_TURN, BOARD
+    global CURRENT_PLAYER_TURN, BOARD, blit
 
-
-    # BOARD_COPY = [list(row) for row in BOARD]
-
-    if CURRENT_PLAYER_TURN == "Computer":
+    if blit:
         if BOARD[0][1] == 1 and BOARD[0][2] == 1:
             if BOARD[0][0] == 0:
                 x = [50, 225, 400][0]
                 y = [50, 225, 400][0]
                 BOARD[0][0] = 2
                 screen.blit(o_img, (x, y))
+                blit = True
 
         if BOARD[1][1] == 1 and BOARD[1][2] == 1:
-            if BOARD[1][0] == 0:
-                x = [50, 225, 400][1]
-                y = [50, 225, 400][0]
-                BOARD[1][0] = 2
+            if BOARD[0][1] == 0:
+                x = [50, 225, 400][0]
+                y = [50, 225, 400][1]
+                BOARD[0][1] = 2
                 screen.blit(o_img, (x, y))
+                blit = True
+    else:
+        ai()
 
 
 def flip_ai_player():
@@ -361,19 +363,22 @@ while True:
             except:
                 pass
 
-            check_win(num, BOARD)
+            check_win(num)
             num()
+
             if WON_X is False and WON_O is False and is_board_fill():
                 tie()
+
             if IS_GAME_END is False:
-                if check_win(1, BOARD):
+                if check_win(1):
                     IS_GAME_END = True
                     WON = True
                     X_SCORE += 1
-                if check_win(2, BOARD):
+                if check_win(2):
                     IS_GAME_END = True
                     WON = True
                     O_SCORE += 1
+
             draw_text_won()
 
         is_button_click()
