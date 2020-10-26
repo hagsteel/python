@@ -81,24 +81,29 @@ pygame.key.set_repeat(1, 10)
 
 
 def game_over_text():
+    """Blit text after the game is over"""
     over_text = over_font.render("GAME OVER!", True, (255, 255, 255))
     screen.blit(over_text, (250, 250))
 
 
 def show_score(x, y):
+    """Blit score in the top left corner"""
     score_value = score_font.render("Score " + str(SCORE), True, (255, 255, 255))
     screen.blit(score_value, (x, y))
 
 
 def player(x, y):
+    """Space ship"""
     screen.blit(player_img, (x, y))
 
 
 def enemy(x, y, i):
+    """Enemy images"""
     screen.blit(enemy_img[i], (x, y))
 
 
 def fire_bullet(x, y):
+    """Fire bullet with the postion of space ship"""
     global BULLET_STATE
 
     BULLET_STATE = 'Fire'
@@ -106,6 +111,7 @@ def fire_bullet(x, y):
 
 
 def is_collision(enemy_x, enemy_y, BULLET_X, BULLET_Y):
+    """Check collision for bullet and enemys"""
     distance = math.sqrt((math.pow(enemy_x - BULLET_X, 2)) + (math.pow(enemy_y - BULLET_Y, 2)))
 
     if distance < 27:

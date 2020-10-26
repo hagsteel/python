@@ -176,7 +176,7 @@ def ai():
 
 
 def best_ai():
-    global CURRENT_PLAYER_TURN, BOARD, blit
+    global CURRENT_PLAYER_TURN, BOARD
 
     first_time = True
 
@@ -190,6 +190,8 @@ def best_ai():
             y = [50, 225, 400][0]
             BOARD[0][0] = 2
             screen.blit(o_img, (x, y))
+        else:
+            ai()
 
     if BOARD[1][1] == 1 and BOARD[1][2] == 1:
         if BOARD[0][1] == 0:
@@ -198,8 +200,9 @@ def best_ai():
             BOARD[0][1] = 2
             screen.blit(o_img, (x, y))
 
-    else:
-        ai()
+        else:
+            ai()
+
 
 def flip_ai_player():
     global CURRENT_PLAYER_TURN
