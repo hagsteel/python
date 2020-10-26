@@ -180,21 +180,21 @@ second_time = True
 def best_ai():
     global CURRENT_PLAYER_TURN, BOARD, first_time, second_time
 
-    if BOARD[0][1] == 1 and BOARD[0][2] == 1 and first_time:
-        if BOARD[0][0] == 0:
-            x = [50, 225, 400][0]
-            y = [50, 225, 400][0]
-            BOARD[0][0] = 2
-            screen.blit(o_img, (x, y))
-            first_time = False
+    if (BOARD[0][1] == 1 and BOARD[0][2] == 1 and
+            first_time and BOARD[0][0] == 0):
+        x = [50, 225, 400][0]
+        y = [50, 225, 400][0]
+        BOARD[0][0] = 2
+        screen.blit(o_img, (x, y))
+        first_time = False
 
-    elif BOARD[1][1] == 1 and BOARD[1][2] == 1 and second_time:
-        if BOARD[0][1] == 0:
-            x = [50, 225, 400][0]
-            y = [50, 225, 400][1]
-            BOARD[1][0] = 2
-            screen.blit(o_img, (x, y))
-            second_time = False
+    elif (BOARD[1][1] == 1 and BOARD[1][2] == 1 and
+            second_time and BOARD[0][1] == 0):
+        x = [50, 225, 400][0]
+        y = [50, 225, 400][1]
+        BOARD[1][0] = 2
+        screen.blit(o_img, (x, y))
+        second_time = False
 
     else:
         ai()
