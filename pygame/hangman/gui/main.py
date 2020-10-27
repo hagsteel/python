@@ -15,6 +15,11 @@ pygame.display.set_caption("Hangman Game")
 # Loading images
 project_directory = os.path.dirname(__file__)
 
+# Icon
+"""Author https://www.iconbros.com/icons/ib-g-hangman for icon"""
+ICON = pygame.image.load(os.path.join(project_directory, "images/icon.png"))
+pygame.display.set_icon(ICON)
+
 # Font
 COMICSHANNS = os.path.join(project_directory, "font/comic-shanns.otf")
 
