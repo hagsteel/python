@@ -10,8 +10,13 @@ pygame.init()
 WIDTH, HEIGHT = 550, 650
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 
-# Caption
+# Path
+project_directory = os.path.dirname(__file__)
+
+# Caption and icon
 pygame.display.set_caption("Tic Tac Toe")
+ICON = pygame.image.load(os.path.join(project_directory, "img/icon.png"))
+pygame.display.set_icon(ICON)
 
 # Colors
 WHITE = (255, 255, 255)
