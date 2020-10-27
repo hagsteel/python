@@ -191,6 +191,7 @@ def best_ai():
         x = [50, 225, 400][0]
         y = [50, 225, 400][1]
         BOARD[1][0] = 2
+        screen.blit(o_img, (x, y))
         CURRENT_PLAYER_TURN = "X"
 
     else:
