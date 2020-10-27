@@ -15,6 +15,8 @@ project_directory = os.path.dirname(__file__)
 
 # Caption and icon
 pygame.display.set_caption("Tic Tac Toe")
+
+# Author https://www.flaticon.com/free-icon/tic-tac-toe_566294 for icon.png
 ICON = pygame.image.load(os.path.join(project_directory, "img/icon.png"))
 pygame.display.set_icon(ICON)
 
