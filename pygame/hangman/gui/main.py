@@ -92,7 +92,7 @@ def display_message(message):
                        - text.get_height() / 2))
 
     # The was word
-    display_word = WORD_FONT.render(f"The was {WORD}", True, BLACK)
+    display_word = WORD_FONT.render(f"The word was {WORD}", True, BLACK)
     screen.blit(display_word, (WIDTH / 2 - display_word.get_width() / 2,
                                HEIGHT / 2 - display_word.get_height() / 2 + 50))
     pygame.display.update()
