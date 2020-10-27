@@ -178,19 +178,42 @@ def ai():
 def best_ai():
     global CURRENT_PLAYER_TURN, BOARD
 
-    if (BOARD[0][1] == 1 and BOARD[0][2] == 1 and
-            BOARD[0][0] == 0):
+    # Middle
+    if BOARD[1][1] == 0:
+        screen.blit(o_img, (225, 225))
+        BOARD[1][1] = 2
+        CURRENT_PLAYER_TURN = "X"
+
+    elif BOARD[0][2] == 0:
+        screen.blit(o_img, (400, 50))
+        BOARD[0][2] = 2
+        CURRENT_PLAYER_TURN = "X"
+
+    elif BOARD[0][1] == 1 and BOARD[0][2] == 1 and BOARD[0][0] == 0:
         x = [50, 225, 400][0]
         y = [50, 225, 400][0]
         BOARD[0][0] = 2
         screen.blit(o_img, (x, y))
         CURRENT_PLAYER_TURN = "X"
 
-    elif (BOARD[1][1] == 1 and BOARD[1][2] == 1 and
-            BOARD[0][1] == 0):
+    elif BOARD[1][1] == 1 and BOARD[1][2] == 1 and BOARD[0][1] == 0:
         x = [50, 225, 400][0]
         y = [50, 225, 400][1]
         BOARD[1][0] = 2
+        screen.blit(o_img, (x, y))
+        CURRENT_PLAYER_TURN = "X"
+
+    elif BOARD[2][1] == 1 and BOARD[2][2] == 1 and BOARD[2][0] == 0:
+        x = [50, 225, 400][0]
+        y = [50, 225, 400][2]
+        BOARD[2][0] = 2
+        screen.blit(o_img, (x, y))
+        CURRENT_PLAYER_TURN = "X"
+
+    elif BOARD[0][0] == 1 and BOARD[1][0] == 1 and BOARD[2][0] == 0:
+        x = [50, 225, 400][0]
+        y = [50, 225, 400][2]
+        BOARD[2][0] = 2
         screen.blit(o_img, (x, y))
         CURRENT_PLAYER_TURN = "X"
 
