@@ -40,7 +40,7 @@ SHIP_SPEED = 5
 ENEMY1 = pygame.image.load(IMAGE_PATH + "enemy1.png")
 ENEMY1_RECT = ENEMY1.get_rect(topleft=(115, 200))
 ENEMY2_RECT = ENEMY1.get_rect(topleft=(115, 250))
-ENEMY_SHIP = 3.5
+ENEMY_SPEED = 3.5
 # Resize enemy1
 ENEMY1 = pygame.transform.scale(ENEMY1, (40, 40))
 
@@ -90,12 +90,14 @@ def main_menu():
 
 
 def draw_enemies():
-    global ENEMY1, ENEMY1_RECT, ENEMY2_RECT, ENEMY_SHIP
+    global ENEMY1, ENEMY1_RECT, ENEMY2_RECT, ENEMY_SPEED
 
-    if ENEMY1_RECT.x >= 115:
-        ENEMY1_RECT.x -= int(ENEMY_SHIP)
-    elif ENEMY1_RECT.x <= 500:
-        ENEMY1_RECT.x += int(ENEMY_SHIP)
+    if ENEMY1_RECT.x <= 115:
+        ENEMY1_RECT.x += int(ENEMY_SPEED)
+    elif ENEMY1_RECT.x > 500:
+        ENEMY1_RECT.x -= int(ENEMY_SPEED)
+
+    print(ENEMY1_RECT)
 
     SCREEN.blit(ENEMY1, ENEMY1_RECT)
     SCREEN.blit(ENEMY1, ENEMY2_RECT)
