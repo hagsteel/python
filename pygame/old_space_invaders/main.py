@@ -61,7 +61,7 @@ for i in range(NUM_OF_ENEMIES):
 bullet_img = pygame.image.load(os.path.join(project_directory, "img/bullet.png"))
 BULLET_X = 0
 BULLET_Y = 480
-BULLET_Y_CHANGE = 15
+BULLET_Y_CHANGE = 18
 BULLET_STATE = 'Ready'
 
 # Score
@@ -99,7 +99,7 @@ def player(x, y):
 
 def enemy(x, y, i):
     """Enemy images"""
-    screen.blit(enemy_img[i], (x, y))
+    screen.blit(enemy_img[i], (int(x), int(y)))
 
 
 def fire_bullet(x, y):
