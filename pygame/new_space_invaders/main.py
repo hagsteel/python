@@ -38,6 +38,9 @@ SHIP_SPEED = 5
 
 # Enemy1
 ENEMY1 = pygame.image.load(IMAGE_PATH + "enemy1.png")
+ENEMY1_RECT = ENEMY1.get_rect(topleft=(115, 200))
+ENEMY2_RECT = ENEMY1.get_rect(topleft=(115, 250))
+ENEMY_SHIP = 3.5
 # Resize enemy1
 ENEMY1 = pygame.transform.scale(ENEMY1, (40, 40))
 
@@ -87,29 +90,15 @@ def main_menu():
 
 
 def draw_enemies():
-    global ENEMY1
+    global ENEMY1, ENEMY1_RECT, ENEMY2_RECT, ENEMY_SHIP
 
-    while True:
-        enemy1_rect = ENEMY1.get_rect(topleft=(115, 200))
-        enemy2_rect = ENEMY1.get_rect(topleft=(115, 250))
+    if ENEMY1_RECT.x >= 115:
+        ENEMY1_RECT.x -= int(ENEMY_SHIP)
+    elif ENEMY1_RECT.x <= 500:
+        ENEMY1_RECT.x += int(ENEMY_SHIP)
 
-       # for enemy in range(10):
-       #     enemy1_rect.x += 50
-       #     enemy2_rect.x += 50
-       #     SCREEN.blit(ENEMY1, enemy1_rect)
-       #     SCREEN.blit(ENEMY1, enemy2_rect)
-
-        enemy1_rect.x += 3.5
-        enemy2_rect.x += 3.5
-        SCREEN.blit(ENEMY1, enemy1_rect)
-        SCREEN.blit(ENEMY1, enemy2_rect)
-        break
-
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                sys.exit()
-
-        pygame.display.update()
+    SCREEN.blit(ENEMY1, ENEMY1_RECT)
+    SCREEN.blit(ENEMY1, ENEMY2_RECT)
 
 
 def bullet(x, y):
