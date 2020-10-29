@@ -1,4 +1,5 @@
 import random
+import sys
 import math
 import os.path
 import pygame
@@ -61,7 +62,7 @@ def draw():
 
     # Text
     text = TITLE_FONT.render("DEVELOPER HANGMAN", True, BLACK)
-    screen.blit(text, (WIDTH / 2 - text.get_width() / 2, 20))
+    screen.blit(text, (int(WIDTH / 2) - int(text.get_width() / 2), 20))
 
     # Hangman image
     screen.blit(images[HANGMAN_STATUS], (150, 100))
@@ -72,8 +73,8 @@ def draw():
         if visible:
             pygame.draw.circle(screen, BLACK, (x, y), RADIUS, 3)
             text = LETTER_FONT.render(ltr, True, BLACK)
-            screen.blit(text, (x - text.get_width() / 2, y
-                               - text.get_height() / 2))
+            screen.blit(text, (int(x - text.get_width() / 2), int(y
+                               - text.get_height() / 2)))
 
     # Draw word
     display_word = ""
@@ -93,13 +94,13 @@ def display_message(message):
 
     # You won or You lose
     text = WORD_FONT.render(message, True, BLACK)
-    screen.blit(text, (WIDTH / 2 - text.get_width() / 2, HEIGHT / 2
-                       - text.get_height() / 2))
+    screen.blit(text, (int(WIDTH / 2 - text.get_width() / 2), int(HEIGHT / 2
+                       - text.get_height() / 2)))
 
     # The was word
     display_word = WORD_FONT.render(f"The word was {WORD}", True, BLACK)
-    screen.blit(display_word, (WIDTH / 2 - display_word.get_width() / 2,
-                               HEIGHT / 2 - display_word.get_height() / 2 + 50))
+    screen.blit(display_word, (int(WIDTH / 2 - display_word.get_width() / 2),
+                               int(HEIGHT / 2 - display_word.get_height() / 2 + 50)))
     pygame.display.update()
 
 
@@ -144,7 +145,7 @@ def menu():
         if button_quit.collidepoint(pos_x, pos_y):
             pygame.draw.rect(screen, BRIGHT_GREY, pos_quit_button)
             if CLICK:
-                pygame.quit()
+                sys.exit()
 
         # Draw the buttons
         pygame.draw.rect(screen, GREEN, button_play)
@@ -164,7 +165,7 @@ def menu():
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                pygame.quit()
+                sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 1:
                     CLICK = True
@@ -186,7 +187,7 @@ def main():
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                pygame.quit()
+                sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 m_x, m_y = pygame.mouse.get_pos()
                 for letter in letters:
