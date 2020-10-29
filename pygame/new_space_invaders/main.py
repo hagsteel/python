@@ -86,20 +86,30 @@ def main_menu():
         pygame.display.update()
 
 
-def draw_enemy():
+def draw_enemies():
     global ENEMY1
 
-    enemy1_rect = ENEMY1.get_rect(topleft=(115, 250))
+    while True:
+        enemy1_rect = ENEMY1.get_rect(topleft=(115, 200))
+        enemy2_rect = ENEMY1.get_rect(topleft=(115, 250))
 
-    for enemy in range(10):
-        enemy1_rect.x += 50
+       # for enemy in range(10):
+       #     enemy1_rect.x += 50
+       #     enemy2_rect.x += 50
+       #     SCREEN.blit(ENEMY1, enemy1_rect)
+       #     SCREEN.blit(ENEMY1, enemy2_rect)
+
+        enemy1_rect.x += 3.5
+        enemy2_rect.x += 3.5
         SCREEN.blit(ENEMY1, enemy1_rect)
+        SCREEN.blit(ENEMY1, enemy2_rect)
+        break
 
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            sys.exit()
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                sys.exit()
 
-    pygame.display.update()
+        pygame.display.update()
 
 
 def bullet(x, y):
@@ -139,10 +149,6 @@ def main():
         SCREEN.blit(score_text, (5, 5))
         SCREEN.blit(score_text_num, (85, 5))
 
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                sys.exit()
-
         keys = pygame.key.get_pressed()
         if keys[pygame.K_LEFT] and SHIP_RECT.x > 10:
             SHIP_RECT.x -= SHIP_SPEED
@@ -153,7 +159,11 @@ def main():
 
         SCREEN.blit(SHIP, SHIP_RECT)
 
-        draw_enemy()
+        draw_enemies()
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                sys.exit()
 
         pygame.display.update()
 
