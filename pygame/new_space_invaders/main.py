@@ -94,7 +94,7 @@ def draw_enemies():
 
     if ENEMY1_RECT.x <= 115:
         ENEMY1_RECT.x += int(ENEMY_SPEED)
-    elif ENEMY1_RECT.x > 500:
+    elif ENEMY1_RECT.x >= 500:
         ENEMY1_RECT.x -= int(ENEMY_SPEED)
 
     print(ENEMY1_RECT)
