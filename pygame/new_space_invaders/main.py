@@ -92,12 +92,14 @@ def main_menu():
 def draw_enemies():
     global ENEMY1, ENEMY1_RECT, ENEMY2_RECT, ENEMY_SPEED
 
+    # Enemy movement
+    ENEMY1_RECT.x += int(ENEMY_SPEED)
     if ENEMY1_RECT.x <= 115:
+        ENEMY_SPEED = 3.5
         ENEMY1_RECT.x += int(ENEMY_SPEED)
     elif ENEMY1_RECT.x >= 500:
-        ENEMY1_RECT.x -= int(ENEMY_SPEED)
-
-    print(ENEMY1_RECT)
+        ENEMY_SPEED = -3.5
+        ENEMY1_RECT.x += int(ENEMY_SPEED)
 
     SCREEN.blit(ENEMY1, ENEMY1_RECT)
     SCREEN.blit(ENEMY1, ENEMY2_RECT)
