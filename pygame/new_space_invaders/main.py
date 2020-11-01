@@ -1,3 +1,4 @@
+"""All the imports use in game"""
 import sys
 from os.path import abspath, dirname
 import pygame
@@ -37,16 +38,26 @@ SHIP_RECT = SHIP.get_rect(topleft=(375, 540))
 SHIP_SPEED = 5
 
 # Enemy1
-ENEMY1 = pygame.image.load(IMAGE_PATH + "enemy1.png")
-ENEMY1_RECT = ENEMY1.get_rect(topleft=(115, 200))
-ENEMY2_RECT = ENEMY1.get_rect(topleft=(115, 250))
-ENEMY_SPEED = 3.5
-# Resize enemy1
-ENEMY1 = pygame.transform.scale(ENEMY1, (40, 40))
+NUM_OF_ENEMIES = 10
+ENEMY1_IMG = []
+ENEMY1_RECT = []
+ENEMY2_RECT = []
+ENEMY_SPEED = []
+ENEMY_PUSH_DOWN = []
+X = 115
+
+for enemies in range(NUM_OF_ENEMIES):
+    X += 50
+    ENEMY1 = (pygame.image.load(IMAGE_PATH + "enemy3_1.png"))
+    # Resize enemy1
+    ENEMY1_IMG.append(pygame.transform.scale(ENEMY1, (40, 40)))
+    ENEMY1_RECT.append(ENEMY1_IMG[enemies].get_rect(topleft=(X, 200)))
+    ENEMY2_RECT.append(ENEMY1_IMG[enemies].get_rect(topleft=(X, 300)))
+    ENEMY_SPEED.append(2)
+    ENEMY_PUSH_DOWN.append(40)
 
 # Bullet
 BULLET = pygame.image.load(IMAGE_PATH + "laser.png")
-BULLET_Y = 540
 
 # Colors (R, G, B)
 WHITE = (255, 255, 255)
@@ -59,8 +70,7 @@ FPS = 60
 
 
 def main_menu():
-    global ENEMY1
-
+    """Main Menu for Space Invaders"""
     while True:
         CLOCK.tick(FPS)
 
@@ -76,7 +86,7 @@ def main_menu():
         SCREEN.blit(title_text, (164, 155))
         SCREEN.blit(title_text2, (201, 225))
 
-        SCREEN.blit(ENEMY1, (318, 270))
+        SCREEN.blit(ENEMY1_IMG[0], (318, 270))
         SCREEN.blit(point_text, (368, 270))
 
         for event in pygame.event.get():
@@ -90,31 +100,38 @@ def main_menu():
 
 
 def draw_enemies():
-    global ENEMY1, ENEMY1_RECT, ENEMY2_RECT, ENEMY_SPEED
-
+    """Display the enemies"""
     # Enemy movement
-    ENEMY1_RECT.x += int(ENEMY_SPEED)
-    if ENEMY1_RECT.x <= 115:
-        ENEMY_SPEED = 3.5
-        ENEMY1_RECT.x += int(ENEMY_SPEED)
-    elif ENEMY1_RECT.x >= 500:
-        ENEMY_SPEED = -3.5
-        ENEMY1_RECT.x += int(ENEMY_SPEED)
+    for i in range(NUM_OF_ENEMIES):
+        ENEMY1_RECT[i].x += ENEMY_SPEED[i]
+        if ENEMY1_RECT[i].x <= 1:
+            ENEMY_SPEED[i] = 2
+            ENEMY1_RECT[i].y += ENEMY_PUSH_DOWN[i]
+        elif ENEMY1_RECT[i].x >= 755:
+            ENEMY_SPEED[i] = -2
+            ENEMY1_RECT[i].y += ENEMY_PUSH_DOWN[i]
 
-    SCREEN.blit(ENEMY1, ENEMY1_RECT)
-    SCREEN.blit(ENEMY1, ENEMY2_RECT)
+        ENEMY2_RECT[i].x += ENEMY_SPEED[i]
+        if ENEMY2_RECT[i].x <= 1:
+            ENEMY_SPEED[i] = 2
+            ENEMY2_RECT[i].y += ENEMY_PUSH_DOWN[i]
+        elif ENEMY2_RECT[i].x >= 755:
+            ENEMY_SPEED[i] = -2
+            ENEMY2_RECT[i].y += ENEMY_PUSH_DOWN[i]
+
+        SCREEN.blit(ENEMY1_IMG[i], ENEMY1_RECT[i])
+        SCREEN.blit(ENEMY1_IMG[i], ENEMY2_RECT[i])
 
 
-def bullet(x, y):
-    global BULLET_Y
-
-    BULLET_Y -= 15
-    SCREEN.blit(BULLET, (x + 23, y))
+def bullet(spaceship_x, spaceship_y):
+    """bullet state"""
+    bullet_y = 540
+    bullet_y -= 15
+    SCREEN.blit(BULLET, (spaceship_x + 23, spaceship_y))
 
 
 def main():
-    global SHIP_RECT, SHIP_SPEED, ENEMY1
-
+    """Game loop"""
     pygame.key.set_repeat(1, 10)
 
     while True:
