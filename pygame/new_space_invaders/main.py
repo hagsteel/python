@@ -6,7 +6,6 @@ import pygame
 pygame.init()
 
 SCREEN = pygame.display.set_mode((800, 600))
-
 pygame.display.set_caption("Space Invaders")
 
 BASE_PATH = abspath(dirname(__file__))
@@ -35,7 +34,7 @@ ENEMY1_RECT = []
 ENEMY2_RECT = []
 ENEMY_SPEED = []
 ENEMY_PUSH_DOWN = []
-X = 65
+X = 105
 
 for enemies in range(NUM_OF_ENEMIES):
     X += 50
@@ -56,27 +55,22 @@ WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 GREEN = (78, 255, 87)
 
-# Game variables
+# Global variables
 CLOCK = pygame.time.Clock()
 FPS = 60
 
 
 def main_menu():
-    """Main Menu for Space Invaders"""
     while True:
         CLOCK.tick(FPS)
 
         title_text = TITLE_FONT.render("Space Invaders", True, WHITE)
         title_text2 = SUB_TITLE_FONT.render("Press enter to continue", True, WHITE)
-
         point_text = SUB_TITLE_FONT.render("   =   10 pts", True, GREEN)
 
-        # Drawing with positions
         SCREEN.blit(BACKGROUND, (0, 0))
-
         SCREEN.blit(title_text, (164, 155))
         SCREEN.blit(title_text2, (201, 225))
-
         SCREEN.blit(ENEMY_IMG[0], (318, 270))
         SCREEN.blit(point_text, (368, 270))
 
@@ -91,15 +85,16 @@ def main_menu():
 
 
 def bunker():
-    """Three bunkers"""
-    pygame.draw.rect(SCREEN, (78, 255, 87), (70, 450, 100, 50))
-    pygame.draw.rect(SCREEN, (78, 255, 87), (350, 450, 100, 50))
-    pygame.draw.rect(SCREEN, (78, 255, 87), (650, 450, 100, 50))
+    width = 100
+    height = 50
+    y_axis = 450
+    pygame.draw.rect(SCREEN, GREEN, (70, y_axis, width, height))
+    pygame.draw.rect(SCREEN, GREEN, (350, y_axis, width, height))
+    pygame.draw.rect(SCREEN, GREEN, (650, y_axis, width, height))
 
 
 def draw_enemies():
-    """Display the enemies"""
-    # Enemy movement
+    # TODO: Fix enemies grouping and move enemies
     all_enemy = []
     for i in range(NUM_OF_ENEMIES):
         all_enemy.append(ENEMY1_RECT[i].x)
@@ -110,11 +105,9 @@ def draw_enemies():
         if all_enemy[-1] <= 1:
             ENEMY_SPEED = 2
             all_enemy[-1] += ENEMY_SPEED
-            # Push down in Y axis
         elif all_enemy[-1] >= 755:
             ENEMY_SPEED = -2
             all_enemy[-1] += ENEMY_SPEED
-            # Push down in Y axis
 
         SCREEN.blit(ENEMY_IMG[i], ENEMY1_RECT[i])
         SCREEN.blit(ENEMY_IMG[i], ENEMY2_RECT[i])
@@ -137,7 +130,6 @@ def draw_enemies():
 
 
 def bullet(spaceship_x, spaceship_y):
-    """Fire bullet with the position of space ship"""
     global BULLET_STATE
 
     BULLET_STATE = "Fire"
@@ -145,7 +137,6 @@ def bullet(spaceship_x, spaceship_y):
 
 
 def main():
-    """Game loop"""
     global BULLET_Y, BULLET_STATE
 
     pygame.key.set_repeat(1, 10)
@@ -154,23 +145,17 @@ def main():
         CLOCK.tick(FPS)
 
         SCREEN.fill(BLACK)
-
         SCREEN.blit(BACKGROUND, (0, 0))
 
-        # Lives
         lives_text = MAIN_FONT.render("Lives", True, WHITE)
-        # Resize enemy next to lives
         tiny_enemy = pygame.transform.scale(ENEMY, (25, 25))
-
         score_text = MAIN_FONT.render("Score", True, WHITE)
         score_text_num = MAIN_FONT.render("0", True, GREEN)
 
-        # Drawing with positions
         SCREEN.blit(lives_text, (640, 5))
         SCREEN.blit(tiny_enemy, (715, 3))
         SCREEN.blit(tiny_enemy, (742, 3))
         SCREEN.blit(tiny_enemy, (769, 3))
-
         SCREEN.blit(score_text, (5, 5))
         SCREEN.blit(score_text_num, (85, 5))
 
@@ -186,7 +171,6 @@ def main():
             if BULLET_STATE == "Ready":
                 bullet_x = SHIP_RECT.x
                 bullet(bullet_x, BULLET_Y)
-
         SCREEN.blit(SHIP, SHIP_RECT)
 
         # Bullet movement
