@@ -1,6 +1,7 @@
 """All the imports use in game"""
 import sys
 from os.path import abspath, dirname
+
 import pygame
 
 pygame.init()
@@ -48,16 +49,19 @@ X = 115
 
 for enemies in range(NUM_OF_ENEMIES):
     X += 50
-    ENEMY1 = (pygame.image.load(IMAGE_PATH + "enemy3_1.png"))
+    ENEMY1 = pygame.image.load(IMAGE_PATH + "enemy3_1.png")
     # Resize enemy1
     ENEMY1_IMG.append(pygame.transform.scale(ENEMY1, (40, 40)))
-    ENEMY1_RECT.append(ENEMY1_IMG[enemies].get_rect(topleft=(X, 200)))
-    ENEMY2_RECT.append(ENEMY1_IMG[enemies].get_rect(topleft=(X, 300)))
+    ENEMY1_RECT.append(ENEMY1_IMG[enemies].get_rect(topleft=(X, 60)))
+    ENEMY2_RECT.append(ENEMY1_IMG[enemies].get_rect(topleft=(X, 100)))
     ENEMY_SPEED.append(2)
     ENEMY_PUSH_DOWN.append(40)
 
 # Bullet
 BULLET = pygame.image.load(IMAGE_PATH + "laser.png")
+BULLET_STATE = "Ready"
+BULLET_Y = 540
+BULLET_SPEED = 10
 
 # Colors (R, G, B)
 WHITE = (255, 255, 255)
@@ -99,6 +103,13 @@ def main_menu():
         pygame.display.update()
 
 
+def bunker():
+    """Three bunkers"""
+    pygame.draw.rect(SCREEN, (78, 255, 87), (70, 450, 100, 50))
+    pygame.draw.rect(SCREEN, (78, 255, 87), (350, 450, 100, 50))
+    pygame.draw.rect(SCREEN, (78, 255, 87), (650, 450, 100, 50))
+
+
 def draw_enemies():
     """Display the enemies"""
     # Enemy movement
@@ -124,14 +135,17 @@ def draw_enemies():
 
 
 def bullet(spaceship_x, spaceship_y):
-    """bullet state"""
-    bullet_y = 540
-    bullet_y -= 15
+    """Fire bullet with the position of space ship"""
+    global BULLET_STATE
+
+    BULLET_STATE = "Fire"
     SCREEN.blit(BULLET, (spaceship_x + 23, spaceship_y))
 
 
 def main():
     """Game loop"""
+    global BULLET_Y, BULLET_STATE
+
     pygame.key.set_repeat(1, 10)
 
     while True:
@@ -159,17 +173,29 @@ def main():
         SCREEN.blit(score_text, (5, 5))
         SCREEN.blit(score_text_num, (85, 5))
 
+        draw_enemies()
+        bunker()
+
         keys = pygame.key.get_pressed()
         if keys[pygame.K_LEFT] and SHIP_RECT.x > 10:
             SHIP_RECT.x -= SHIP_SPEED
         if keys[pygame.K_RIGHT] and SHIP_RECT.x < 740:
             SHIP_RECT.x += SHIP_SPEED
         if keys[pygame.K_SPACE]:
-            bullet(SHIP_RECT.x, SHIP_RECT.y)
+            if BULLET_STATE == "Ready":
+                bullet_x = SHIP_RECT.x
+                bullet(bullet_x, BULLET_Y)
 
         SCREEN.blit(SHIP, SHIP_RECT)
 
-        draw_enemies()
+        # Bullet movement
+        if BULLET_Y <= 0:
+            BULLET_Y = 540
+            BULLET_STATE = "Ready"
+        if BULLET_STATE == "Fire":
+            bullet_x = SHIP_RECT.x
+            bullet(bullet_x, BULLET_Y)
+            BULLET_Y -= BULLET_SPEED
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:

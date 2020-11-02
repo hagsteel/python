@@ -103,16 +103,16 @@ def enemy(x, y, i):
 
 
 def fire_bullet(x, y):
-    """Fire bullet with the postion of space ship"""
+    """Fire bullet with the position of space ship"""
     global BULLET_STATE
 
     BULLET_STATE = 'Fire'
     screen.blit(bullet_img, (x + 16, y + 10))
 
 
-def is_collision(enemy_x, enemy_y, BULLET_X, BULLET_Y):
-    """Check collision for bullet and enemys"""
-    distance = math.sqrt((math.pow(enemy_x - BULLET_X, 2)) + (math.pow(enemy_y - BULLET_Y, 2)))
+def is_collision(enemy_x, enemy_y, bullet_x, bullet_y):
+    """Check collision for bullet and enemies"""
+    distance = math.sqrt((math.pow(enemy_x - bullet_x, 2)) + (math.pow(enemy_y - bullet_y, 2)))
 
     if distance < 27:
         return True
