@@ -29,9 +29,9 @@ SHIP_RECT = SHIP.get_rect(topleft=(375, 540))
 SHIP_SPEED = 5
 
 NUM_OF_ENEMIES = 10
-ENEMY_IMG = []
-ENEMY1_RECT = []
-ENEMY2_RECT = []
+enemy_img = []
+enemy1_rect = []
+enemy2_rect = []
 ENEMY_SPEED = 2
 ENEMY_PUSH_DOWN = 40
 X = 105
@@ -39,9 +39,9 @@ X = 105
 for enemies in range(NUM_OF_ENEMIES):
     X += 50
     ENEMY = pygame.image.load(IMAGE_PATH + "enemy3_1.png")
-    ENEMY_IMG.append(pygame.transform.scale(ENEMY, (40, 40)))
-    ENEMY1_RECT.append(ENEMY_IMG[enemies].get_rect(topleft=(X, 60)))
-    ENEMY2_RECT.append(ENEMY_IMG[enemies].get_rect(topleft=(X, 100)))
+    enemy_img.append(pygame.transform.scale(ENEMY, (40, 40)))
+    enemy1_rect.append(enemy_img[enemies].get_rect(topleft=(X, 60)))
+    enemy2_rect.append(enemy_img[enemies].get_rect(topleft=(X, 100)))
 
 BULLET = pygame.image.load(IMAGE_PATH + "laser.png")
 BULLET_STATE = "Ready"
@@ -69,7 +69,7 @@ def main_menu():
         SCREEN.blit(BACKGROUND, (0, 0))
         SCREEN.blit(title_text, (164, 155))
         SCREEN.blit(title_text2, (201, 225))
-        SCREEN.blit(ENEMY_IMG[0], (318, 270))
+        SCREEN.blit(enemy_img[0], (318, 270))
         SCREEN.blit(point_text, (368, 270))
 
         for event in pygame.event.get():
@@ -98,37 +98,37 @@ def draw_enemies():
         # TODO: Treat them as a group instead of moving them one by one
         # TODO: Have one position for all of the enemies, instead of giving
         # each enemy its own position
-        for num in ENEMY1_RECT:
+        for num in enemy1_rect:
             num.x += ENEMY_SPEED
             if num.x <= 1:
                 ENEMY_SPEED = 2
             elif num.x >= 755:
                 ENEMY_SPEED = -2
 
-        SCREEN.blit(ENEMY_IMG[i], ENEMY1_RECT[i])
-        SCREEN.blit(ENEMY_IMG[i], ENEMY2_RECT[i])
+        SCREEN.blit(enemy_img[i], enemy1_rect[i])
+        SCREEN.blit(enemy_img[i], enemy2_rect[i])
 
-        """ENEMY1_RECT[i].x += ENEMY_SPEED[i]
-        if ENEMY1_RECT[i].x <= 1:
+        """enemy1_rect[i].x += ENEMY_SPEED[i]
+        if enemy1_rect[i].x <= 1:
             ENEMY_SPEED[i] = 2
-        elif ENEMY1_RECT[i].x >= 755:
+        elif enemy1_rect[i].x >= 755:
             ENEMY_SPEED[i] = -2"""
 
-        """ENEMY1_RECT[i].x += ENEMY_SPEED[i]
-        if ENEMY1_RECT[i].x <= 1:
+        """enemy1_rect[i].x += ENEMY_SPEED[i]
+        if enemy1_rect[i].x <= 1:
             ENEMY_SPEED[i] = 2
-            ENEMY1_RECT[i].y += ENEMY_PUSH_DOWN[i]
-        elif ENEMY1_RECT[i].x >= 755:
+            enemy1_rect[i].y += ENEMY_PUSH_DOWN[i]
+        elif enemy1_rect[i].x >= 755:
             ENEMY_SPEED[i] = -2
-            ENEMY1_RECT[i].y += ENEMY_PUSH_DOWN[i]
+            enemy1_rect[i].y += ENEMY_PUSH_DOWN[i]
 
-        ENEMY2_RECT[i].x += ENEMY_SPEED[i]
-        if ENEMY2_RECT[i].x <= 1:
+        enemy2_rect[i].x += ENEMY_SPEED[i]
+        if enemy2_rect[i].x <= 1:
             ENEMY_SPEED[i] = 2
-            ENEMY2_RECT[i].y += ENEMY_PUSH_DOWN[i]
-        elif ENEMY2_RECT[i].x >= 755:
+            enemy2_rect[i].y += ENEMY_PUSH_DOWN[i]
+        elif enemy2_rect[i].x >= 755:
             ENEMY_SPEED[i] = -2
-            ENEMY2_RECT[i].y += ENEMY_PUSH_DOWN[i]"""
+            enemy2_rect[i].y += ENEMY_PUSH_DOWN[i]"""
 
 
 def bullet(spaceship_x, spaceship_y):
