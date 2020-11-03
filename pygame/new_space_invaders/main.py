@@ -95,9 +95,8 @@ def bunker():
 
 
 def draw_enemies():
-    # TODO: Fix enemies grouping and move enemies
     for i in range(NUM_OF_ENEMIES):
-        # TODO: Treat them as a group instead of moving them one by one?
+        # TODO: Treat them as a group instead of moving them one by one
         # TODO: Have one position for all of the enemies, instead of giving
         # each enemy its own position
         group_enemies.append(ENEMY1_RECT[i].x)
@@ -110,7 +109,6 @@ def draw_enemies():
 
         SCREEN.blit(ENEMY_IMG[i], ENEMY1_RECT[i])
         SCREEN.blit(ENEMY_IMG[i], ENEMY2_RECT[i])
-        print(group_enemies)
 
         """ENEMY1_RECT[i].x += ENEMY_SPEED[i]
         if ENEMY1_RECT[i].x <= 1:
