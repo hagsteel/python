@@ -35,7 +35,6 @@ ENEMY2_RECT = []
 ENEMY_SPEED = 2
 ENEMY_PUSH_DOWN = 40
 X = 105
-group_enemies = []
 
 for enemies in range(NUM_OF_ENEMIES):
     X += 50
@@ -99,8 +98,6 @@ def draw_enemies():
         # TODO: Treat them as a group instead of moving them one by one
         # TODO: Have one position for all of the enemies, instead of giving
         # each enemy its own position
-        group_enemies.append(ENEMY1_RECT[i].x)
-
         for num in ENEMY1_RECT:
             num.x += ENEMY_SPEED
             if num.x <= 1:
