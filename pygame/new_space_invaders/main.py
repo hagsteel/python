@@ -108,16 +108,12 @@ def draw_enemies():
 
     for num in enemy_pink_rect:
         num.x += ENEMY_SPEED
-
     for num in enemy1_cyan_rect:
         num.x += ENEMY_SPEED
-
     for num in enemy2_cyan_rect:
         num.x += ENEMY_SPEED
-
     for num in enemy1_green_rect:
         num.x += ENEMY_SPEED
-
     for num in enemy2_green_rect:
         num.x += ENEMY_SPEED
 
