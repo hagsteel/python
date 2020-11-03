@@ -1,6 +1,7 @@
 # Space Invaders
 
 **WORK IN PROGRESS**
+
 New Space Invaders is written in Python and Pygame modules
 
 ## Requirements
