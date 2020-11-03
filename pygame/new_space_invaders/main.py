@@ -35,6 +35,7 @@ ENEMY2_RECT = []
 ENEMY_SPEED = []
 ENEMY_PUSH_DOWN = []
 X = 105
+group_enemies = []
 
 for enemies in range(NUM_OF_ENEMIES):
     X += 50
@@ -55,7 +56,7 @@ WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 GREEN = (78, 255, 87)
 
-# Global variables
+# Game variables
 CLOCK = pygame.time.Clock()
 FPS = 60
 
@@ -95,22 +96,21 @@ def bunker():
 
 def draw_enemies():
     # TODO: Fix enemies grouping and move enemies
-    all_enemy = []
     for i in range(NUM_OF_ENEMIES):
-        all_enemy.append(ENEMY1_RECT[i].x)
-        all_enemy.append(ENEMY1_RECT[i].y)
+        # TODO: Treat them as a group instead of moving them one by one?
+        # TODO: Have one position for all of the enemies, instead of giving
+        # each enemy its own position
+        group_enemies.append(ENEMY1_RECT[i].x)
 
-        ENEMY_SPEED = 2
-        all_enemy[-1] += ENEMY_SPEED
-        if all_enemy[-1] <= 1:
-            ENEMY_SPEED = 2
-            all_enemy[-1] += ENEMY_SPEED
-        elif all_enemy[-1] >= 755:
-            ENEMY_SPEED = -2
-            all_enemy[-1] += ENEMY_SPEED
+        ENEMY1_RECT[i].x += ENEMY_SPEED[i]
+        if ENEMY1_RECT[i].x <= 1:
+            ENEMY_SPEED[i] = 2
+        elif ENEMY1_RECT[i].x >= 755:
+            ENEMY_SPEED[i] = -2
 
         SCREEN.blit(ENEMY_IMG[i], ENEMY1_RECT[i])
         SCREEN.blit(ENEMY_IMG[i], ENEMY2_RECT[i])
+        print(group_enemies)
 
         """ENEMY1_RECT[i].x += ENEMY_SPEED[i]
         if ENEMY1_RECT[i].x <= 1:
