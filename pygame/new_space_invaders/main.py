@@ -37,8 +37,8 @@ enemy1_cyan_rect = []
 enemy2_cyan_rect = []
 enemy1_green_rect = []
 enemy2_green_rect = []
-ENEMY_SPEED = 2
-ENEMY_PUSH_DOWN = 40
+ENEMY_SPEED = 1
+ENEMY_PUSH_DOWN = 10
 X = 105
 
 for enemies in range(NUM_OF_ENEMIES):
@@ -118,11 +118,41 @@ def draw_enemies():
         num.x += ENEMY_SPEED
 
     for i in range(NUM_OF_ENEMIES):
+        for num in enemy_pink_rect:
+            if num.x <= 1:
+                ENEMY_SPEED = 1
+                enemy_pink_rect[i].y += ENEMY_PUSH_DOWN
+            elif num.x >= 755:
+                ENEMY_SPEED = -0.5
+                enemy_pink_rect[i].y += ENEMY_PUSH_DOWN
+        for num in enemy1_cyan_rect:
+            if num.x <= 1:
+                ENEMY_SPEED = 1
+                enemy1_cyan_rect[i].y += ENEMY_PUSH_DOWN
+            elif num.x >= 755:
+                ENEMY_SPEED = -0.5
+                enemy1_cyan_rect[i].y += ENEMY_PUSH_DOWN
+        for num in enemy2_cyan_rect:
+            if num.x <= 1:
+                ENEMY_SPEED = 1
+                enemy2_cyan_rect[i].y += ENEMY_PUSH_DOWN
+            elif num.x >= 755:
+                ENEMY_SPEED = -0.5
+                enemy2_cyan_rect[i].y += ENEMY_PUSH_DOWN
         for num in enemy1_green_rect:
             if num.x <= 1:
-                ENEMY_SPEED = 2
+                ENEMY_SPEED = 1
+                enemy1_green_rect[i].y += ENEMY_PUSH_DOWN
             elif num.x >= 755:
-                ENEMY_SPEED = -2
+                ENEMY_SPEED = -0.5
+                enemy1_green_rect[i].y += ENEMY_PUSH_DOWN
+        for num in enemy2_green_rect:
+            if num.x <= 1:
+                ENEMY_SPEED = 1
+                enemy2_green_rect[i].y += ENEMY_PUSH_DOWN
+            elif num.x >= 755:
+                ENEMY_SPEED = -0.5
+                enemy2_green_rect[i].y += ENEMY_PUSH_DOWN
 
         SCREEN.blit(enemy_pink_img[i], enemy_pink_rect[i])
         SCREEN.blit(enemy_cyan_img[i], enemy1_cyan_rect[i])
@@ -145,7 +175,6 @@ def main():
 
     while True:
         CLOCK.tick(FPS)
-
         SCREEN.fill(BLACK)
         SCREEN.blit(BACKGROUND, (0, 0))
 
