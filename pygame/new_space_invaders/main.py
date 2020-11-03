@@ -94,12 +94,19 @@ def bunker():
 def draw_enemies():
     global ENEMY_SPEED
 
+    for num in enemy1_rect:
+        num.x += ENEMY_SPEED
+
+    for num in enemy2_rect:
+        num.x += ENEMY_SPEED
+
     for i in range(NUM_OF_ENEMIES):
-        # TODO: Treat them as a group instead of moving them one by one
-        # TODO: Have one position for all of the enemies, instead of giving
-        # each enemy its own position
         for num in enemy1_rect:
-            num.x += ENEMY_SPEED
+            if num.x <= 1:
+                ENEMY_SPEED = 2
+            elif num.x >= 755:
+                ENEMY_SPEED = -2
+
             if num.x <= 1:
                 ENEMY_SPEED = 2
             elif num.x >= 755:
@@ -107,28 +114,6 @@ def draw_enemies():
 
         SCREEN.blit(enemy_img[i], enemy1_rect[i])
         SCREEN.blit(enemy_img[i], enemy2_rect[i])
-
-        """enemy1_rect[i].x += ENEMY_SPEED[i]
-        if enemy1_rect[i].x <= 1:
-            ENEMY_SPEED[i] = 2
-        elif enemy1_rect[i].x >= 755:
-            ENEMY_SPEED[i] = -2"""
-
-        """enemy1_rect[i].x += ENEMY_SPEED[i]
-        if enemy1_rect[i].x <= 1:
-            ENEMY_SPEED[i] = 2
-            enemy1_rect[i].y += ENEMY_PUSH_DOWN[i]
-        elif enemy1_rect[i].x >= 755:
-            ENEMY_SPEED[i] = -2
-            enemy1_rect[i].y += ENEMY_PUSH_DOWN[i]
-
-        enemy2_rect[i].x += ENEMY_SPEED[i]
-        if enemy2_rect[i].x <= 1:
-            ENEMY_SPEED[i] = 2
-            enemy2_rect[i].y += ENEMY_PUSH_DOWN[i]
-        elif enemy2_rect[i].x >= 755:
-            ENEMY_SPEED[i] = -2
-            enemy2_rect[i].y += ENEMY_PUSH_DOWN[i]"""
 
 
 def bullet(spaceship_x, spaceship_y):
