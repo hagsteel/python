@@ -29,19 +29,31 @@ SHIP_RECT = SHIP.get_rect(topleft=(375, 540))
 SHIP_SPEED = 5
 
 NUM_OF_ENEMIES = 10
-enemy_img = []
-enemy1_rect = []
-enemy2_rect = []
+enemy_pink_img = []
+enemy_cyan_img = []
+enemy_green_img = []
+enemy_pink_rect = []
+enemy1_cyan_rect = []
+enemy2_cyan_rect = []
+enemy1_green_rect = []
+enemy2_green_rect = []
 ENEMY_SPEED = 2
 ENEMY_PUSH_DOWN = 40
 X = 105
 
 for enemies in range(NUM_OF_ENEMIES):
     X += 50
-    ENEMY = pygame.image.load(IMAGE_PATH + "enemy3_1.png")
-    enemy_img.append(pygame.transform.scale(ENEMY, (40, 40)))
-    enemy1_rect.append(enemy_img[enemies].get_rect(topleft=(X, 60)))
-    enemy2_rect.append(enemy_img[enemies].get_rect(topleft=(X, 100)))
+    ENEMY_PINK = pygame.image.load(IMAGE_PATH + "enemy1_2.png")
+    ENEMY_GREEN = pygame.image.load(IMAGE_PATH + "enemy3_1.png")
+    ENEMY_CYAN = pygame.image.load(IMAGE_PATH + "enemy2_1.png")
+    enemy_green_img.append(pygame.transform.scale(ENEMY_GREEN, (40, 40)))
+    enemy_pink_img.append(pygame.transform.scale(ENEMY_PINK, (40, 40)))
+    enemy_cyan_img.append(pygame.transform.scale(ENEMY_CYAN, (40, 40)))
+    enemy_pink_rect.append(enemy_pink_img[enemies].get_rect(topleft=(X, 60)))
+    enemy1_cyan_rect.append(enemy_cyan_img[enemies].get_rect(topleft=(X, 100)))
+    enemy2_cyan_rect.append(enemy_cyan_img[enemies].get_rect(topleft=(X, 140)))
+    enemy1_green_rect.append(enemy_green_img[enemies].get_rect(topleft=(X, 180)))
+    enemy2_green_rect.append(enemy_green_img[enemies].get_rect(topleft=(X, 220)))
 
 BULLET = pygame.image.load(IMAGE_PATH + "laser.png")
 BULLET_STATE = "Ready"
@@ -69,7 +81,7 @@ def main_menu():
         SCREEN.blit(BACKGROUND, (0, 0))
         SCREEN.blit(title_text, (164, 155))
         SCREEN.blit(title_text2, (201, 225))
-        SCREEN.blit(enemy_img[0], (318, 270))
+        SCREEN.blit(enemy_green_img[0], (318, 270))
         SCREEN.blit(point_text, (368, 270))
 
         for event in pygame.event.get():
@@ -94,26 +106,33 @@ def bunker():
 def draw_enemies():
     global ENEMY_SPEED
 
-    for num in enemy1_rect:
+    for num in enemy_pink_rect:
         num.x += ENEMY_SPEED
 
-    for num in enemy2_rect:
+    for num in enemy1_cyan_rect:
+        num.x += ENEMY_SPEED
+
+    for num in enemy2_cyan_rect:
+        num.x += ENEMY_SPEED
+
+    for num in enemy1_green_rect:
+        num.x += ENEMY_SPEED
+
+    for num in enemy2_green_rect:
         num.x += ENEMY_SPEED
 
     for i in range(NUM_OF_ENEMIES):
-        for num in enemy1_rect:
+        for num in enemy1_green_rect:
             if num.x <= 1:
                 ENEMY_SPEED = 2
             elif num.x >= 755:
                 ENEMY_SPEED = -2
 
-            if num.x <= 1:
-                ENEMY_SPEED = 2
-            elif num.x >= 755:
-                ENEMY_SPEED = -2
-
-        SCREEN.blit(enemy_img[i], enemy1_rect[i])
-        SCREEN.blit(enemy_img[i], enemy2_rect[i])
+        SCREEN.blit(enemy_pink_img[i], enemy_pink_rect[i])
+        SCREEN.blit(enemy_cyan_img[i], enemy1_cyan_rect[i])
+        SCREEN.blit(enemy_cyan_img[i], enemy2_cyan_rect[i])
+        SCREEN.blit(enemy_green_img[i], enemy1_green_rect[i])
+        SCREEN.blit(enemy_green_img[i], enemy2_green_rect[i])
 
 
 def bullet(spaceship_x, spaceship_y):
@@ -135,7 +154,7 @@ def main():
         SCREEN.blit(BACKGROUND, (0, 0))
 
         lives_text = MAIN_FONT.render("Lives", True, WHITE)
-        tiny_enemy = pygame.transform.scale(ENEMY, (25, 25))
+        tiny_enemy = pygame.transform.scale(ENEMY_GREEN, (25, 25))
         score_text = MAIN_FONT.render("Score", True, WHITE)
         score_text_num = MAIN_FONT.render("0", True, GREEN)
 
