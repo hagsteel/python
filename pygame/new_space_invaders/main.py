@@ -32,8 +32,8 @@ NUM_OF_ENEMIES = 10
 ENEMY_IMG = []
 ENEMY1_RECT = []
 ENEMY2_RECT = []
-ENEMY_SPEED = []
-ENEMY_PUSH_DOWN = []
+ENEMY_SPEED = 2
+ENEMY_PUSH_DOWN = 40
 X = 105
 group_enemies = []
 
@@ -43,8 +43,6 @@ for enemies in range(NUM_OF_ENEMIES):
     ENEMY_IMG.append(pygame.transform.scale(ENEMY, (40, 40)))
     ENEMY1_RECT.append(ENEMY_IMG[enemies].get_rect(topleft=(X, 60)))
     ENEMY2_RECT.append(ENEMY_IMG[enemies].get_rect(topleft=(X, 100)))
-    ENEMY_SPEED.append(2)
-    ENEMY_PUSH_DOWN.append(40)
 
 BULLET = pygame.image.load(IMAGE_PATH + "laser.png")
 BULLET_STATE = "Ready"
@@ -95,20 +93,29 @@ def bunker():
 
 
 def draw_enemies():
+    global ENEMY_SPEED
+
     for i in range(NUM_OF_ENEMIES):
         # TODO: Treat them as a group instead of moving them one by one
         # TODO: Have one position for all of the enemies, instead of giving
         # each enemy its own position
         group_enemies.append(ENEMY1_RECT[i].x)
 
-        ENEMY1_RECT[i].x += ENEMY_SPEED[i]
-        if ENEMY1_RECT[i].x <= 1:
-            ENEMY_SPEED[i] = 2
-        elif ENEMY1_RECT[i].x >= 755:
-            ENEMY_SPEED[i] = -2
+        for num in ENEMY1_RECT:
+            num.x += ENEMY_SPEED
+            if num.x <= 1:
+                ENEMY_SPEED = 2
+            elif num.x >= 755:
+                ENEMY_SPEED = -2
 
         SCREEN.blit(ENEMY_IMG[i], ENEMY1_RECT[i])
         SCREEN.blit(ENEMY_IMG[i], ENEMY2_RECT[i])
+
+        """ENEMY1_RECT[i].x += ENEMY_SPEED[i]
+        if ENEMY1_RECT[i].x <= 1:
+            ENEMY_SPEED[i] = 2
+        elif ENEMY1_RECT[i].x >= 755:
+            ENEMY_SPEED[i] = -2"""
 
         """ENEMY1_RECT[i].x += ENEMY_SPEED[i]
         if ENEMY1_RECT[i].x <= 1:
