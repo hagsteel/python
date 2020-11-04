@@ -62,7 +62,7 @@ BULLET = pygame.image.load(IMAGE_PATH + "laser.png")
 BULLET_STATE = "Ready"
 BULLET_Y = 540
 BULLET_SPEED = 18
-BULLET_RECT = BULLET.get_rect(topleft=(23, BULLET_Y))
+BULLET_RECT = BULLET.get_rect(topleft=(bullet_x, BULLET_Y))
 
 # Colors (R, G, B)
 WHITE = (255, 255, 255)
@@ -182,18 +182,18 @@ def range_intersect(min0, max0, min1, max1):
 
 
 def rect_intersect(r0, r1):
-    return (range_intersect(r0.x + r0.width, r1.x + r1.width,
-                            r0.y + r0.height, r1.y + r1.height))
+    return (range_intersect(r0.x, r0.x + r0.width, r1.x, r1.x + r1.width),
+            range_intersect(r0.y, r0.y + r0.height, r1.y, r1.y + r1.height))
 
 
 def collision():
     for j in range(NUM_OF_ENEMIES):
         if rect_intersect(BULLET_RECT, enemy1_green_rect[j]):
-            print("Collide")
+            pass
 
 
 def main():
-    global BULLET_Y, BULLET_STATE
+    global BULLET_Y, BULLET_STATE, bullet_x
 
     pygame.key.set_repeat(1, 10)
 
@@ -244,6 +244,7 @@ def main():
                 sys.exit()
 
         collision()
+        print(BULLET_RECT.y)
 
         pygame.display.update()
 
