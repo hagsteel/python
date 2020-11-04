@@ -177,20 +177,26 @@ def bullet(spaceship_x, spaceship_y):
     SCREEN.blit(BULLET, (spaceship_x + 23, spaceship_y))
 
 
-def range_intersect(min0, max0, min1, max1):
-    return (max(min0, max0) >= min(min1, max1),
-            min(min0, max0) <= max(min1, max1))
+# def range_intersect(min0, max0, min1, max1):
+#     return (max(min0, max0) >= min(min1, max1),
+#             min(min0, max0) <= max(min1, max1))
 
+
+# def rect_intersect(r0, r1):
+#     return (range_intersect(r0.x, r0.x + r0.width, r1.x, r1.x + r1.width),
+#             range_intersect(r0.y, r0.y + r0.height, r1.y, r1.y + r1.height))
 
 def rect_intersect(r0, r1):
-    return (range_intersect(r0.x, r0.x + r0.width, r1.x, r1.x + r1.width),
-            range_intersect(r0.y, r0.y + r0.height, r1.y, r1.y + r1.height))
+    return r0.colliderect(r1)
 
 
 def collision():
-    for j in range(NUM_OF_ENEMIES):
-        if rect_intersect(BULLET_RECT, enemy2_green_rect[j]):
-            print("Collide")
+    if BULLET_STATE == "Fire":
+        for j in range(NUM_OF_ENEMIES):
+            if rect_intersect(BULLET_RECT, enemy2_green_rect[j]):
+                explosion = mixer.Sound(SOUND_PATH + "invaderkilled.wav")
+                explosion.set_volume(0.05)
+                explosion.play()
 
 
 def main():
