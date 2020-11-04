@@ -2,6 +2,7 @@ import sys
 from os.path import abspath, dirname
 
 import pygame
+from pygame import mixer
 
 pygame.init()
 
@@ -64,6 +65,10 @@ BULLET_SPEED = 18
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 GREEN = (78, 255, 87)
+
+background_sound = mixer.Sound(SOUND_PATH + "background.wav")
+background_sound.set_volume(0.2)
+background_sound.play(-1)
 
 # Game variables
 CLOCK = pygame.time.Clock()
@@ -200,6 +205,9 @@ def main():
             SHIP_RECT.x += SHIP_SPEED
         if keys[pygame.K_SPACE]:
             if BULLET_STATE == "Ready":
+                bullet_sound = mixer.Sound(SOUND_PATH + "shoot.wav")
+                bullet_sound.set_volume(0.05)
+                bullet_sound.play()
                 bullet_x = SHIP_RECT.x
                 bullet(bullet_x, BULLET_Y)
         SCREEN.blit(SHIP, SHIP_RECT)
