@@ -42,7 +42,7 @@ ENEMY_SPEED = 1
 ENEMY_PUSH_DOWN = 10
 X = 105
 
-for enemies in range(NUM_OF_ENEMIES):
+for enemy in range(NUM_OF_ENEMIES):
     X += 50
     ENEMY_PINK = pygame.image.load(IMAGE_PATH + "enemy1_2.png")
     ENEMY_GREEN = pygame.image.load(IMAGE_PATH + "enemy3_1.png")
@@ -52,17 +52,17 @@ for enemies in range(NUM_OF_ENEMIES):
     enemy_pink_img.append(pygame.transform.scale(ENEMY_PINK, (40, 40)))
     enemy_cyan_img.append(pygame.transform.scale(ENEMY_CYAN, (40, 40)))
 
-    enemy_pink_rect.append(enemy_pink_img[enemies].get_rect(topleft=(X, 60)))
-    enemy1_cyan_rect.append(enemy_cyan_img[enemies].get_rect(topleft=(X, 100)))
-    enemy2_cyan_rect.append(enemy_cyan_img[enemies].get_rect(topleft=(X, 140)))
-    enemy1_green_rect.append(enemy_green_img[enemies].get_rect(topleft=(X, 180)))
-    enemy2_green_rect.append(enemy_green_img[enemies].get_rect(topleft=(X, 220)))
+    enemy_pink_rect.append(enemy_pink_img[enemy].get_rect(topleft=(X, 60)))
+    enemy1_cyan_rect.append(enemy_cyan_img[enemy].get_rect(topleft=(X, 100)))
+    enemy2_cyan_rect.append(enemy_cyan_img[enemy].get_rect(topleft=(X, 140)))
+    enemy1_green_rect.append(enemy_green_img[enemy].get_rect(topleft=(X, 180)))
+    enemy2_green_rect.append(enemy_green_img[enemy].get_rect(topleft=(X, 220)))
 
 BULLET = pygame.image.load(IMAGE_PATH + "laser.png")
 BULLET_STATE = "Ready"
 BULLET_Y = 540
 BULLET_SPEED = 18
-BULLET = BULLET.get_rect(topleft=(23, BULLET_Y))
+BULLET_RECT = BULLET.get_rect(topleft=(23, BULLET_Y))
 
 # Colors (R, G, B)
 WHITE = (255, 255, 255)
@@ -76,10 +76,6 @@ background_sound.play(-1)
 # Game variables
 CLOCK = pygame.time.Clock()
 FPS = 60
-
-print(f"Bullet {BULLET}")
-for i in range(7):
-    print(enemy1_green_rect[i])
 
 
 def main_menu():
@@ -180,19 +176,19 @@ def bullet(spaceship_x, spaceship_y):
     SCREEN.blit(BULLET, (spaceship_x + 23, spaceship_y))
 
 
-def rangeintersect(min0, max0, min1, max1):
-    return (max(min0, max0) >= min(min1, max1)
-            and min(min0, max0) <= max(min1, max1))
+def range_intersect(min0, max0, min1, max1):
+    return (max(min0, max0) >= min(min1, max1),
+            min(min0, max0) <= max(min1, max1))
 
 
-def rectintersect(r0, r1):
-    return (rangeintersect(r0.x + r0.width, r1.x + r1.width)
-            and r0.y + r0.height, r1.y + r1.height)
+def rect_intersect(r0, r1):
+    return (range_intersect(r0.x + r0.width, r1.x + r1.width,
+                            r0.y + r0.height, r1.y + r1.height))
 
 
 def collision():
-    for i in range(NUM_OF_ENEMIES):
-        if rectintersect(BULLET, enemy1_green_rect[i]):
+    for j in range(NUM_OF_ENEMIES):
+        if rect_intersect(BULLET_RECT, enemy1_green_rect[j]):
             print("Collide")
 
 
