@@ -63,7 +63,6 @@ BULLET_STATE = "Ready"
 BULLET_Y = 540
 BULLET_SPEED = 18
 BULLET = BULLET.get_rect(topleft=(23, BULLET_Y))
-print(BULLET.x)
 
 # Colors (R, G, B)
 WHITE = (255, 255, 255)
@@ -77,6 +76,10 @@ background_sound.play(-1)
 # Game variables
 CLOCK = pygame.time.Clock()
 FPS = 60
+
+print(f"Bullet {BULLET}")
+for i in range(7):
+    print(enemy1_green_rect[i])
 
 
 def main_menu():
@@ -188,8 +191,9 @@ def rectintersect(r0, r1):
 
 
 def collision():
-    if rectintersect(BULLET, enemy1_green_rect):
-        print("Collide")
+    for i in range(NUM_OF_ENEMIES):
+        if rectintersect(BULLET, enemy1_green_rect[i]):
+            print("Collide")
 
 
 def main():
