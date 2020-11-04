@@ -47,9 +47,11 @@ for enemies in range(NUM_OF_ENEMIES):
     ENEMY_PINK = pygame.image.load(IMAGE_PATH + "enemy1_2.png")
     ENEMY_GREEN = pygame.image.load(IMAGE_PATH + "enemy3_1.png")
     ENEMY_CYAN = pygame.image.load(IMAGE_PATH + "enemy2_1.png")
+
     enemy_green_img.append(pygame.transform.scale(ENEMY_GREEN, (40, 40)))
     enemy_pink_img.append(pygame.transform.scale(ENEMY_PINK, (40, 40)))
     enemy_cyan_img.append(pygame.transform.scale(ENEMY_CYAN, (40, 40)))
+
     enemy_pink_rect.append(enemy_pink_img[enemies].get_rect(topleft=(X, 60)))
     enemy1_cyan_rect.append(enemy_cyan_img[enemies].get_rect(topleft=(X, 100)))
     enemy2_cyan_rect.append(enemy_cyan_img[enemies].get_rect(topleft=(X, 140)))
@@ -60,6 +62,8 @@ BULLET = pygame.image.load(IMAGE_PATH + "laser.png")
 BULLET_STATE = "Ready"
 BULLET_Y = 540
 BULLET_SPEED = 18
+BULLET = BULLET.get_rect(topleft=(23, BULLET_Y))
+print(BULLET.x)
 
 # Colors (R, G, B)
 WHITE = (255, 255, 255)
@@ -173,6 +177,21 @@ def bullet(spaceship_x, spaceship_y):
     SCREEN.blit(BULLET, (spaceship_x + 23, spaceship_y))
 
 
+def rangeintersect(min0, max0, min1, max1):
+    return (max(min0, max0) >= min(min1, max1)
+            and min(min0, max0) <= max(min1, max1))
+
+
+def rectintersect(r0, r1):
+    return (rangeintersect(r0.x + r0.width, r1.x + r1.width)
+            and r0.y + r0.height, r1.y + r1.height)
+
+
+def collision():
+    if rectintersect(BULLET, enemy1_green_rect):
+        print("Collide")
+
+
 def main():
     global BULLET_Y, BULLET_STATE
 
@@ -223,6 +242,8 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
+
+        collision()
 
         pygame.display.update()
 
