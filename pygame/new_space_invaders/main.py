@@ -61,7 +61,9 @@ for enemy in range(NUM_OF_ENEMIES):
 BULLET = pygame.image.load(IMAGE_PATH + "laser.png")
 BULLET_STATE = "Ready"
 BULLET_Y = 540
+BULLET_X = 0
 BULLET_SPEED = 18
+BULLET_RECT = BULLET.get_rect(topleft=(BULLET_X, BULLET_Y))
 
 # Colors (R, G, B)
 WHITE = (255, 255, 255)
@@ -187,12 +189,12 @@ def rect_intersect(r0, r1):
 
 def collision():
     for j in range(NUM_OF_ENEMIES):
-        if rect_intersect(bullet_rect, enemy1_green_rect[j]):
-            pass
+        if rect_intersect(BULLET_RECT, enemy1_green_rect[j]):
+            print("Collide")
 
 
 def main():
-    global BULLET_Y, BULLET_STATE, bullet_rect
+    global BULLET_Y, BULLET_STATE, BULLET_RECT, BULLET_X
 
     pygame.key.set_repeat(1, 10)
 
@@ -226,8 +228,8 @@ def main():
                 bullet_sound = mixer.Sound(SOUND_PATH + "shoot.wav")
                 bullet_sound.set_volume(0.05)
                 bullet_sound.play()
-                bullet_x = SHIP_RECT.x
-                bullet(bullet_x, BULLET_Y)
+                BULLET_X = SHIP_RECT.x
+                bullet(BULLET_X, BULLET_Y)
         SCREEN.blit(SHIP, SHIP_RECT)
 
         # Bullet movement
@@ -235,10 +237,10 @@ def main():
             BULLET_Y = 540
             BULLET_STATE = "Ready"
         if BULLET_STATE == "Fire":
-            bullet(bullet_x, BULLET_Y)
+            bullet(BULLET_X, BULLET_Y)
             BULLET_Y -= BULLET_SPEED
 
-        bullet_rect = BULLET.get_rect(topleft=(bullet_x, BULLET_Y))
+        BULLET_RECT = BULLET.get_rect(topleft=(BULLET_X, BULLET_Y))
         collision()
 
         for event in pygame.event.get():
