@@ -189,7 +189,7 @@ def rect_intersect(r0, r1):
 
 def collision():
     for j in range(NUM_OF_ENEMIES):
-        if rect_intersect(BULLET_RECT, enemy1_green_rect[j]):
+        if rect_intersect(BULLET_RECT, enemy2_green_rect[j]):
             print("Collide")
 
 
