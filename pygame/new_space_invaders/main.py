@@ -274,7 +274,7 @@ def main():
             bullet(BULLET_X, BULLET_Y)
             BULLET_Y -= BULLET_SPEED
 
-        BULLET_RECT = BULLET.get_rect(topleft=(BULLET_X, BULLET_Y))
+        BULLET_RECT = BULLET.get_rect(topleft=(BULLET_X + 23, BULLET_Y))
         collision()
 
         for event in pygame.event.get():
