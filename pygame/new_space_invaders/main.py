@@ -48,9 +48,9 @@ for enemy in range(NUM_OF_ENEMIES):
     ENEMY_GREEN = pygame.image.load(IMAGE_PATH + "enemy3_1.png")
     ENEMY_CYAN = pygame.image.load(IMAGE_PATH + "enemy2_1.png")
 
-    enemy_green_img.append(pygame.transform.scale(ENEMY_GREEN, (40, 40)))
     enemy_pink_img.append(pygame.transform.scale(ENEMY_PINK, (40, 40)))
     enemy_cyan_img.append(pygame.transform.scale(ENEMY_CYAN, (40, 40)))
+    enemy_green_img.append(pygame.transform.scale(ENEMY_GREEN, (40, 40)))
 
     enemy_pink_rect.append(enemy_pink_img[enemy].get_rect(topleft=(X, 60)))
     enemy1_cyan_rect.append(enemy_cyan_img[enemy].get_rect(topleft=(X, 100)))
@@ -69,10 +69,6 @@ BULLET_RECT = BULLET.get_rect(topleft=(BULLET_X, BULLET_Y))
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 GREEN = (78, 255, 87)
-
-background_sound = mixer.Sound(SOUND_PATH + "background.wav")
-background_sound.set_volume(0.2)
-background_sound.play(-1)
 
 # Game variables
 CLOCK = pygame.time.Clock()
@@ -177,17 +173,8 @@ def bullet(spaceship_x, spaceship_y):
     SCREEN.blit(BULLET, (spaceship_x + 23, spaceship_y))
 
 
-# def range_intersect(min0, max0, min1, max1):
-#     return (max(min0, max0) >= min(min1, max1),
-#             min(min0, max0) <= max(min1, max1))
-
-
-# def rect_intersect(r0, r1):
-#     return (range_intersect(r0.x, r0.x + r0.width, r1.x, r1.x + r1.width),
-#             range_intersect(r0.y, r0.y + r0.height, r1.y, r1.y + r1.height))
-
-def rect_intersect(r0, r1):
-    return r0.colliderect(r1)
+def rect_intersect(rect_zero, rect_one):
+    return rect_zero.colliderect(rect_one)
 
 
 def collision():
@@ -203,6 +190,10 @@ def main():
     global BULLET_Y, BULLET_STATE, BULLET_RECT, BULLET_X
 
     pygame.key.set_repeat(1, 10)
+
+    background_sound = mixer.Sound(SOUND_PATH + "background.wav")
+    background_sound.set_volume(0.2)
+    background_sound.play(-1)
 
     while True:
         CLOCK.tick(FPS)
