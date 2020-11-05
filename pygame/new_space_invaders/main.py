@@ -192,30 +192,35 @@ def collision():
         for j in range(NUM_OF_ENEMIES):
             if rect_intersect(BULLET_RECT, enemy_pink_rect[j]):
                 SCREEN.blit(explosion_pink, enemy_pink_rect[j])
+                pygame.time.wait(20)
                 explosion_sound.set_volume(0.05)
                 explosion_sound.play()
                 enemy_pink_rect[j].y = 600
                 BULLET_STATE = "Ready"
             elif rect_intersect(BULLET_RECT, enemy1_cyan_rect[j]):
                 SCREEN.blit(explosion_cyan, enemy1_cyan_rect[j])
+                pygame.time.wait(20)
                 explosion_sound.set_volume(0.05)
                 explosion_sound.play()
                 enemy1_cyan_rect[j].y = 600
                 BULLET_STATE = "Ready"
             elif rect_intersect(BULLET_RECT, enemy2_cyan_rect[j]):
                 SCREEN.blit(explosion_cyan, enemy2_cyan_rect[j])
+                pygame.time.wait(20)
                 explosion_sound.set_volume(0.05)
                 explosion_sound.play()
                 enemy2_cyan_rect[j].y = 600
                 BULLET_STATE = "Ready"
             elif rect_intersect(BULLET_RECT, enemy1_green_rect[j]):
                 SCREEN.blit(explosion_green, enemy1_green_rect[j])
+                pygame.time.wait(20)
                 explosion_sound.set_volume(0.05)
                 explosion_sound.play()
                 enemy1_green_rect[j].y = 600
                 BULLET_STATE = "Ready"
             elif rect_intersect(BULLET_RECT, enemy2_green_rect[j]):
                 SCREEN.blit(explosion_green, enemy2_green_rect[j])
+                pygame.time.wait(20)
                 explosion_sound.set_volume(0.05)
                 explosion_sound.play()
                 enemy2_green_rect[j].y = 600
