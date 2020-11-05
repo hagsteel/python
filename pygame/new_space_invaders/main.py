@@ -108,12 +108,15 @@ def main_menu():
 
 
 def bunker():
+    global bunkers
+
+    bunkers = []
     width = 100
     height = 50
     y_axis = 450
-    pygame.draw.rect(SCREEN, GREEN, (70, y_axis, width, height))
-    pygame.draw.rect(SCREEN, GREEN, (350, y_axis, width, height))
-    pygame.draw.rect(SCREEN, GREEN, (650, y_axis, width, height))
+    bunkers.append(pygame.draw.rect(SCREEN, GREEN, (70, y_axis, width, height)))
+    bunkers.append(pygame.draw.rect(SCREEN, GREEN, (350, y_axis, width, height)))
+    bunkers.append(pygame.draw.rect(SCREEN, GREEN, (650, y_axis, width, height)))
 
 
 def draw_enemies():
@@ -185,7 +188,7 @@ def rect_intersect(rect_zero, rect_one):
     return rect_zero.colliderect(rect_one)
 
 
-def collision():
+def enemies_collision():
     global BULLET_STATE
 
     if BULLET_STATE == "Fire":
@@ -225,6 +228,12 @@ def collision():
                 explosion_sound.play()
                 enemy2_green_rect[j].y = 600
                 BULLET_STATE = "Ready"
+
+
+def bunker_collision():
+    for k in range(3):
+        if rect_intersect(BULLET_RECT, bunkers[k]):
+            print("Collide")
 
 
 def main():
@@ -280,7 +289,8 @@ def main():
             BULLET_Y -= BULLET_SPEED
 
         BULLET_RECT = BULLET.get_rect(topleft=(BULLET_X + 23, BULLET_Y))
-        collision()
+        enemies_collision()
+        bunker_collision()
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
