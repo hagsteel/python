@@ -30,7 +30,11 @@ SHIP_RECT = SHIP.get_rect(topleft=(375, 540))
 SHIP_SPEED = 5
 
 explosion_sound = mixer.Sound(SOUND_PATH + "invaderkilled.wav")
+explosion_pink = pygame.image.load(IMAGE_PATH + "explosionpurple.png")
+explosion_cyan = pygame.image.load(IMAGE_PATH + "explosionblue.png")
 explosion_green = pygame.image.load(IMAGE_PATH + "explosiongreen.png")
+explosion_pink = pygame.transform.scale(explosion_pink, (50, 40))
+explosion_cyan = pygame.transform.scale(explosion_cyan, (50, 40))
 explosion_green = pygame.transform.scale(explosion_green, (50, 40))
 
 NUM_OF_ENEMIES = 10
@@ -67,7 +71,7 @@ BULLET_STATE = "Ready"
 BULLET_Y = 540
 BULLET_X = 0
 BULLET_SPEED = 18
-BULLET_RECT = BULLET.get_rect(topleft=(BULLET_X, BULLET_Y))
+BULLET_RECT = BULLET.get_rect(topleft=(BULLET_X + 23, BULLET_Y))
 
 # Colors (R, G, B)
 WHITE = (255, 255, 255)
@@ -187,19 +191,19 @@ def collision():
     if BULLET_STATE == "Fire":
         for j in range(NUM_OF_ENEMIES):
             if rect_intersect(BULLET_RECT, enemy_pink_rect[j]):
-                SCREEN.blit(explosion_green, enemy_pink_rect[j])
+                SCREEN.blit(explosion_pink, enemy_pink_rect[j])
                 explosion_sound.set_volume(0.05)
                 explosion_sound.play()
                 enemy_pink_rect[j].y = 600
                 BULLET_STATE = "Ready"
             elif rect_intersect(BULLET_RECT, enemy1_cyan_rect[j]):
-                SCREEN.blit(explosion_green, enemy1_cyan_rect[j])
+                SCREEN.blit(explosion_cyan, enemy1_cyan_rect[j])
                 explosion_sound.set_volume(0.05)
                 explosion_sound.play()
                 enemy1_cyan_rect[j].y = 600
                 BULLET_STATE = "Ready"
             elif rect_intersect(BULLET_RECT, enemy2_cyan_rect[j]):
-                SCREEN.blit(explosion_green, enemy2_cyan_rect[j])
+                SCREEN.blit(explosion_cyan, enemy2_cyan_rect[j])
                 explosion_sound.set_volume(0.05)
                 explosion_sound.play()
                 enemy2_cyan_rect[j].y = 600
