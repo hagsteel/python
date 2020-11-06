@@ -76,9 +76,10 @@ BULLET_RECT = BULLET.get_rect(topleft=(BULLET_X + 23, BULLET_Y))
 bunkers = []
 
 mystery = pygame.image.load(IMAGE_PATH + "mystery.png")
-mystery = pygame.transform.scale(mystery, (110, 50))
-mystery_rect = mystery.get_rect(topleft=(0, 70))
+mystery = pygame.transform.scale(mystery, (90, 40))
+mystery_rect = mystery.get_rect(topleft=(0, 40))
 mystery_speed = 2
+mystery_entered_played = True
 
 # Colors (R, G, B)
 WHITE = (255, 255, 255)
@@ -249,11 +250,20 @@ def bunker_collision():
 
 
 def draw_mystery():
-    mystery_rect.x += 1
-    print(mystery_rect)
+    global mystery_entered_played
+
+    mystery_is_visible = False
     for v in range(NUM_OF_ENEMIES):
-        if enemy_purple_rect[v].y >= 70:
-            SCREEN.blit(mystery, mystery_rect)
+        if enemy_purple_rect[v].y >= 90:
+            mystery_is_visible = True
+    if mystery_is_visible:
+        mystery_entered = mixer.Sound(SOUND_PATH + "mysteryentered.wav")
+        if mystery_entered_played:
+            mystery_entered.set_volume(0.03)
+            mystery_entered.play()
+            mystery_entered_played = False
+        mystery_rect.x += mystery_speed
+        SCREEN.blit(mystery, mystery_rect)
 
 
 def main():
@@ -262,7 +272,7 @@ def main():
     pygame.key.set_repeat(1, 10)
 
     background_sound = mixer.Sound(SOUND_PATH + "background.wav")
-    background_sound.set_volume(0.2)
+    background_sound.set_volume(0.5)
     background_sound.play(-1)
 
     while True:
