@@ -79,7 +79,7 @@ bunkers = []
 mystery = pygame.image.load(IMAGE_PATH + "mystery.png")
 mystery = pygame.transform.scale(mystery, (90, 40))
 mystery_rect = mystery.get_rect(topleft=(0, 40))
-mystery_rect1 = mystery.get_rect(topleft=(0, 50))
+mystery_rect1 = mystery.get_rect(topleft=(50, 50))
 mystery_speed = 2
 mystery_entered_played = True
 mystery_entered_played1 = True
@@ -258,9 +258,9 @@ def draw_mystery():
     mystery_is_visible = False
     mystery_is_visible1 = False
     for v in range(NUM_OF_ENEMIES):
-        if enemy_purple_rect[v].y >= 110:
+        if enemy_purple_rect[v].y >= 110 and enemy_purple_rect[v].y <= 300:
             mystery_is_visible = True
-        if enemy_purple_rect[v].y >= 150:
+        if enemy_purple_rect[v].y >= 150 and enemy_purple_rect[v].y <= 300:
             mystery_is_visible1 = True
 
     if mystery_is_visible:
@@ -300,10 +300,6 @@ def draw_mystery():
         mystery_rect1.x += 23
         SCREEN.blit(point_text_mystery, mystery_rect1)
         mystery_rect1.x = 900
-
-    print(enemy_purple_rect)
-    print("\n")
-    print(mystery_rect)
 
 
 def main():
