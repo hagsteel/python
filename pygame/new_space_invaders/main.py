@@ -1,5 +1,6 @@
 import sys
 from os.path import abspath, dirname
+import random
 
 import pygame
 from pygame import mixer
@@ -60,11 +61,11 @@ for enemy in range(NUM_OF_ENEMIES):
     enemy_cyan_img.append(pygame.transform.scale(ENEMY_CYAN, (40, 40)))
     enemy_green_img.append(pygame.transform.scale(ENEMY_GREEN, (40, 40)))
 
-    enemy_purple_rect.append(enemy_purple_img[enemy].get_rect(topleft=(X, 60)))
-    enemy1_cyan_rect.append(enemy_cyan_img[enemy].get_rect(topleft=(X, 100)))
-    enemy2_cyan_rect.append(enemy_cyan_img[enemy].get_rect(topleft=(X, 140)))
-    enemy1_green_rect.append(enemy_green_img[enemy].get_rect(topleft=(X, 180)))
-    enemy2_green_rect.append(enemy_green_img[enemy].get_rect(topleft=(X, 220)))
+    enemy_purple_rect.append(enemy_purple_img[enemy].get_rect(topleft=(X, 80)))
+    enemy1_cyan_rect.append(enemy_cyan_img[enemy].get_rect(topleft=(X, 120)))
+    enemy2_cyan_rect.append(enemy_cyan_img[enemy].get_rect(topleft=(X, 160)))
+    enemy1_green_rect.append(enemy_green_img[enemy].get_rect(topleft=(X, 200)))
+    enemy2_green_rect.append(enemy_green_img[enemy].get_rect(topleft=(X, 240)))
 
 BULLET = pygame.image.load(IMAGE_PATH + "laser.png")
 BULLET_STATE = "Ready"
@@ -264,6 +265,12 @@ def draw_mystery():
             mystery_entered_played = False
         mystery_rect.x += mystery_speed
         SCREEN.blit(mystery, mystery_rect)
+    if rect_intersect(BULLET_RECT, mystery_rect):
+        random_point_mystery = random.randint(1, 6) * 50
+        point_text_mystery = MAIN_FONT.render(str(random_point_mystery), True, WHITE)
+        mystery_rect.x += 23
+        SCREEN.blit(point_text_mystery, mystery_rect)
+        mystery_rect.y = 600
 
 
 def main():
