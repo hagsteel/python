@@ -77,6 +77,10 @@ BULLET_RECT = BULLET.get_rect(topleft=(BULLET_X + 23, BULLET_Y))
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 GREEN = (78, 255, 87)
+CYAN = (0, 255, 255)
+PURPLE = (128, 0, 128)
+
+bunkers = []
 
 # Game variables
 CLOCK = pygame.time.Clock()
@@ -89,13 +93,19 @@ def main_menu():
 
         title_text = TITLE_FONT.render("Space Invaders", True, WHITE)
         title_text2 = SUB_TITLE_FONT.render("Press enter to continue", True, WHITE)
-        point_text = SUB_TITLE_FONT.render("   =   10 pts", True, GREEN)
+        point_text_green = SUB_TITLE_FONT.render("   =   10 pts", True, GREEN)
+        point_text_cyan = SUB_TITLE_FONT.render("   =   10 pts", True, CYAN)
+        point_text_purple = SUB_TITLE_FONT.render("   =   10 pts", True, PURPLE)
 
         SCREEN.blit(BACKGROUND, (0, 0))
         SCREEN.blit(title_text, (164, 155))
         SCREEN.blit(title_text2, (201, 225))
-        SCREEN.blit(enemy_green_img[0], (318, 270))
-        SCREEN.blit(point_text, (368, 270))
+        SCREEN.blit(enemy_green_img[0], (300, 265))
+        SCREEN.blit(point_text_green, (350, 270))
+        SCREEN.blit(enemy_cyan_img[0], (300, 315))
+        SCREEN.blit(point_text_cyan, (350, 320))
+        SCREEN.blit(enemy_pink_img[0], (300, 365))
+        SCREEN.blit(point_text_purple, (350, 370))
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -108,9 +118,6 @@ def main_menu():
 
 
 def bunker():
-    global bunkers
-
-    bunkers = []
     width = 100
     height = 50
     y_axis = 450
