@@ -30,18 +30,18 @@ SHIP_RECT = SHIP.get_rect(topleft=(375, 540))
 SHIP_SPEED = 5
 
 explosion_sound = mixer.Sound(SOUND_PATH + "invaderkilled.wav")
-explosion_pink = pygame.image.load(IMAGE_PATH + "explosionpurple.png")
-explosion_cyan = pygame.image.load(IMAGE_PATH + "explosionblue.png")
+explosion_purple = pygame.image.load(IMAGE_PATH + "explosionpurple.png")
+explosion_cyan = pygame.image.load(IMAGE_PATH + "explosioncyan.png")
 explosion_green = pygame.image.load(IMAGE_PATH + "explosiongreen.png")
-explosion_pink = pygame.transform.scale(explosion_pink, (50, 40))
+explosion_purple = pygame.transform.scale(explosion_purple, (50, 40))
 explosion_cyan = pygame.transform.scale(explosion_cyan, (50, 40))
 explosion_green = pygame.transform.scale(explosion_green, (50, 40))
 
 NUM_OF_ENEMIES = 10
-enemy_pink_img = []
+enemy_purple_img = []
 enemy_cyan_img = []
 enemy_green_img = []
-enemy_pink_rect = []
+enemy_purple_rect = []
 enemy1_cyan_rect = []
 enemy2_cyan_rect = []
 enemy1_green_rect = []
@@ -52,15 +52,15 @@ X = 105
 
 for enemy in range(NUM_OF_ENEMIES):
     X += 50
-    ENEMY_PINK = pygame.image.load(IMAGE_PATH + "enemy1_2.png")
-    ENEMY_GREEN = pygame.image.load(IMAGE_PATH + "enemy3_1.png")
+    ENEMY_PURPLE = pygame.image.load(IMAGE_PATH + "enemy1_2.png")
     ENEMY_CYAN = pygame.image.load(IMAGE_PATH + "enemy2_1.png")
+    ENEMY_GREEN = pygame.image.load(IMAGE_PATH + "enemy3_1.png")
 
-    enemy_pink_img.append(pygame.transform.scale(ENEMY_PINK, (40, 40)))
+    enemy_purple_img.append(pygame.transform.scale(ENEMY_PURPLE, (40, 40)))
     enemy_cyan_img.append(pygame.transform.scale(ENEMY_CYAN, (40, 40)))
     enemy_green_img.append(pygame.transform.scale(ENEMY_GREEN, (40, 40)))
 
-    enemy_pink_rect.append(enemy_pink_img[enemy].get_rect(topleft=(X, 60)))
+    enemy_purple_rect.append(enemy_purple_img[enemy].get_rect(topleft=(X, 60)))
     enemy1_cyan_rect.append(enemy_cyan_img[enemy].get_rect(topleft=(X, 100)))
     enemy2_cyan_rect.append(enemy_cyan_img[enemy].get_rect(topleft=(X, 140)))
     enemy1_green_rect.append(enemy_green_img[enemy].get_rect(topleft=(X, 180)))
@@ -73,14 +73,14 @@ BULLET_X = 0
 BULLET_SPEED = 18
 BULLET_RECT = BULLET.get_rect(topleft=(BULLET_X + 23, BULLET_Y))
 
+bunkers = []
+
 # Colors (R, G, B)
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
-GREEN = (78, 255, 87)
+PURPLE = (210, 0, 255)
 CYAN = (0, 255, 255)
-PURPLE = (128, 0, 128)
-
-bunkers = []
+GREEN = (78, 255, 87)
 
 # Game variables
 CLOCK = pygame.time.Clock()
@@ -104,7 +104,7 @@ def main_menu():
         SCREEN.blit(point_text_green, (350, 270))
         SCREEN.blit(enemy_cyan_img[0], (300, 315))
         SCREEN.blit(point_text_cyan, (350, 320))
-        SCREEN.blit(enemy_pink_img[0], (300, 365))
+        SCREEN.blit(enemy_purple_img[0], (300, 365))
         SCREEN.blit(point_text_purple, (350, 370))
 
         for event in pygame.event.get():
@@ -129,7 +129,7 @@ def bunker():
 def draw_enemies():
     global ENEMY_SPEED
 
-    for num in enemy_pink_rect:
+    for num in enemy_purple_rect:
         num.x += ENEMY_SPEED
     for num in enemy1_cyan_rect:
         num.x += ENEMY_SPEED
@@ -141,13 +141,13 @@ def draw_enemies():
         num.x += ENEMY_SPEED
 
     for i in range(NUM_OF_ENEMIES):
-        for num in enemy_pink_rect:
+        for num in enemy_purple_rect:
             if num.x <= 1:
                 ENEMY_SPEED = 1
-                enemy_pink_rect[i].y += ENEMY_PUSH_DOWN
+                enemy_purple_rect[i].y += ENEMY_PUSH_DOWN
             elif num.x >= 755:
                 ENEMY_SPEED = -0.5
-                enemy_pink_rect[i].y += ENEMY_PUSH_DOWN
+                enemy_purple_rect[i].y += ENEMY_PUSH_DOWN
         for num in enemy1_cyan_rect:
             if num.x <= 1:
                 ENEMY_SPEED = 1
@@ -177,7 +177,7 @@ def draw_enemies():
                 ENEMY_SPEED = -0.5
                 enemy2_green_rect[i].y += ENEMY_PUSH_DOWN
 
-        SCREEN.blit(enemy_pink_img[i], enemy_pink_rect[i])
+        SCREEN.blit(enemy_purple_img[i], enemy_purple_rect[i])
         SCREEN.blit(enemy_cyan_img[i], enemy1_cyan_rect[i])
         SCREEN.blit(enemy_cyan_img[i], enemy2_cyan_rect[i])
         SCREEN.blit(enemy_green_img[i], enemy1_green_rect[i])
@@ -200,12 +200,12 @@ def enemies_collision():
 
     if BULLET_STATE == "Fire":
         for j in range(NUM_OF_ENEMIES):
-            if rect_intersect(BULLET_RECT, enemy_pink_rect[j]):
-                SCREEN.blit(explosion_pink, enemy_pink_rect[j])
+            if rect_intersect(BULLET_RECT, enemy_purple_rect[j]):
+                SCREEN.blit(explosion_purple, enemy_purple_rect[j])
                 pygame.time.wait(20)
                 explosion_sound.set_volume(0.05)
                 explosion_sound.play()
-                enemy_pink_rect[j].y = 600
+                enemy_purple_rect[j].y = 600
                 BULLET_STATE = "Ready"
             elif rect_intersect(BULLET_RECT, enemy1_cyan_rect[j]):
                 SCREEN.blit(explosion_cyan, enemy1_cyan_rect[j])
