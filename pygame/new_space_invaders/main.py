@@ -75,6 +75,11 @@ BULLET_RECT = BULLET.get_rect(topleft=(BULLET_X + 23, BULLET_Y))
 
 bunkers = []
 
+mystery = pygame.image.load(IMAGE_PATH + "mystery.png")
+mystery = pygame.transform.scale(mystery, (110, 50))
+mystery_rect = mystery.get_rect(topleft=(0, 70))
+mystery_speed = 2
+
 # Colors (R, G, B)
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
@@ -243,6 +248,14 @@ def bunker_collision():
             print("Collide")
 
 
+def draw_mystery():
+    mystery_rect.x += 1
+    print(mystery_rect)
+    for v in range(NUM_OF_ENEMIES):
+        if enemy_purple_rect[v].y >= 70:
+            SCREEN.blit(mystery, mystery_rect)
+
+
 def main():
     global BULLET_Y, BULLET_STATE, BULLET_RECT, BULLET_X
 
@@ -299,6 +312,9 @@ def main():
         enemies_collision()
         bunker_collision()
 
+        draw_mystery()
+
+        # print(enemy_purple_rect)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
