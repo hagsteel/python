@@ -77,9 +77,10 @@ BULLET_RECT = BULLET.get_rect(topleft=(BULLET_X + 23, BULLET_Y))
 bunkers = []
 
 mystery = pygame.image.load(IMAGE_PATH + "mystery.png")
+mystery_entered = mixer.Sound(SOUND_PATH + "mysteryentered.wav")
 mystery = pygame.transform.scale(mystery, (90, 40))
 mystery_rect = mystery.get_rect(topleft=(0, 40))
-mystery_rect1 = mystery.get_rect(topleft=(50, 50))
+mystery_rect1 = mystery.get_rect(topleft=(0, 40))
 mystery_speed = 2
 mystery_entered_played = True
 mystery_entered_played1 = True
@@ -252,9 +253,31 @@ def bunker_collision():
             print("Collide")
 
 
-def draw_mystery():
+def show_mystery(mystery_is_visible, mystery_rect, mystery_entered_played):
     global mystery_entered_played, mystery_entered_played1
 
+    if mystery_is_visible:
+        if mystery_entered_played:
+            mystery_entered.set_volume(0.03)
+            mystery_entered.play()
+            mystery_entered_played = False
+            mystery_entered_played1 = False
+        if mystery_rect.x >= 800:
+            mystery_rect.x = 900
+        else:
+            mystery_rect.x += mystery_speed
+            SCREEN.blit(mystery, mystery_rect)
+
+
+def random_point_mystery(mystery_rect):
+    random_point_mystery = random.randint(1, 6) * 50
+    point_text_mystery = MAIN_FONT.render(str(random_point_mystery), True, WHITE)
+    mystery_rect.x += 23
+    SCREEN.blit(point_text_mystery, mystery_rect)
+    mystery_rect.x = 900
+
+
+def draw_mystery():
     mystery_is_visible = False
     mystery_is_visible1 = False
     for v in range(NUM_OF_ENEMIES):
@@ -263,43 +286,14 @@ def draw_mystery():
         if enemy_purple_rect[v].y >= 150 and enemy_purple_rect[v].y <= 300:
             mystery_is_visible1 = True
 
-    if mystery_is_visible:
-        mystery_entered = mixer.Sound(SOUND_PATH + "mysteryentered.wav")
-        if mystery_entered_played:
-            mystery_entered.set_volume(0.03)
-            mystery_entered.play()
-            mystery_entered_played = False
-        if mystery_rect.x >= 800:
-            mystery_rect.x = 900
-        else:
-            mystery_rect.x += mystery_speed
-            SCREEN.blit(mystery, mystery_rect)
-
-    if mystery_is_visible1:
-        mystery_entered = mixer.Sound(SOUND_PATH + "mysteryentered.wav")
-        if mystery_entered_played1:
-            mystery_entered.set_volume(0.03)
-            mystery_entered.play()
-            mystery_entered_played1 = False
-        if mystery_rect1.x >= 800:
-            mystery_rect1.x = 900
-        else:
-            mystery_rect1.x += mystery_speed
-            SCREEN.blit(mystery, mystery_rect1)
+    show_mystery(mystery_is_visible, mystery_rect, mystery_entered_played)
+    show_mystery(mystery_is_visible1, mystery_rect1, mystery_entered_played1)
 
     if rect_intersect(BULLET_RECT, mystery_rect):
-        random_point_mystery = random.randint(1, 6) * 50
-        point_text_mystery = MAIN_FONT.render(str(random_point_mystery), True, WHITE)
-        mystery_rect.x += 23
-        SCREEN.blit(point_text_mystery, mystery_rect)
-        mystery_rect.x = 900
-
+        random_point_mystery(mystery_rect)
     if rect_intersect(BULLET_RECT, mystery_rect1):
-        random_point_mystery = random.randint(1, 6) * 50
-        point_text_mystery = MAIN_FONT.render(str(random_point_mystery), True, WHITE)
-        mystery_rect1.x += 23
-        SCREEN.blit(point_text_mystery, mystery_rect1)
-        mystery_rect1.x = 900
+        random_point_mystery(mystery_rect1)
+    print(enemy_purple_rect)
 
 
 def main():
@@ -352,14 +346,12 @@ def main():
         if BULLET_STATE == "Fire":
             bullet(BULLET_X, BULLET_Y)
             BULLET_Y -= BULLET_SPEED
-
         BULLET_RECT = BULLET.get_rect(topleft=(BULLET_X + 23, BULLET_Y))
 
         enemies_collision()
         bunker_collision()
         draw_mystery()
 
-        # print(enemy_purple_rect)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
