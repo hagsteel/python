@@ -270,23 +270,33 @@ class mystery_state():
         self.mystery_entered_played1 = mystery_entered_played1
 
 
-yo = mystery_state(mystery_rect, mystery_rect, mystery_entered_played,
+yo = mystery_state(mystery_rect, mystery_rect1, mystery_entered_played,
                    mystery_entered_played1)
 
 
-def show_mystery(mystery_is_visible, mystery_rect, mystery_entered_play):
+def show_mystery(mystery_is_visible, mystery_is_visible1, yo):
     global mystery_entered_played, mystery_entered_played1
 
     if mystery_is_visible:
-        if mystery_entered_played:
+        if yo.mystery_entered_played:
             mystery_entered.set_volume(0.03)
             mystery_entered.play()
-            mystery_entered_played = False
-        if mystery_rect.x >= 800:
-            mystery_rect.x = 900
+            yo.mystery_entered_played = False
+        if yo.mystery_rect.x >= 800:
+            yo.mystery_rect.x = 900
         else:
-            mystery_rect.x += mystery_speed
-            SCREEN.blit(mystery, mystery_rect)
+            yo.mystery_rect.x += mystery_speed
+            SCREEN.blit(mystery, yo.mystery_rect)
+    if mystery_is_visible1:
+        if yo.mystery_entered_played1:
+            mystery_entered.set_volume(0.03)
+            mystery_entered.play()
+            yo.mystery_entered_played1 = False
+        if yo.mystery_rect1.x >= 800:
+            yo.mystery_rect1.x = 900
+        else:
+            yo.mystery_rect1.x += mystery_speed
+            SCREEN.blit(mystery, yo.mystery_rect1)
 
 
 def draw_mystery():
@@ -298,8 +308,7 @@ def draw_mystery():
         if enemy_purple_rect[v].y >= 150 and enemy_purple_rect[v].y <= 300:
             mystery_is_visible1 = True
 
-    show_mystery(mystery_is_visible, yo.mystery_rect, yo.mystery_entered_played)
-    show_mystery(mystery_is_visible1, yo.mystery_rect1, yo.mystery_entered_played1)
+    show_mystery(mystery_is_visible, mystery_is_visible1, yo)
 
     if rect_intersect(BULLET_RECT, mystery_rect):
         random_point_mystery(mystery_rect)
