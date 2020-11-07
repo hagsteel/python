@@ -253,7 +253,28 @@ def bunker_collision():
             print("Collide")
 
 
-def show_mystery(mystery_is_visible, mystery_rect, mystery_entered_played):
+def random_point_mystery(mystery_rect):
+    random_point_mystery = random.randint(1, 6) * 50
+    point_text = MAIN_FONT.render(str(random_point_mystery), True, WHITE)
+    mystery_rect.x += 23
+    SCREEN.blit(point_text, mystery_rect)
+    mystery_rect.x = 900
+
+
+class mystery_state():
+    def __init__(self, mystery_rect, mystery_rect1, mystery_entered_played,
+                 mystery_entered_played1):
+        self.mystery_rect = mystery_rect
+        self.mystery_rect1 = mystery_rect1
+        self.mystery_entered_played = mystery_entered_played
+        self.mystery_entered_played1 = mystery_entered_played1
+
+
+yo = mystery_state(mystery_rect, mystery_rect, mystery_entered_played,
+                   mystery_entered_played1)
+
+
+def show_mystery(mystery_is_visible, mystery_rect, mystery_entered_play):
     global mystery_entered_played, mystery_entered_played1
 
     if mystery_is_visible:
@@ -261,20 +282,11 @@ def show_mystery(mystery_is_visible, mystery_rect, mystery_entered_played):
             mystery_entered.set_volume(0.03)
             mystery_entered.play()
             mystery_entered_played = False
-            mystery_entered_played1 = False
         if mystery_rect.x >= 800:
             mystery_rect.x = 900
         else:
             mystery_rect.x += mystery_speed
             SCREEN.blit(mystery, mystery_rect)
-
-
-def random_point_mystery(mystery_rect):
-    random_point_mystery = random.randint(1, 6) * 50
-    point_text_mystery = MAIN_FONT.render(str(random_point_mystery), True, WHITE)
-    mystery_rect.x += 23
-    SCREEN.blit(point_text_mystery, mystery_rect)
-    mystery_rect.x = 900
 
 
 def draw_mystery():
@@ -286,14 +298,13 @@ def draw_mystery():
         if enemy_purple_rect[v].y >= 150 and enemy_purple_rect[v].y <= 300:
             mystery_is_visible1 = True
 
-    show_mystery(mystery_is_visible, mystery_rect, mystery_entered_played)
-    show_mystery(mystery_is_visible1, mystery_rect1, mystery_entered_played1)
+    show_mystery(mystery_is_visible, yo.mystery_rect, yo.mystery_entered_played)
+    show_mystery(mystery_is_visible1, yo.mystery_rect1, yo.mystery_entered_played1)
 
     if rect_intersect(BULLET_RECT, mystery_rect):
         random_point_mystery(mystery_rect)
     if rect_intersect(BULLET_RECT, mystery_rect1):
         random_point_mystery(mystery_rect1)
-    print(enemy_purple_rect)
 
 
 def main():
