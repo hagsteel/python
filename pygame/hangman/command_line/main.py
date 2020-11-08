@@ -1,6 +1,5 @@
-import random
-import sys
 import os.path
+import sys
 
 # Import gui/main.py
 sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
@@ -12,75 +11,75 @@ HANGMAN_STATUS = 6
 
 def display_hangman(HANGMAN_STATUS):
     stages = [  # final state: head, torso, both arms, and both legs
-                """
-                   --------
-                   |      |
-                   |      O
-                   |     \\|/
-                   |      |
-                   |     / \\
-                   -
-                """,
-                # head, torso, both arms, and one leg
-                """
-                   --------
-                   |      |
-                   |      O
-                   |     \\|/
-                   |      |
-                   |     /
-                   -
-                """,
-                # head, torso, and both arms
-                """
-                   --------
-                   |      |
-                   |      O
-                   |     \\|/
-                   |      |
-                   |
-                   -
-                """,
-                # head, torso, and one arm
-                """
-                   --------
-                   |      |
-                   |      O
-                   |     \\|
-                   |      |
-                   |
-                   -
-                """,
-                # head and torso
-                """
-                   --------
-                   |      |
-                   |      O
-                   |      |
-                   |      |
-                   |
-                   -
-                """,
-                # head
-                """
-                   --------
-                   |      |
-                   |      O
-                   |
-                   |
-                   |
-                   -
-                """,
-                # initial empty state
-                """
-                   --------
-                   |      |
-                   |
-                   |
-                   |
-                   |
-                   -
-                """
+        """
+           --------
+           |      |
+           |      O
+           |     \\|/
+           |      |
+           |     / \\
+           -
+        """,
+        # head, torso, both arms, and one leg
+        """
+           --------
+           |      |
+           |      O
+           |     \\|/
+           |      |
+           |     /
+           -
+        """,
+        # head, torso, and both arms
+        """
+           --------
+           |      |
+           |      O
+           |     \\|/
+           |      |
+           |
+           -
+        """,
+        # head, torso, and one arm
+        """
+           --------
+           |      |
+           |      O
+           |     \\|
+           |      |
+           |
+           -
+        """,
+        # head and torso
+        """
+           --------
+           |      |
+           |      O
+           |      |
+           |      |
+           |
+           -
+        """,
+        # head
+        """
+           --------
+           |      |
+           |      O
+           |
+           |
+           |
+           -
+        """,
+        # initial empty state
+        """
+           --------
+           |      |
+           |
+           |
+           |
+           |
+           -
+        """
     ]
     return stages[HANGMAN_STATUS]
 

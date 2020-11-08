@@ -1,4 +1,5 @@
 import os.path
+
 from selenium import webdriver
 from selenium.webdriver.common.action_chains import ActionChains
 
@@ -14,7 +15,8 @@ driver.implicitly_wait(5)
 cookie = driver.find_element_by_id("bigCookie")
 cookie_count = driver.find_element_by_id("cookies")
 # Range(1, -1, -1) mean start from 1 and go to 0
-items = [driver.find_element_by_id("productPrice" + str(i)) for i in range(1, -1, -1)]
+items = [driver.find_element_by_id("productPrice" + str(i)) for i in
+         range(1, -1, -1)]
 
 actions = ActionChains(driver)
 actions.click(cookie)

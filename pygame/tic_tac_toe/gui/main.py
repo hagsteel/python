@@ -1,6 +1,6 @@
 import os.path
-import sys
 import random
+import sys
 
 import pygame
 
@@ -56,7 +56,8 @@ IS_GAME_END = False
 CURRENT_PLAYER_TURN = "X"
 
 # Font
-ARCADECLASSIC = os.path.join(project_directory, "font/arcadeclassic.regular.ttf")
+ARCADECLASSIC = os.path.join(project_directory,
+                             "font/arcadeclassic.regular.ttf")
 FONT = pygame.font.Font(ARCADECLASSIC, 32)
 OVER_FONT = pygame.font.Font(ARCADECLASSIC, 50)
 

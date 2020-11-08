@@ -1,6 +1,7 @@
 import random
-import pyperclip
 from tkinter import Tk, Label, Button, StringVar, IntVar, Entry
+
+import pyperclip
 
 # Set screen
 root = Tk()
@@ -33,9 +34,11 @@ def copy_to_clipboard():
 
 
 # Draw
-Label(root, text="PASSWORD GENERATOR", width="300", height="2", font=("Times", 20)).pack()
+Label(root, text="PASSWORD GENERATOR", width="300", height="2",
+      font=("Times", 20)).pack()
 
-Label(root, text="Enter Password Length", width="100", height="1", font=("Helvetica", 16)).pack()
+Label(root, text="Enter Password Length", width="100", height="1",
+      font=("Helvetica", 16)).pack()
 Entry(root, textvariable=password_length, width="30").pack()
 Button(root, text="Generate Password", command=generate).pack()
 

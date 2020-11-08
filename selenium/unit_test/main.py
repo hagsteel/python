@@ -1,7 +1,8 @@
-import unittest
-from selenium import webdriver
-import page
 import os.path
+import unittest
+
+import page
+from selenium import webdriver
 
 
 class PythonOrgSearch(unittest.TestCase):

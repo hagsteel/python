@@ -322,10 +322,10 @@ def is_gameover():
     global enemy_purple_hit, enemy1_cyan_hit, enemy2_cyan_hit, enemy1_green_hit, enemy2_green_rect
     for i in range(NUM_OF_ENEMIES):
         if (enemy_purple_hit[i] is True and
-           enemy1_cyan_hit[i] is True and
-           enemy2_cyan_hit[i] is True and
-           enemy1_green_hit[i] is True and
-           enemy2_green_hit[i] is True):
+                enemy1_cyan_hit[i] is True and
+                enemy2_cyan_hit[i] is True and
+                enemy1_green_hit[i] is True and
+                enemy2_green_hit[i] is True):
             return True
     return False
 
@@ -334,10 +334,14 @@ def is_enemy_hit_ship():
     global enemy_purple_hit, enemy1_cyan_hit, enemy2_cyan_hit, enemy1_green_hit, enemy2_green_rect
     for i in range(NUM_OF_ENEMIES):
         if (enemy_purple_rect[i].y >= 410 and enemy_purple_hit[i] is not True
-           or enemy1_cyan_rect[i].y >= 410 and enemy1_cyan_hit[i] is not True
-           or enemy2_cyan_rect[i].y >= 410 and enemy2_cyan_hit[i] is not True
-           or enemy1_green_rect[i].y >= 410 and enemy1_green_hit[i] is not True
-           or enemy2_green_rect[i].y >= 410 and enemy2_green_hit[i] is not True):
+                or enemy1_cyan_rect[i].y >= 410 and enemy1_cyan_hit[
+                    i] is not True
+                or enemy2_cyan_rect[i].y >= 410 and enemy2_cyan_hit[
+                    i] is not True
+                or enemy1_green_rect[i].y >= 410 and enemy1_green_hit[
+                    i] is not True
+                or enemy2_green_rect[i].y >= 410 and enemy2_green_hit[
+                    i] is not True):
             return True
     return False
 

@@ -169,7 +169,8 @@ def ai(player_ai):
 
         valid_ai = False
         while not valid_ai:
-            while position not in ["1", "2", "3", "4", "5", "6", "7", "8", "9"]:
+            while position not in ["1", "2", "3", "4", "5", "6", "7", "8",
+                                   "9"]:
                 position = input("Invalid input, Choose a position from 1-9: ")
 
             position = int(position) - 1

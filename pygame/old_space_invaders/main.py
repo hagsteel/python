@@ -19,7 +19,8 @@ project_directory = os.path.dirname(__file__)
 BASE_PATH = abspath(dirname(__file__))
 
 # Background
-back_image = pygame.image.load(os.path.join(project_directory, "img/background.jpeg"))
+back_image = pygame.image.load(
+    os.path.join(project_directory, "img/background.jpeg"))
 
 # Resize
 back_image = pygame.transform.scale(back_image, (WIDTH, HEIGHT))
@@ -35,7 +36,8 @@ ICON = pygame.image.load(os.path.join(project_directory, "img/vr-gaming.png"))
 pygame.display.set_icon(ICON)
 
 # Player
-player_img = pygame.image.load(os.path.join(project_directory, "img/space-invaders.png"))
+player_img = pygame.image.load(
+    os.path.join(project_directory, "img/space-invaders.png"))
 PLAYER_X = 370
 PLAYER_Y = 480
 PLAYER_X_CHANGE = 5
@@ -49,7 +51,8 @@ enemy_y_change = []
 NUM_OF_ENEMIES = 7
 
 for i in range(NUM_OF_ENEMIES):
-    enemy_img.append(pygame.image.load(os.path.join(project_directory, "img/enemy.png")))
+    enemy_img.append(
+        pygame.image.load(os.path.join(project_directory, "img/enemy.png")))
     enemy_x.append(random.randint(0, 735))
     enemy_y.append(random.randint(50, 150))
     # Speed
@@ -58,7 +61,8 @@ for i in range(NUM_OF_ENEMIES):
     enemy_y_change.append(40)
 
 # Bullet
-bullet_img = pygame.image.load(os.path.join(project_directory, "img/bullet.png"))
+bullet_img = pygame.image.load(
+    os.path.join(project_directory, "img/bullet.png"))
 BULLET_X = 0
 BULLET_Y = 480
 BULLET_Y_CHANGE = 18
@@ -88,7 +92,8 @@ def game_over_text():
 
 def show_score(x, y):
     """Blit score in the top left corner"""
-    score_value = score_font.render("Score " + str(SCORE), True, (255, 255, 255))
+    score_value = score_font.render("Score " + str(SCORE), True,
+                                    (255, 255, 255))
     screen.blit(score_value, (x, y))
 
 
@@ -112,7 +117,8 @@ def fire_bullet(x, y):
 
 def is_collision(enemy_x, enemy_y, bullet_x, bullet_y):
     """Check collision for bullet and enemies"""
-    distance = math.sqrt((math.pow(enemy_x - bullet_x, 2)) + (math.pow(enemy_y - bullet_y, 2)))
+    distance = math.sqrt(
+        (math.pow(enemy_x - bullet_x, 2)) + (math.pow(enemy_y - bullet_y, 2)))
 
     if distance < 27:
         return True
@@ -136,7 +142,8 @@ while True:
         PLAYER_X += PLAYER_X_CHANGE
     if keys[pygame.K_SPACE]:
         if BULLET_STATE == 'Ready':
-            bullet_sound = mixer.Sound(os.path.join(project_directory, "sound/laser.wav"))
+            bullet_sound = mixer.Sound(
+                os.path.join(project_directory, "sound/laser.wav"))
             bullet_sound.set_volume(0.05)
             bullet_sound.play()
             BULLET_X = PLAYER_X
@@ -167,7 +174,8 @@ while True:
         # Collision
         COLLISION = is_collision(enemy_x[i], enemy_y[i], BULLET_X, BULLET_Y)
         if COLLISION:
-            bullet_sound = mixer.Sound(os.path.join(project_directory, "sound/explosion.wav"))
+            bullet_sound = mixer.Sound(
+                os.path.join(project_directory, "sound/explosion.wav"))
             bullet_sound.set_volume(0.05)
             bullet_sound.play()
             BULLET_Y = 480

@@ -1,5 +1,5 @@
-from locator import MainPageLocators
 from element import BasePageElement
+from locator import MainPageLocators
 
 
 class SearchTextElement(BasePageElement):

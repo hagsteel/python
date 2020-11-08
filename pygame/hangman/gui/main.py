@@ -1,7 +1,8 @@
-import random
-import sys
 import math
 import os.path
+import random
+import sys
+
 import pygame
 
 pygame.init()
@@ -35,7 +36,6 @@ WORDS = ["IDE", "PYTHON", "DEVELOPER", "PYGAME", "VIM", "STRAGER", "RUBY",
 WORD = random.choice(WORDS)
 GUESSED = ["D", "Y", "I", "J", "A", "H"]
 CLICK = False
-
 
 # Buttons
 RADIUS = 20
@@ -74,7 +74,7 @@ def draw():
             pygame.draw.circle(screen, BLACK, (x, y), RADIUS, 3)
             text = LETTER_FONT.render(ltr, True, BLACK)
             screen.blit(text, (int(x - text.get_width() / 2), int(y
-                               - text.get_height() / 2)))
+                                                                  - text.get_height() / 2)))
 
     # Draw word
     display_word = ""
@@ -95,12 +95,13 @@ def display_message(message):
     # You won or You lose
     text = WORD_FONT.render(message, True, BLACK)
     screen.blit(text, (int(WIDTH / 2 - text.get_width() / 2), int(HEIGHT / 2
-                       - text.get_height() / 2)))
+                                                                  - text.get_height() / 2)))
 
     # The was word
     display_word = WORD_FONT.render(f"The word was {WORD}", True, BLACK)
     screen.blit(display_word, (int(WIDTH / 2 - display_word.get_width() / 2),
-                               int(HEIGHT / 2 - display_word.get_height() / 2 + 50)))
+                               int(
+                                   HEIGHT / 2 - display_word.get_height() / 2 + 50)))
     pygame.display.update()
 
 
