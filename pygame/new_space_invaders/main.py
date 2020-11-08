@@ -76,6 +76,8 @@ BULLET_RECT = BULLET.get_rect(topleft=(BULLET_X + 23, BULLET_Y))
 
 bunkers = []
 
+score = 0
+
 mystery = pygame.image.load(IMAGE_PATH + "mystery.png")
 mystery_entered = mixer.Sound(SOUND_PATH + "mysteryentered.wav")
 mystery = pygame.transform.scale(mystery, (90, 40))
@@ -91,7 +93,7 @@ CLOCK = pygame.time.Clock()
 FPS = 60
 
 
-class MysteryState():
+class MysteryState:
     def __init__(self, mystery_rect, mystery_rect1, mystery_entered_played,
                  mystery_entered_played1):
         self.mystery_rect = mystery_rect
@@ -183,7 +185,6 @@ def bunker():
 
 def draw_enemies():
     global ENEMY_SPEED
-
     for num in enemy_purple_rect:
         num.x += ENEMY_SPEED
     for num in enemy1_cyan_rect:
@@ -241,7 +242,6 @@ def draw_enemies():
 
 def bullet(spaceship_x, spaceship_y):
     global BULLET_STATE
-
     BULLET_STATE = "Fire"
     SCREEN.blit(BULLET, (spaceship_x + 23, spaceship_y))
 
@@ -252,7 +252,6 @@ def rect_intersect(rect_zero, rect_one):
 
 def enemies_collision():
     global BULLET_STATE
-
     if BULLET_STATE == "Fire":
         for j in range(NUM_OF_ENEMIES):
             if rect_intersect(BULLET_RECT, enemy_purple_rect[j]):
@@ -299,16 +298,17 @@ def bunker_collision():
 
 
 def random_point_mystery(m_rect):
+    global score
     random_point = random.randint(1, 6) * 50
     point_text = MAIN_FONT.render(str(random_point), True, WHITE)
     m_rect.x += 23
     SCREEN.blit(point_text, m_rect)
     m_rect.x = 900
+    score += random_point
 
 
 def main():
     global BULLET_Y, BULLET_STATE, BULLET_RECT, BULLET_X
-
     pygame.key.set_repeat(1, 10)
     background_sound = mixer.Sound(SOUND_PATH + "background.wav")
     background_sound.set_volume(0.5)
@@ -322,7 +322,7 @@ def main():
         lives_text = MAIN_FONT.render("Lives", True, WHITE)
         tiny_enemy = pygame.transform.scale(ENEMY_GREEN, (25, 25))
         score_text = MAIN_FONT.render("Score", True, WHITE)
-        score_text_num = MAIN_FONT.render("0", True, GREEN)
+        score_text_num = MAIN_FONT.render(str(score), True, GREEN)
 
         SCREEN.blit(lives_text, (640, 5))
         SCREEN.blit(tiny_enemy, (715, 3))
