@@ -160,10 +160,12 @@ def main_menu():
         CLOCK.tick(FPS)
 
         title_text = TITLE_FONT.render("Space Invaders", True, WHITE)
-        title_text2 = SUB_TITLE_FONT.render("Press enter to continue", True, WHITE)
+        title_text2 = SUB_TITLE_FONT.render("Press enter to continue", True,
+                                            WHITE)
         point_text_green = SUB_TITLE_FONT.render("   =   10 pts", True, GREEN)
         point_text_cyan = SUB_TITLE_FONT.render("   =   20 pts", True, CYAN)
-        point_text_purple = SUB_TITLE_FONT.render("   =   30 pts", True, PURPLE)
+        point_text_purple = SUB_TITLE_FONT.render("   =   30 pts", True,
+                                                  PURPLE)
 
         SCREEN.blit(BACKGROUND, (0, 0))
         SCREEN.blit(title_text, (164, 155))
@@ -189,9 +191,12 @@ def bunker():
     width = 100
     height = 50
     y_axis = 450
-    bunkers.append(pygame.draw.rect(SCREEN, GREEN, (70, y_axis, width, height)))
-    bunkers.append(pygame.draw.rect(SCREEN, GREEN, (350, y_axis, width, height)))
-    bunkers.append(pygame.draw.rect(SCREEN, GREEN, (650, y_axis, width, height)))
+    bunkers.append(
+        pygame.draw.rect(SCREEN, GREEN, (70, y_axis, width, height)))
+    bunkers.append(
+        pygame.draw.rect(SCREEN, GREEN, (350, y_axis, width, height)))
+    bunkers.append(
+        pygame.draw.rect(SCREEN, GREEN, (650, y_axis, width, height)))
 
 
 def draw_enemies():
@@ -262,8 +267,7 @@ def rect_intersect(rect_zero, rect_one):
 
 
 def enemies_collision():
-    global BULLET_STATE, score, enemy_purple_rect, enemy1_cyan_rect
-    global enemy2_cyan_rect, enemy2_green_rect, enemy1_cyan_rect
+    global BULLET_STATE, score, enemy_purple_rect, enemy1_cyan_rect, enemy2_cyan_rect, enemy1_green_rect, enemy2_green_rect
     global enemy_purple_hit, enemy1_cyan_hit, enemy2_cyan_hit, enemy1_green_hit, enemy2_green_hit
     if BULLET_STATE == "Fire":
         for j in range(NUM_OF_ENEMIES):
@@ -315,22 +319,25 @@ def enemies_collision():
 
 
 def is_gameover():
+    global enemy_purple_hit, enemy1_cyan_hit, enemy2_cyan_hit, enemy1_green_hit, enemy2_green_rect
     for i in range(NUM_OF_ENEMIES):
-        if (enemy_purple_rect[i].y >= 560 and enemy_purple_hit[i] is True and
-            enemy1_cyan_rect[i].y >= 560 and enemy1_cyan_hit[i] is True and
-            enemy2_cyan_rect[i].y >= 560 and enemy2_cyan_hit[i] is True and
-            enemy1_green_rect[i].y >= 560 and enemy1_green_hit[i] is True and
-           enemy2_green_rect[i].y >= 560 and enemy2_green_hit is True):
+        if (enemy_purple_hit[i] is True and
+           enemy1_cyan_hit[i] is True and
+           enemy2_cyan_hit[i] is True and
+           enemy1_green_hit[i] is True and
+           enemy2_green_hit[i] is True):
             return True
     return False
 
 
 def is_enemy_hit_ship():
+    global enemy_purple_hit, enemy1_cyan_hit, enemy2_cyan_hit, enemy1_green_hit, enemy2_green_rect
     for i in range(NUM_OF_ENEMIES):
-        if (enemy_purple_rect[i].y >= 560 or enemy1_cyan_rect[i].y >= 560
-                or enemy2_cyan_rect[i].y >= 560 or enemy1_green_rect[
-                    i].y >= 560
-                or enemy2_green_rect[i].y >= 560):
+        if (enemy_purple_rect[i].y >= 410 and enemy_purple_hit[i] is not True
+           or enemy1_cyan_rect[i].y >= 410 and enemy1_cyan_hit[i] is not True
+           or enemy2_cyan_rect[i].y >= 410 and enemy2_cyan_hit[i] is not True
+           or enemy1_green_rect[i].y >= 410 and enemy1_green_hit[i] is not True
+           or enemy2_green_rect[i].y >= 410 and enemy2_green_hit[i] is not True):
             return True
     return False
 
@@ -406,17 +413,20 @@ def main():
         enemies_collision()
         bunker_collision()
         state.draw_mystery()
-        is_gameover()
-        print(is_gameover())
-        print(enemy1_cyan_hit)
-        print(enemy2_cyan_hit)
-        print(enemy1_green_hit)
-        print(enemy2_green_hit)
 
         if is_gameover():
             SCREEN.blit(BACKGROUND, (0, 0))
             gameover_text = TITLE_FONT.render("Game Over", True, WHITE)
             SCREEN.blit(gameover_text, (250, 250))
+            background_sound.stop()
+            break
+
+        if is_enemy_hit_ship():
+            SCREEN.blit(BACKGROUND, (0, 0))
+            gameover_text = TITLE_FONT.render("Game Over", True, WHITE)
+            SCREEN.blit(gameover_text, (250, 250))
+            background_sound.stop()
+            break
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
