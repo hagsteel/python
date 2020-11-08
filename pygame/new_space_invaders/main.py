@@ -151,8 +151,8 @@ def main_menu():
         title_text = TITLE_FONT.render("Space Invaders", True, WHITE)
         title_text2 = SUB_TITLE_FONT.render("Press enter to continue", True, WHITE)
         point_text_green = SUB_TITLE_FONT.render("   =   10 pts", True, GREEN)
-        point_text_cyan = SUB_TITLE_FONT.render("   =   10 pts", True, CYAN)
-        point_text_purple = SUB_TITLE_FONT.render("   =   10 pts", True, PURPLE)
+        point_text_cyan = SUB_TITLE_FONT.render("   =   20 pts", True, CYAN)
+        point_text_purple = SUB_TITLE_FONT.render("   =   30 pts", True, PURPLE)
 
         SCREEN.blit(BACKGROUND, (0, 0))
         SCREEN.blit(title_text, (164, 155))
@@ -251,7 +251,7 @@ def rect_intersect(rect_zero, rect_one):
 
 
 def enemies_collision():
-    global BULLET_STATE
+    global BULLET_STATE, score
     if BULLET_STATE == "Fire":
         for j in range(NUM_OF_ENEMIES):
             if rect_intersect(BULLET_RECT, enemy_purple_rect[j]):
@@ -261,6 +261,7 @@ def enemies_collision():
                 explosion_sound.play()
                 enemy_purple_rect[j].y = 600
                 BULLET_STATE = "Ready"
+                score += 30
             elif rect_intersect(BULLET_RECT, enemy1_cyan_rect[j]):
                 SCREEN.blit(explosion_cyan, enemy1_cyan_rect[j])
                 pygame.time.wait(20)
@@ -268,6 +269,7 @@ def enemies_collision():
                 explosion_sound.play()
                 enemy1_cyan_rect[j].y = 600
                 BULLET_STATE = "Ready"
+                score += 20
             elif rect_intersect(BULLET_RECT, enemy2_cyan_rect[j]):
                 SCREEN.blit(explosion_cyan, enemy2_cyan_rect[j])
                 pygame.time.wait(20)
@@ -275,6 +277,7 @@ def enemies_collision():
                 explosion_sound.play()
                 enemy2_cyan_rect[j].y = 600
                 BULLET_STATE = "Ready"
+                score += 20
             elif rect_intersect(BULLET_RECT, enemy1_green_rect[j]):
                 SCREEN.blit(explosion_green, enemy1_green_rect[j])
                 pygame.time.wait(20)
@@ -282,6 +285,7 @@ def enemies_collision():
                 explosion_sound.play()
                 enemy1_green_rect[j].y = 600
                 BULLET_STATE = "Ready"
+                score += 10
             elif rect_intersect(BULLET_RECT, enemy2_green_rect[j]):
                 SCREEN.blit(explosion_green, enemy2_green_rect[j])
                 pygame.time.wait(20)
@@ -289,6 +293,17 @@ def enemies_collision():
                 explosion_sound.play()
                 enemy2_green_rect[j].y = 600
                 BULLET_STATE = "Ready"
+                score += 10
+
+
+def is_gameover():
+    for i in range(NUM_OF_ENEMIES):
+        if (enemy_purple_rect[i].y and enemy1_cyan_rect[i].y
+           and enemy2_cyan_rect[i].y and enemy1_green_rect[i].y
+           and enemy2_green_rect[i].y == 600):
+            return True
+        else:
+            return False
 
 
 def bunker_collision():
@@ -361,6 +376,11 @@ def main():
         enemies_collision()
         bunker_collision()
         state.draw_mystery()
+        is_gameover()
+
+        if is_gameover():
+            gameover_text = TITLE_FONT.render("Game Over", True, WHITE)
+            SCREEN.blit(gameover_text, (250, 250))
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
