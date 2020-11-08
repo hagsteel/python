@@ -79,22 +79,67 @@ bunkers = []
 mystery = pygame.image.load(IMAGE_PATH + "mystery.png")
 mystery_entered = mixer.Sound(SOUND_PATH + "mysteryentered.wav")
 mystery = pygame.transform.scale(mystery, (90, 40))
-mystery_rect = mystery.get_rect(topleft=(0, 40))
-mystery_rect1 = mystery.get_rect(topleft=(0, 40))
-mystery_speed = 2
-mystery_entered_played = True
-mystery_entered_played1 = True
+MYSTERY_SPEED = 2
 
-# Colors (R, G, B)
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 PURPLE = (210, 0, 255)
 CYAN = (0, 255, 255)
 GREEN = (78, 255, 87)
 
-# Game variables
 CLOCK = pygame.time.Clock()
 FPS = 60
+
+
+class MysteryState():
+    def __init__(self, mystery_rect, mystery_rect1, mystery_entered_played,
+                 mystery_entered_played1):
+        self.mystery_rect = mystery_rect
+        self.mystery_rect1 = mystery_rect1
+        self.mystery_entered_played = mystery_entered_played
+        self.mystery_entered_played1 = mystery_entered_played1
+
+    def show_mystery(self):
+        if self.mystery_is_visible:
+            if self.mystery_entered_played:
+                mystery_entered.set_volume(0.03)
+                mystery_entered.play()
+                self.mystery_entered_played = False
+            if self.mystery_rect.x >= 800:
+                self.mystery_rect.x = 900
+            else:
+                self.mystery_rect.x += MYSTERY_SPEED
+                SCREEN.blit(mystery, self.mystery_rect)
+        if self.mystery_is_visible1:
+            if self.mystery_entered_played1:
+                mystery_entered.set_volume(0.03)
+                mystery_entered.play()
+                self.mystery_entered_played1 = False
+            if self.mystery_rect1.x >= 800:
+                self.mystery_rect1.x = 900
+            else:
+                self.mystery_rect1.x += MYSTERY_SPEED
+                SCREEN.blit(mystery, self.mystery_rect1)
+
+    def draw_mystery(self):
+        self.mystery_is_visible = False
+        self.mystery_is_visible1 = False
+        for v in range(NUM_OF_ENEMIES):
+            if enemy_purple_rect[v].y >= 110 and enemy_purple_rect[v].y <= 300:
+                self.mystery_is_visible = True
+            if enemy_purple_rect[v].y >= 150 and enemy_purple_rect[v].y <= 300:
+                self.mystery_is_visible1 = True
+
+        state.show_mystery()
+
+        if rect_intersect(BULLET_RECT, self.mystery_rect):
+            random_point_mystery(self.mystery_rect)
+        if rect_intersect(BULLET_RECT, self.mystery_rect1):
+            random_point_mystery(self.mystery_rect1)
+
+
+state = MysteryState(mystery.get_rect(topleft=(0, 40)),
+                     mystery.get_rect(topleft=(0, 40)), True, True)
 
 
 def main_menu():
@@ -253,67 +298,12 @@ def bunker_collision():
             print("Collide")
 
 
-def random_point_mystery(mystery_rect):
-    random_point_mystery = random.randint(1, 6) * 50
-    point_text = MAIN_FONT.render(str(random_point_mystery), True, WHITE)
-    mystery_rect.x += 23
-    SCREEN.blit(point_text, mystery_rect)
-    mystery_rect.x = 900
-
-
-class mystery_state():
-    def __init__(self, mystery_rect, mystery_rect1, mystery_entered_played,
-                 mystery_entered_played1):
-        self.mystery_rect = mystery_rect
-        self.mystery_rect1 = mystery_rect1
-        self.mystery_entered_played = mystery_entered_played
-        self.mystery_entered_played1 = mystery_entered_played1
-
-
-yo = mystery_state(mystery_rect, mystery_rect1, mystery_entered_played,
-                   mystery_entered_played1)
-
-
-def show_mystery(mystery_is_visible, mystery_is_visible1, yo):
-    global mystery_entered_played, mystery_entered_played1
-
-    if mystery_is_visible:
-        if yo.mystery_entered_played:
-            mystery_entered.set_volume(0.03)
-            mystery_entered.play()
-            yo.mystery_entered_played = False
-        if yo.mystery_rect.x >= 800:
-            yo.mystery_rect.x = 900
-        else:
-            yo.mystery_rect.x += mystery_speed
-            SCREEN.blit(mystery, yo.mystery_rect)
-    if mystery_is_visible1:
-        if yo.mystery_entered_played1:
-            mystery_entered.set_volume(0.03)
-            mystery_entered.play()
-            yo.mystery_entered_played1 = False
-        if yo.mystery_rect1.x >= 800:
-            yo.mystery_rect1.x = 900
-        else:
-            yo.mystery_rect1.x += mystery_speed
-            SCREEN.blit(mystery, yo.mystery_rect1)
-
-
-def draw_mystery():
-    mystery_is_visible = False
-    mystery_is_visible1 = False
-    for v in range(NUM_OF_ENEMIES):
-        if enemy_purple_rect[v].y >= 110 and enemy_purple_rect[v].y <= 300:
-            mystery_is_visible = True
-        if enemy_purple_rect[v].y >= 150 and enemy_purple_rect[v].y <= 300:
-            mystery_is_visible1 = True
-
-    show_mystery(mystery_is_visible, mystery_is_visible1, yo)
-
-    if rect_intersect(BULLET_RECT, mystery_rect):
-        random_point_mystery(mystery_rect)
-    if rect_intersect(BULLET_RECT, mystery_rect1):
-        random_point_mystery(mystery_rect1)
+def random_point_mystery(m_rect):
+    random_point = random.randint(1, 6) * 50
+    point_text = MAIN_FONT.render(str(random_point), True, WHITE)
+    m_rect.x += 23
+    SCREEN.blit(point_text, m_rect)
+    m_rect.x = 900
 
 
 def main():
@@ -370,7 +360,7 @@ def main():
 
         enemies_collision()
         bunker_collision()
-        draw_mystery()
+        state.draw_mystery()
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
