@@ -47,6 +47,11 @@ enemy1_cyan_rect = []
 enemy2_cyan_rect = []
 enemy1_green_rect = []
 enemy2_green_rect = []
+enemy_purple_hit = []
+enemy1_cyan_hit = []
+enemy2_cyan_hit = []
+enemy1_green_hit = []
+enemy2_green_hit = []
 ENEMY_SPEED = 1
 ENEMY_PUSH_DOWN = 10
 X = 105
@@ -66,6 +71,12 @@ for enemy in range(NUM_OF_ENEMIES):
     enemy2_cyan_rect.append(enemy_cyan_img[enemy].get_rect(topleft=(X, 160)))
     enemy1_green_rect.append(enemy_green_img[enemy].get_rect(topleft=(X, 200)))
     enemy2_green_rect.append(enemy_green_img[enemy].get_rect(topleft=(X, 240)))
+
+    enemy_purple_hit.append(False)
+    enemy1_cyan_hit.append(False)
+    enemy2_cyan_hit.append(False)
+    enemy1_green_hit.append(False)
+    enemy2_green_hit.append(False)
 
 BULLET = pygame.image.load(IMAGE_PATH + "laser.png")
 BULLET_STATE = "Ready"
@@ -253,6 +264,7 @@ def rect_intersect(rect_zero, rect_one):
 def enemies_collision():
     global BULLET_STATE, score, enemy_purple_rect, enemy1_cyan_rect
     global enemy2_cyan_rect, enemy2_green_rect, enemy1_cyan_rect
+    global enemy_purple_hit, enemy1_cyan_hit, enemy2_cyan_hit, enemy1_green_hit, enemy2_green_hit
     if BULLET_STATE == "Fire":
         for j in range(NUM_OF_ENEMIES):
             if rect_intersect(BULLET_RECT, enemy_purple_rect[j]):
@@ -261,6 +273,7 @@ def enemies_collision():
                 explosion_sound.set_volume(0.05)
                 explosion_sound.play()
                 enemy_purple_rect[j].y = 600
+                enemy_purple_hit[j] = True
                 BULLET_STATE = "Ready"
                 score += 30
             elif rect_intersect(BULLET_RECT, enemy1_cyan_rect[j]):
@@ -269,6 +282,7 @@ def enemies_collision():
                 explosion_sound.set_volume(0.05)
                 explosion_sound.play()
                 enemy1_cyan_rect[j].y = 600
+                enemy1_cyan_hit[j] = True
                 BULLET_STATE = "Ready"
                 score += 20
             elif rect_intersect(BULLET_RECT, enemy2_cyan_rect[j]):
@@ -277,6 +291,7 @@ def enemies_collision():
                 explosion_sound.set_volume(0.05)
                 explosion_sound.play()
                 enemy2_cyan_rect[j].y = 600
+                enemy2_cyan_hit[j] = True
                 BULLET_STATE = "Ready"
                 score += 20
             elif rect_intersect(BULLET_RECT, enemy1_green_rect[j]):
@@ -285,6 +300,7 @@ def enemies_collision():
                 explosion_sound.set_volume(0.05)
                 explosion_sound.play()
                 enemy1_green_rect[j].y = 600
+                enemy1_green_hit[j] = True
                 BULLET_STATE = "Ready"
                 score += 10
             elif rect_intersect(BULLET_RECT, enemy2_green_rect[j]):
@@ -293,16 +309,18 @@ def enemies_collision():
                 explosion_sound.set_volume(0.05)
                 explosion_sound.play()
                 enemy2_green_rect[j].y = 600
+                enemy2_green_hit[j] = True
                 BULLET_STATE = "Ready"
                 score += 10
 
 
 def is_gameover():
     for i in range(NUM_OF_ENEMIES):
-        if (enemy_purple_rect[i].y == 600 and enemy1_cyan_rect[i].y == 600
-                and enemy2_cyan_rect[i].y == 600 and enemy1_green_rect[
-                    i].y == 600
-                and enemy2_green_rect[i].y == 600):
+        if (enemy_purple_rect[i].y >= 560 and enemy_purple_hit[i] is True and
+            enemy1_cyan_rect[i].y >= 560 and enemy1_cyan_hit[i] is True and
+            enemy2_cyan_rect[i].y >= 560 and enemy2_cyan_hit[i] is True and
+            enemy1_green_rect[i].y >= 560 and enemy1_green_hit[i] is True and
+           enemy2_green_rect[i].y >= 560 and enemy2_green_hit is True):
             return True
     return False
 
@@ -320,7 +338,8 @@ def is_enemy_hit_ship():
 def bunker_collision():
     for k in range(3):
         if rect_intersect(BULLET_RECT, bunkers[k]):
-            print("Collide")
+            pass
+            # print("Collide")
 
 
 def random_point_mystery(m_rect):
@@ -388,7 +407,11 @@ def main():
         bunker_collision()
         state.draw_mystery()
         is_gameover()
-        is_enemy_hit_ship()
+        print(is_gameover())
+        print(enemy1_cyan_hit)
+        print(enemy2_cyan_hit)
+        print(enemy1_green_hit)
+        print(enemy2_green_hit)
 
         if is_gameover():
             SCREEN.blit(BACKGROUND, (0, 0))
