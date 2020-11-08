@@ -5,11 +5,11 @@ import sys
 sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 import gui.main
 
-HANGMAN_STATUS = gui.main.HANGMAN_STATUS
-HANGMAN_STATUS = 6
+hangman_status = gui.main.hangman_status
+hangman_status = 6
 
 
-def display_hangman(HANGMAN_STATUS):
+def display_hangman(status):
     stages = [  # final state: head, torso, both arms, and both legs
         """
            --------
@@ -81,7 +81,7 @@ def display_hangman(HANGMAN_STATUS):
            -
         """
     ]
-    return stages[HANGMAN_STATUS]
+    return stages[status]
 
 
 if __name__ == "__main__":
@@ -99,8 +99,8 @@ if __name__ == "__main__":
         gui.main.GUESSED.append(guess)
 
         if guess not in gui.main.WORD:
-            HANGMAN_STATUS -= 1
-            print(display_hangman(HANGMAN_STATUS))
+            hangman_status -= 1
+            print(display_hangman(hangman_status))
 
         gui.main.won = True
         for letter in gui.main.WORD:
@@ -112,7 +112,7 @@ if __name__ == "__main__":
             print("You Won")
             break
 
-        if HANGMAN_STATUS == 0:
+        if hangman_status == 0:
             print("You lose")
             break
 

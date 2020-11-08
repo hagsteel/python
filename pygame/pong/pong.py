@@ -159,5 +159,4 @@ def tick():
 
 
 tick()
-# Main game loop
 wn.mainloop()

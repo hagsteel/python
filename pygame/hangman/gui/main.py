@@ -69,11 +69,11 @@ def draw():
 
     # Draw buttons
     for letter in letters:
-        x, y, ltr, visible = letter
+        a, b, ltr, visible = letter
         if visible:
-            pygame.draw.circle(screen, BLACK, (x, y), RADIUS, 3)
+            pygame.draw.circle(screen, BLACK, (a, b), RADIUS, 3)
             text = LETTER_FONT.render(ltr, True, BLACK)
-            screen.blit(text, (int(x - text.get_width() / 2), int(y
+            screen.blit(text, (int(a - text.get_width() / 2), int(b
                                                                   - text.get_height() / 2)))
 
     # Draw word
@@ -192,9 +192,9 @@ def main():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 m_x, m_y = pygame.mouse.get_pos()
                 for letter in letters:
-                    x, y, ltr, visible = letter
+                    j, k, ltr, visible = letter
                     if visible:
-                        dis = math.sqrt((x - m_x) ** 2 + (y - m_y) ** 2)
+                        dis = math.sqrt((j - m_x) ** 2 + (k - m_y) ** 2)
                         if dis < RADIUS:
                             letter[3] = False
                             GUESSED.append(ltr)
