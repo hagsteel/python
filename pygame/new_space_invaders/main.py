@@ -140,8 +140,8 @@ class MysteryState:
             random_point_mystery(self.mystery_rect1)
 
 
-state = MysteryState(mystery.get_rect(topleft=(0, 40)),
-                     mystery.get_rect(topleft=(0, 40)), True, True)
+state = MysteryState(mystery.get_rect(topleft=(-100, 40)),
+                     mystery.get_rect(topleft=(-100, 40)), True, True)
 
 
 def main_menu():
@@ -251,7 +251,8 @@ def rect_intersect(rect_zero, rect_one):
 
 
 def enemies_collision():
-    global BULLET_STATE, score
+    global BULLET_STATE, score, enemy_purple_rect, enemy1_cyan_rect
+    global enemy2_cyan_rect, enemy2_green_rect, enemy1_cyan_rect
     if BULLET_STATE == "Fire":
         for j in range(NUM_OF_ENEMIES):
             if rect_intersect(BULLET_RECT, enemy_purple_rect[j]):
@@ -298,12 +299,22 @@ def enemies_collision():
 
 def is_gameover():
     for i in range(NUM_OF_ENEMIES):
-        if (enemy_purple_rect[i].y and enemy1_cyan_rect[i].y
-           and enemy2_cyan_rect[i].y and enemy1_green_rect[i].y
-           and enemy2_green_rect[i].y == 600):
+        if (enemy_purple_rect[i].y == 600 and enemy1_cyan_rect[i].y == 600
+                and enemy2_cyan_rect[i].y == 600 and enemy1_green_rect[
+                    i].y == 600
+                and enemy2_green_rect[i].y == 600):
             return True
-        else:
-            return False
+    return False
+
+
+def is_enemy_hit_ship():
+    for i in range(NUM_OF_ENEMIES):
+        if (enemy_purple_rect[i].y >= 560 or enemy1_cyan_rect[i].y >= 560
+                or enemy2_cyan_rect[i].y >= 560 or enemy1_green_rect[
+                    i].y >= 560
+                or enemy2_green_rect[i].y >= 560):
+            return True
+    return False
 
 
 def bunker_collision():
@@ -377,8 +388,10 @@ def main():
         bunker_collision()
         state.draw_mystery()
         is_gameover()
+        is_enemy_hit_ship()
 
         if is_gameover():
+            SCREEN.blit(BACKGROUND, (0, 0))
             gameover_text = TITLE_FONT.render("Game Over", True, WHITE)
             SCREEN.blit(gameover_text, (250, 250))
 
