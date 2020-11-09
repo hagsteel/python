@@ -11,32 +11,38 @@ SCREEN = pygame.display.set_mode((800, 600))
 pygame.display.set_caption("Space Invaders")
 
 BASE_PATH = abspath(dirname(__file__))
-
 FONT_PATH = BASE_PATH + "/fonts/"
-FONT = FONT_PATH + "space_invaders.ttf"
-TITLE_FONT = pygame.font.Font(FONT, 50)
-SUB_TITLE_FONT = pygame.font.Font(FONT, 25)
-MAIN_FONT = pygame.font.Font(FONT, 20)
-
 IMAGE_PATH = BASE_PATH + "/images/"
 SOUND_PATH = BASE_PATH + "/sounds/"
 
 ICON = pygame.image.load(IMAGE_PATH + "ufo.png")
 pygame.display.set_icon(ICON)
 
+FONT = FONT_PATH + "space_invaders.ttf"
+TITLE_FONT = pygame.font.Font(FONT, 50)
+SUB_TITLE_FONT = pygame.font.Font(FONT, 25)
+MAIN_FONT = pygame.font.Font(FONT, 20)
+
 BACKGROUND = pygame.image.load(IMAGE_PATH + "background.jpeg")
-
 SHIP = pygame.image.load(IMAGE_PATH + "ship.png")
-ship_rect = SHIP.get_rect(topleft=(375, 540))
-SHIP_SPEED = 5
-
-EXPLOSION_SOUND = mixer.Sound(SOUND_PATH + "invaderkilled.wav")
+BULLET = pygame.image.load(IMAGE_PATH + "laser.png")
 EXPLOSION_PURPLE = pygame.image.load(IMAGE_PATH + "explosionpurple.png")
 EXPLOSION_CYAN = pygame.image.load(IMAGE_PATH + "explosioncyan.png")
 EXPLOSION_GREEN = pygame.image.load(IMAGE_PATH + "explosiongreen.png")
+MYSTERY_IMG = pygame.image.load(IMAGE_PATH + "mystery.png")
+
+BACKGROUND_SOUND = mixer.Sound(SOUND_PATH + "background.wav")
+BULLET_SOUND = mixer.Sound(SOUND_PATH + "shoot.wav")
+EXPLOSION_SOUND = mixer.Sound(SOUND_PATH + "invaderkilled.wav")
+MYSTERY_SOUND = mixer.Sound(SOUND_PATH + "mysteryentered.wav")
+
 EXPLOSION_PURPLE = pygame.transform.scale(EXPLOSION_PURPLE, (50, 40))
 EXPLOSION_CYAN = pygame.transform.scale(EXPLOSION_CYAN, (50, 40))
 EXPLOSION_GREEN = pygame.transform.scale(EXPLOSION_GREEN, (50, 40))
+MYSTERY_IMG = pygame.transform.scale(MYSTERY_IMG, (90, 40))
+
+ship_rect = SHIP.get_rect(topleft=(375, 540))
+SHIP_SPEED = 5
 
 NUM_OF_ENEMIES = 10
 total_num_of_enemies = 50
@@ -79,20 +85,14 @@ for enemy in range(NUM_OF_ENEMIES):
     enemy1_green_hit.append(False)
     enemy2_green_hit.append(False)
 
-BULLET = pygame.image.load(IMAGE_PATH + "laser.png")
-bullet_state = "Ready"
 bullet_y = 540
 bullet_x = 0
-BULLET_SPEED = 18
 bullet_rect = BULLET.get_rect(topleft=(bullet_x + 23, bullet_y))
+bullet_state = "Ready"
+BULLET_SPEED = 18
 
 BUNKERS = []
 
-score = 0
-
-MYSTERY_IMG = pygame.image.load(IMAGE_PATH + "mystery.png")
-MYSTERY_SOUND = mixer.Sound(SOUND_PATH + "mysteryentered.wav")
-MYSTERY_IMG = pygame.transform.scale(MYSTERY_IMG, (90, 40))
 MYSTERY_SPEED = 2
 
 WHITE = (255, 255, 255)
@@ -103,6 +103,7 @@ GREEN = (78, 255, 87)
 
 CLOCK = pygame.time.Clock()
 FPS = 60
+score = 0
 
 
 class MysteryState:
@@ -325,6 +326,14 @@ def enemies_collision():
                 total_num_of_enemies -= 1
 
 
+def draw_gameover():
+    SCREEN.blit(BACKGROUND, (0, 0))
+    gameover_text = TITLE_FONT.render("Game Over", True, WHITE)
+    SCREEN.blit(gameover_text, (250, 250))
+    BACKGROUND_SOUND.stop()
+    BULLET_SOUND.stop()
+
+
 def is_gameover():
     global total_num_of_enemies
     if total_num_of_enemies == 0:
@@ -366,9 +375,8 @@ def random_point_mystery(m_rect):
 def main():
     global bullet_y, bullet_state, bullet_rect, bullet_x
     pygame.key.set_repeat(1, 10)
-    background_sound = mixer.Sound(SOUND_PATH + "background.wav")
-    background_sound.set_volume(0.5)
-    background_sound.play(-1)
+    BACKGROUND_SOUND.set_volume(0.5)
+    BACKGROUND_SOUND.play(-1)
 
     while True:
         CLOCK.tick(FPS)
@@ -387,9 +395,6 @@ def main():
         SCREEN.blit(score_text, (5, 5))
         SCREEN.blit(score_text_num, (85, 5))
 
-        draw_enemies()
-        bunker()
-
         keys = pygame.key.get_pressed()
         if keys[pygame.K_LEFT] and ship_rect.x > 10:
             ship_rect.x -= SHIP_SPEED
@@ -398,14 +403,12 @@ def main():
         if keys[pygame.K_SPACE]:
             if bullet_state == "Ready":
                 bullet_y = 540
-                bullet_sound = mixer.Sound(SOUND_PATH + "shoot.wav")
-                bullet_sound.set_volume(0.05)
-                bullet_sound.play()
+                BULLET_SOUND.set_volume(0.05)
+                BULLET_SOUND.play()
                 bullet_x = ship_rect.x
                 bullet(bullet_x, bullet_y)
         SCREEN.blit(SHIP, ship_rect)
 
-        # Bullet movement
         if bullet_y <= 0:
             bullet_y = 540
             bullet_state = "Ready"
@@ -414,23 +417,16 @@ def main():
             bullet_y -= BULLET_SPEED
         bullet_rect = BULLET.get_rect(topleft=(bullet_x + 23, bullet_y))
 
+        draw_enemies()
+        bunker()
         enemies_collision()
         bunker_collision()
         state.draw_mystery()
 
         if is_gameover():
-            SCREEN.blit(BACKGROUND, (0, 0))
-            gameover_text = TITLE_FONT.render("Game Over", True, WHITE)
-            SCREEN.blit(gameover_text, (250, 250))
-            background_sound.stop()
-            break
-
-        if is_enemy_hit_ship():
-            SCREEN.blit(BACKGROUND, (0, 0))
-            gameover_text = TITLE_FONT.render("Game Over", True, WHITE)
-            SCREEN.blit(gameover_text, (250, 250))
-            background_sound.stop()
-            break
+            draw_gameover()
+        elif is_enemy_hit_ship():
+            draw_gameover()
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
