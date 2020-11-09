@@ -306,6 +306,11 @@ def enemies_collision():
                 total_num_of_enemies -= 1
 
 
+first_bunker = []
+second_bunker = []
+third_bunker = []
+
+
 def bunker():
     first_x = 70
     first_y = 450
@@ -318,80 +323,119 @@ def bunker():
     third_c = 650
     third_v = 650
     # first bunker
+    # SORRY FOR THE DUPLICATE CODE, MY MODLY BRAIN WORK LINE THIS
+    # TODO(jan): NEED TO FIX THIS ASAP
     for row in range(9):
         first_x += 10
-        pygame.draw.rect(SCREEN, GREEN, (first_x, first_y, 10, 10))
+        first_bunker.append(pygame.draw.rect(SCREEN, GREEN,
+                            (first_x, first_y, 10, 10)))
     for column in range(4):
         first_y += 10
-        pygame.draw.rect(SCREEN, GREEN, (first_x, first_y, 10, 10))
+        first_bunker.append(pygame.draw.rect(SCREEN, GREEN,
+                            (first_x, first_y, 10, 10)))
     for row in range(9):
         first_x -= 10
-        pygame.draw.rect(SCREEN, GREEN, (first_x, first_y, 10, 10))
+        first_bunker.append(pygame.draw.rect(SCREEN, GREEN,
+                            (first_x, first_y, 10, 10)))
     for column in range(4):
         first_y -= 10
-        pygame.draw.rect(SCREEN, GREEN, (first_x, first_y, 10, 10))
+        first_bunker.append(pygame.draw.rect(SCREEN, GREEN,
+                            (first_x, first_y, 10, 10)))
     for row in range(8):
         first_x += 10
-        pygame.draw.rect(SCREEN, GREEN, (first_x, 460, 10, 10))
+        first_bunker.append(pygame.draw.rect(SCREEN, GREEN,
+                            (first_x, 460, 10, 10)))
     for row in range(8):
         first_c += 10
-        pygame.draw.rect(SCREEN, GREEN, (first_c, 470, 10, 10))
+        first_bunker.append(pygame.draw.rect(SCREEN, GREEN,
+                            (first_c, 470, 10, 10)))
     for row in range(8):
         first_v += 10
-        pygame.draw.rect(SCREEN, GREEN, (first_v, 480, 10, 10))
+        first_bunker.append(pygame.draw.rect(SCREEN, GREEN,
+                            (first_v, 480, 10, 10)))
 
     # second bunker
     for row in range(9):
         second_x += 10
-        pygame.draw.rect(SCREEN, GREEN, (second_x, first_y, 10, 10))
+        second_bunker.append(pygame.draw.rect(SCREEN, GREEN,
+                             (second_x, first_y, 10, 10)))
     for column in range(4):
         first_y += 10
-        pygame.draw.rect(SCREEN, GREEN, (second_x, first_y, 10, 10))
+        second_bunker.append(pygame.draw.rect(SCREEN, GREEN,
+                             (second_x, first_y, 10, 10)))
     for row in range(9):
         second_x -= 10
-        pygame.draw.rect(SCREEN, GREEN, (second_x, first_y, 10, 10))
+        second_bunker.append(pygame.draw.rect(SCREEN, GREEN,
+                             (second_x, first_y, 10, 10)))
     for column in range(4):
         first_y -= 10
-        pygame.draw.rect(SCREEN, GREEN, (second_x, first_y, 10, 10))
+        second_bunker.append(pygame.draw.rect(SCREEN, GREEN,
+                             (second_x, first_y, 10, 10)))
     for row in range(8):
         second_x += 10
-        pygame.draw.rect(SCREEN, GREEN, (second_x, 460, 10, 10))
+        second_bunker.append(pygame.draw.rect(SCREEN, GREEN,
+                             (second_x, 460, 10, 10)))
     for row in range(8):
         second_c += 10
-        pygame.draw.rect(SCREEN, GREEN, (second_c, 470, 10, 10))
+        second_bunker.append(pygame.draw.rect(SCREEN, GREEN,
+                             (second_c, 470, 10, 10)))
     for row in range(8):
         second_v += 10
-        pygame.draw.rect(SCREEN, GREEN, (second_v, 480, 10, 10))
+        second_bunker.append(pygame.draw.rect(SCREEN, GREEN,
+                             (second_v, 480, 10, 10)))
 
     # third bunker
     for row in range(9):
         third_x += 10
-        pygame.draw.rect(SCREEN, GREEN, (third_x, first_y, 10, 10))
+        third_bunker.append(pygame.draw.rect(SCREEN, GREEN,
+                            (third_x, first_y, 10, 10)))
     for column in range(4):
         first_y += 10
-        pygame.draw.rect(SCREEN, GREEN, (third_x, first_y, 10, 10))
+        third_bunker.append(pygame.draw.rect(SCREEN, GREEN,
+                            (third_x, first_y, 10, 10)))
     for row in range(9):
         third_x -= 10
-        pygame.draw.rect(SCREEN, GREEN, (third_x, first_y, 10, 10))
+        third_bunker.append(pygame.draw.rect(SCREEN, GREEN,
+                            (third_x, first_y, 10, 10)))
     for column in range(4):
         first_y -= 10
-        pygame.draw.rect(SCREEN, GREEN, (third_x, first_y, 10, 10))
+        third_bunker.append(pygame.draw.rect(SCREEN, GREEN,
+                            (third_x, first_y, 10, 10)))
     for row in range(8):
         third_x += 10
-        pygame.draw.rect(SCREEN, GREEN, (third_x, 460, 10, 10))
+        third_bunker.append(pygame.draw.rect(SCREEN, GREEN,
+                            (third_x, 460, 10, 10)))
     for row in range(8):
         third_c += 10
-        pygame.draw.rect(SCREEN, GREEN, (third_c, 470, 10, 10))
+        third_bunker.append(pygame.draw.rect(SCREEN, GREEN,
+                            (third_c, 470, 10, 10)))
     for row in range(8):
         third_v += 10
-        pygame.draw.rect(SCREEN, GREEN, (third_v, 480, 10, 10))
+        third_bunker.append(pygame.draw.rect(SCREEN, GREEN,
+                            (third_v, 480, 10, 10)))
+
 
 def bunker_collision():
-    return
-    for k in range(3):
-        if rect_intersect(bullet_rect, BUNKERS[k]):
-            pass
-            # print("Collide")
+    global bullet_state
+    if bullet_state == "Fire":
+        for k in range(9):
+            if rect_intersect(bullet_rect, first_bunker[k]):
+                bullet_state = "Ready"
+                first_bunker[k].y = 600
+                first_bunker[k].x = 600
+                print("Collide")
+        for k in range(9):
+            if rect_intersect(bullet_rect, second_bunker[k]):
+                bullet_state = "Ready"
+                second_bunker[k].y = 600
+                second_bunker[k].x = 600
+                print("Collide")
+        for k in range(9):
+            if rect_intersect(bullet_rect, third_bunker[k]):
+                bullet_state = "Ready"
+                third_bunker[k].y = 600
+                third_bunker[k].x = 600
+                print("Collide")
 
 
 def bullet(spaceship_x, spaceship_y):
