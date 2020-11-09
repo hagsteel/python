@@ -189,16 +189,6 @@ def main_menu():
         pygame.display.update()
 
 
-def bunker():
-    width = 100
-    height = 50
-    y_axis = 450
-    draw_rect = pygame.draw.rect
-    BUNKERS.append(draw_rect(SCREEN, GREEN, (70, y_axis, width, height)))
-    BUNKERS.append(draw_rect(SCREEN, GREEN, (350, y_axis, width, height)))
-    BUNKERS.append(draw_rect(SCREEN, GREEN, (650, y_axis, width, height)))
-
-
 def draw_enemies():
     global ENEMY_SPEED
     for num in enemy_purple_rect:
@@ -254,16 +244,6 @@ def draw_enemies():
         SCREEN.blit(ENEMY_CYAN_IMG[i], enemy2_cyan_rect[i])
         SCREEN.blit(ENEMY_GREEN_IMG[i], enemy1_green_rect[i])
         SCREEN.blit(ENEMY_GREEN_IMG[i], enemy2_green_rect[i])
-
-
-def bullet(spaceship_x, spaceship_y):
-    global bullet_state
-    bullet_state = "Fire"
-    SCREEN.blit(BULLET, (spaceship_x + 23, spaceship_y))
-
-
-def rect_intersect(rect_zero, rect_one):
-    return rect_zero.colliderect(rect_one)
 
 
 def enemies_collision():
@@ -326,6 +306,104 @@ def enemies_collision():
                 total_num_of_enemies -= 1
 
 
+def bunker():
+    first_x = 70
+    first_y = 450
+    first_c = 70
+    first_v = 70
+    second_x = 350
+    second_c = 350
+    second_v = 350
+    third_x = 650
+    third_c = 650
+    third_v = 650
+    # first bunker
+    for row in range(9):
+        first_x += 10
+        pygame.draw.rect(SCREEN, GREEN, (first_x, first_y, 10, 10))
+    for column in range(4):
+        first_y += 10
+        pygame.draw.rect(SCREEN, GREEN, (first_x, first_y, 10, 10))
+    for row in range(9):
+        first_x -= 10
+        pygame.draw.rect(SCREEN, GREEN, (first_x, first_y, 10, 10))
+    for column in range(4):
+        first_y -= 10
+        pygame.draw.rect(SCREEN, GREEN, (first_x, first_y, 10, 10))
+    for row in range(8):
+        first_x += 10
+        pygame.draw.rect(SCREEN, GREEN, (first_x, 460, 10, 10))
+    for row in range(8):
+        first_c += 10
+        pygame.draw.rect(SCREEN, GREEN, (first_c, 470, 10, 10))
+    for row in range(8):
+        first_v += 10
+        pygame.draw.rect(SCREEN, GREEN, (first_v, 480, 10, 10))
+
+    # second bunker
+    for row in range(9):
+        second_x += 10
+        pygame.draw.rect(SCREEN, GREEN, (second_x, first_y, 10, 10))
+    for column in range(4):
+        first_y += 10
+        pygame.draw.rect(SCREEN, GREEN, (second_x, first_y, 10, 10))
+    for row in range(9):
+        second_x -= 10
+        pygame.draw.rect(SCREEN, GREEN, (second_x, first_y, 10, 10))
+    for column in range(4):
+        first_y -= 10
+        pygame.draw.rect(SCREEN, GREEN, (second_x, first_y, 10, 10))
+    for row in range(8):
+        second_x += 10
+        pygame.draw.rect(SCREEN, GREEN, (second_x, 460, 10, 10))
+    for row in range(8):
+        second_c += 10
+        pygame.draw.rect(SCREEN, GREEN, (second_c, 470, 10, 10))
+    for row in range(8):
+        second_v += 10
+        pygame.draw.rect(SCREEN, GREEN, (second_v, 480, 10, 10))
+
+    # third bunker
+    for row in range(9):
+        third_x += 10
+        pygame.draw.rect(SCREEN, GREEN, (third_x, first_y, 10, 10))
+    for column in range(4):
+        first_y += 10
+        pygame.draw.rect(SCREEN, GREEN, (third_x, first_y, 10, 10))
+    for row in range(9):
+        third_x -= 10
+        pygame.draw.rect(SCREEN, GREEN, (third_x, first_y, 10, 10))
+    for column in range(4):
+        first_y -= 10
+        pygame.draw.rect(SCREEN, GREEN, (third_x, first_y, 10, 10))
+    for row in range(8):
+        third_x += 10
+        pygame.draw.rect(SCREEN, GREEN, (third_x, 460, 10, 10))
+    for row in range(8):
+        third_c += 10
+        pygame.draw.rect(SCREEN, GREEN, (third_c, 470, 10, 10))
+    for row in range(8):
+        third_v += 10
+        pygame.draw.rect(SCREEN, GREEN, (third_v, 480, 10, 10))
+
+def bunker_collision():
+    return
+    for k in range(3):
+        if rect_intersect(bullet_rect, BUNKERS[k]):
+            pass
+            # print("Collide")
+
+
+def bullet(spaceship_x, spaceship_y):
+    global bullet_state
+    bullet_state = "Fire"
+    SCREEN.blit(BULLET, (spaceship_x + 23, spaceship_y))
+
+
+def rect_intersect(rect_zero, rect_one):
+    return rect_zero.colliderect(rect_one)
+
+
 def draw_gameover():
     SCREEN.blit(BACKGROUND, (0, 0))
     gameover_text = TITLE_FONT.render("Game Over", True, WHITE)
@@ -355,18 +433,12 @@ def is_enemy_hit_ship():
     return False
 
 
-def bunker_collision():
-    for k in range(3):
-        if rect_intersect(bullet_rect, BUNKERS[k]):
-            pass
-            # print("Collide")
-
-
 def random_point_mystery(m_rect):
     global score
     random_point = random.randint(1, 6) * 50
     point_text = MAIN_FONT.render(str(random_point), True, WHITE)
     m_rect.x += 23
+    pygame.time.wait(20)
     SCREEN.blit(point_text, m_rect)
     m_rect.x = 900
     score += random_point
