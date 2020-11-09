@@ -268,7 +268,7 @@ def rect_intersect(rect_zero, rect_one):
 
 def enemies_collision():
     global BULLET_STATE, score, enemy_purple_rect, enemy1_cyan_rect
-    enemy2_cyan_rect, enemy1_green_rect, enemy2_green_rect
+    global enemy2_cyan_rect, enemy1_green_rect, enemy2_green_rect
     global enemy_purple_hit, enemy1_cyan_hit, enemy2_cyan_hit, enemy1_green_hit, enemy2_green_hit
     if BULLET_STATE == "Fire":
         for j in range(NUM_OF_ENEMIES):
@@ -339,7 +339,7 @@ def is_gameover():
 
 def is_enemy_hit_ship():
     global enemy_purple_hit, enemy1_cyan_hit, enemy2_cyan_hit, enemy1_green_hit
-    enemy2_green_rect
+    global enemy2_green_rect
     for i in range(NUM_OF_ENEMIES):
         if (enemy_purple_rect[i].y >= 410 and enemy_purple_hit[i] is not True
            or enemy1_cyan_rect[i].y >= 410 and enemy1_cyan_hit[i] is not True
